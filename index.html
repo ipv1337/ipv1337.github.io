@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+
+    <style>
+        /* Basic Reset & Body */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            transition: background-color 0.3s, color 0.3s; /* Smooth theme transition */
+        }
+
+        /* --- Light/Dark Theme Variables --- */
+        :root {
+            --bg-color-light: #ffffff;
+            --text-color-light: #333333;
+            --link-color-light: #007bff;
+            --card-bg-light: #f8f9fa;
+            --border-color-light: #dee2e6;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #e0e0e0;
+            --link-color-dark: #64b5f6;
+            --card-bg-dark: #1e1e1e;
+            --border-color-dark: #444444;
+
+            /* Default to light theme */
+            --bg-color: var(--bg-color-light);
+            --text-color: var(--text-color-light);
+            --link-color: var(--link-color-light);
+            --card-bg: var(--card-bg-light);
+            --border-color: var(--border-color-light);
+        }
+
+        body.dark-theme {
+            --bg-color: var(--bg-color-dark);
+            --text-color: var(--text-color-dark);
+            --link-color: var(--link-color-dark);
+            --card-bg: var(--card-bg-dark);
+            --border-color: var(--border-color-dark);
+        }
+
+        /* Apply theme variables */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Layout & Sections (Example) --- */
+        header {
+            position: sticky; /* Make nav bar sticky */
+            top: 0;
+            z-index: 100;
+            background-color: var(--bg-color); /* Match body background */
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        nav li {
+            display: inline-block;
+            margin: 0 1em;
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+             scroll-behavior: smooth;
+        }
+
+        section {
+            padding: 60px 20px; /* Add more top padding to account for sticky nav */
+            max-width: 900px;
+            margin: 20px auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section:last-of-type {
+             border-bottom: none; /* Remove border from last section */
+        }
+
+
+        .hero {
+            text-align: center;
+            min-height: 80vh; /* Make hero section take more vertical space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: var(--link-color); /* Use link color for titles */
+            margin-top: 0;
+            margin-bottom: 1em;
+        }
+
+        /* Section Heading Styles */
+        section > h2 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 1.5em;
+            color: var(--link-color);
+        }
+
+
+        /* --- Profile Picture Styling --- */
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border-color);
+            margin-bottom: 1em;
+        }
+
+        /* --- Theme Toggle Button --- */
+        #theme-toggle {
+            position: fixed;
+            bottom: 20px; /* Position at bottom right */
+            right: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%; /* Make it circular */
+            width: 50px; /* Fixed size for circle */
+            height: 50px;
+            font-size: 0.8em; /* Adjust text size */
+            line-height: 1; /* Center text vertically slightly better */
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* --- Experience & Project Items (Basic Example) --- */
+        .item {
+            background-color: var(--card-bg);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .item h3 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: var(--link-color);
+        }
+
+        /* --- Footer --- */
+         footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: var(--text-color);
+         }
+
+         /* --- Responsiveness Example --- */
+         @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            section {
+                padding: 40px 15px;
+            }
+            nav li {
+                margin: 0 0.5em;
+            }
+            .profile-picture {
+                 width: 120px;
+                 height: 120px;
+            }
+         }
+
+    </style>
+</head>
+<body>
+    <button id="theme-toggle">Dark</button> <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <img src="images/profile.png" alt="Your Name" class="profile-picture">
+            <h1>Your Name</h1>
+            <h2>Your Title / Software Engineer / Researcher / etc.</h2>
+            <p>Welcome! Here's a brief intro about my work and interests...</p>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Provide a more detailed background about your professional journey, skills, research interests, and perhaps personal hobbies if you like. Keep it engaging!</p>
+            <p>You can talk about technologies you use, methodologies you follow, or goals you have.</p>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="item">
+                <h3>Current Role / Company</h3>
+                <p><em>Date Range (e.g., Jan 2023 - Present)</em></p>
+                <ul>
+                    <li>Description of responsibilities and achievements.</li>
+                    <li>Use bullet points for clarity.</li>
+                </ul>
+            </div>
+            <div class="item">
+                <h3>Previous Role / Company</h3>
+                <p><em>Date Range (e.g., Jun 2020 - Dec 2022)</em></p>
+                <ul>
+                    <li>Description of responsibilities and achievements.</li>
+                </ul>
+            </div>
+            </section>
+
+        <section id="projects">
+            <h2>Lab Projects</h2>
+            <div class="item">
+                <h3>Project Title 1</h3>
+                <p>Brief description of the project, its goals, and technologies used. You could add a link to the GitHub repository or a live demo if available.</p>
+                <p><a href="#">[Link to Repo/Demo]</a></p>
+            </div>
+            <div class="item">
+                <h3>Project Title 2</h3>
+                <p>Description of another project.</p>
+                <p><a href="#">[Link to Repo/Demo]</a></p>
+            </div>
+            </section>
+
+        <section id="blog">
+            <h2>Blog</h2>
+            <p>This section can show previews of your latest thoughts or articles.</p>
+            <div class="item">
+                <h3>My First Blog Post Title</h3>
+                <p><em>Date Published</em></p>
+                <p>A short excerpt or summary of the blog post... <a href="#">Read more</a></p>
+                </div>
+            <div class="item">
+                <h3>Another Interesting Topic</h3>
+                <p><em>Date Published</em></p>
+                <p>Summary of the second post... <a href="#">Read more</a></p>
+            </div>
+            </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Your Name. All rights reserved.</p>
+        </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Function to apply the theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                themeToggle.textContent = 'Light'; // Update button text
+            } else {
+                body.classList.remove('dark-theme');
+                themeToggle.textContent = 'Dark'; // Update button text
+            }
+        }
+
+        // Function to toggle theme and save preference
+        function toggleTheme() {
+            // Get current theme from body class or default to 'light'
+             let currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+             let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme); // Save preference to local storage
+            applyTheme(newTheme);
+        }
+
+        // Event listener for the button
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Apply saved theme on initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get theme from local storage or default based on system preference (optional)
+            // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light if nothing saved
+            applyTheme(savedTheme);
+        });
+    </script>
+</body>
+</html>
