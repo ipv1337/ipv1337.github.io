@@ -491,6 +491,60 @@
         .project-image-container:hover .project-image {
             transform: scale(1.02);
         }
+
+        /* Activity Feed styles */
+        .activity-feed {
+            margin: 2em 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.2em;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        
+        .activity-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        
+        .activity-icon {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin-right: 15px;
+            padding-top: 2px;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-action {
+            margin-bottom: 4px;
+        }
+        
+        .activity-date {
+            color: var(--subtle-text);
+            font-size: 0.85em;
+        }
+        
+        /* Fix for tags - was using a CSS variable not defined */
+        .tag {
+            background-color: rgba(9, 105, 218, 0.1);
+        }
+        
+        body.dark-theme .tag {
+            background-color: rgba(88, 166, 255, 0.1);
+        }
     </style>
     
     <!-- Font Awesome for icons -->
@@ -636,19 +690,19 @@
             
             <div class="github-stats">
                 <div class="stat-item">
-                    <div class="stat-number">227</div>
+                    <div class="stat-number" data-stat="repos">227</div>
                     <div class="stat-label">Repositories</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">883</div>
+                    <div class="stat-number" data-stat="stars">883</div>
                     <div class="stat-label">Stars</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">26</div>
+                    <div class="stat-number" data-stat="followers">26</div>
                     <div class="stat-label">Followers</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">38</div>
+                    <div class="stat-number" data-stat="following">38</div>
                     <div class="stat-label">Following</div>
                 </div>
             </div>
@@ -744,7 +798,282 @@
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
             applyTheme(savedTheme);
+            
+            // Fetch GitHub data
+            fetchGitHubProfile();
+            fetchGitHubRepos();
+            fetchGitHubActivity();
         });
+        
+        // GitHub API functions
+        
+        // Username for API calls
+        const githubUsername = 'ipv1337';
+        
+        // Function to fetch basic profile data
+        async function fetchGitHubProfile() {
+            try {
+                const response = await fetch(`https://api.github.com/users/${githubUsername}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Update stats with live data
+                    updateGitHubStats(data);
+                } else {
+                    console.error('GitHub API error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub profile:', error);
+            }
+        }
+        
+        // Function to update GitHub stats section
+        function updateGitHubStats(data) {
+            // Update repositories count
+            const repoCountElement = document.querySelector('.stat-number[data-stat="repos"]');
+            if (repoCountElement) {
+                repoCountElement.textContent = data.public_repos || '227';
+            }
+            
+            // Update followers count
+            const followersElement = document.querySelector('.stat-number[data-stat="followers"]');
+            if (followersElement) {
+                followersElement.textContent = data.followers || '26';
+            }
+            
+            // Update following count
+            const followingElement = document.querySelector('.stat-number[data-stat="following"]');
+            if (followingElement) {
+                followingElement.textContent = data.following || '38';
+            }
+            
+            // Update bio if available
+            if (data.bio) {
+                const bioElement = document.querySelector('#home p');
+                if (bioElement) {
+                    bioElement.textContent = data.bio;
+                }
+            }
+            
+            // Add GitHub stats summary
+            const connectSection = document.querySelector('#connect p.text-center');
+            if (connectSection && data.public_repos) {
+                connectSection.innerHTML = `You can find me on GitHub where I contribute to various projects and maintain my own <strong>${data.public_repos}</strong> repositories.`;
+            }
+        }
+        
+        // Function to fetch repositories
+        async function fetchGitHubRepos() {
+            try {
+                // Fetch repos sorted by stars
+                const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=100`);
+                const repos = await response.json();
+                
+                if (response.ok) {
+                    // Calculate total stars
+                    const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+                    
+                    // Update stars count
+                    const starsElement = document.querySelector('.stat-number[data-stat="stars"]');
+                    if (starsElement) {
+                        starsElement.textContent = totalStars || '883';
+                    }
+                    
+                    // Get top 2 repos to display
+                    updateFeaturedProjects(repos);
+                } else {
+                    console.error('GitHub API error:', repos.message);
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub repos:', error);
+            }
+        }
+        
+        // Function to update featured projects
+        function updateFeaturedProjects(repos) {
+            // Skip if no repos found
+            if (!repos || repos.length === 0) return;
+            
+            // Sort by stars and get top repos
+            const topRepos = [...repos].sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5);
+            
+            // Only update if we found interesting repos
+            if (topRepos.length > 0) {
+                const projectsContainer = document.querySelector('#projects');
+                if (!projectsContainer) return;
+                
+                // Get existing project items (keep them if no better repos found)
+                const existingItems = projectsContainer.querySelectorAll('.item');
+                
+                // Only update if we have interesting repos to show
+                topRepos.filter(repo => repo.stargazers_count > 0 || repo.description).forEach((repo, index) => {
+                    if (index < existingItems.length) {
+                        const item = existingItems[index];
+                        const heading = item.querySelector('h3');
+                        const description = item.querySelector('p:not(:last-child)');
+                        const link = item.querySelector('a');
+                        
+                        if (heading) heading.textContent = repo.name;
+                        if (description && repo.description) description.textContent = repo.description;
+                        if (link) link.href = repo.html_url;
+                        
+                        // Update tags
+                        const tagsContainer = item.querySelector('.tags');
+                        if (tagsContainer) {
+                            // Clear existing tags
+                            tagsContainer.innerHTML = '';
+                            
+                            // Add language tag if available
+                            if (repo.language) {
+                                const langTag = document.createElement('span');
+                                langTag.className = 'tag';
+                                langTag.textContent = repo.language;
+                                tagsContainer.appendChild(langTag);
+                            }
+                            
+                            // Add stars tag
+                            const starsTag = document.createElement('span');
+                            starsTag.className = 'tag';
+                            starsTag.innerHTML = `<i class="fas fa-star"></i> ${repo.stargazers_count}`;
+                            tagsContainer.appendChild(starsTag);
+                            
+                            // Add forks tag
+                            const forksTag = document.createElement('span');
+                            forksTag.className = 'tag';
+                            forksTag.innerHTML = `<i class="fas fa-code-branch"></i> ${repo.forks_count}`;
+                            tagsContainer.appendChild(forksTag);
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Function to fetch recent activity
+        async function fetchGitHubActivity() {
+            try {
+                // Get public events
+                const response = await fetch(`https://api.github.com/users/${githubUsername}/events/public?per_page=10`);
+                const events = await response.json();
+                
+                if (response.ok) {
+                    updateActivityFeed(events);
+                } else {
+                    console.error('GitHub API error:', events.message);
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub activity:', error);
+            }
+        }
+        
+        // Function to update activity feed
+        function updateActivityFeed(events) {
+            // Skip if no events found
+            if (!events || events.length === 0) return;
+            
+            // Get the container for activity feed
+            const connectSection = document.querySelector('#connect');
+            if (!connectSection) return;
+            
+            // Check if we already have an activity feed
+            let activityFeed = connectSection.querySelector('.activity-feed');
+            
+            // Create feed if it doesn't exist yet
+            if (!activityFeed) {
+                // Create heading
+                const heading = document.createElement('h3');
+                heading.className = 'text-center';
+                heading.style.marginTop = '2em';
+                heading.textContent = 'Recent GitHub Activity';
+                
+                // Create feed container
+                activityFeed = document.createElement('div');
+                activityFeed.className = 'activity-feed';
+                
+                // Insert after GitHub stats
+                const afterElement = connectSection.querySelector('.achievements');
+                if (afterElement && afterElement.nextElementSibling) {
+                    connectSection.insertBefore(heading, afterElement.nextElementSibling);
+                    connectSection.insertBefore(activityFeed, afterElement.nextElementSibling.nextElementSibling);
+                } else {
+                    connectSection.appendChild(heading);
+                    connectSection.appendChild(activityFeed);
+                }
+            }
+            
+            // Clear any existing events
+            activityFeed.innerHTML = '';
+            
+            // Process and display up to 5 recent meaningful events
+            const meaningfulEvents = events.filter(event => 
+                ['PushEvent', 'PullRequestEvent', 'IssuesEvent', 'CreateEvent', 'ReleaseEvent'].includes(event.type)
+            ).slice(0, 5);
+            
+            meaningfulEvents.forEach(event => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                
+                // Format date
+                const date = new Date(event.created_at);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                // Get event details
+                let icon = 'fas fa-code-branch';
+                let action = 'Committed to';
+                let target = event.repo.name;
+                
+                switch (event.type) {
+                    case 'PushEvent':
+                        icon = 'fas fa-code-branch';
+                        const commits = event.payload.commits ? event.payload.commits.length : 0;
+                        action = `Pushed ${commits} commit${commits === 1 ? '' : 's'} to`;
+                        break;
+                        
+                    case 'PullRequestEvent':
+                        icon = 'fas fa-code-pull-request';
+                        action = `${event.payload.action === 'opened' ? 'Opened' : 'Updated'} pull request in`;
+                        break;
+                        
+                    case 'IssuesEvent':
+                        icon = 'fas fa-exclamation-circle';
+                        action = `${event.payload.action === 'opened' ? 'Opened' : 'Updated'} issue in`;
+                        break;
+                        
+                    case 'CreateEvent':
+                        icon = 'fas fa-plus';
+                        action = `Created ${event.payload.ref_type || 'repository'}`;
+                        break;
+                        
+                    case 'ReleaseEvent':
+                        icon = 'fas fa-tag';
+                        action = 'Released';
+                        target = `${event.repo.name} ${event.payload.release?.tag_name || ''}`;
+                        break;
+                }
+                
+                item.innerHTML = `
+                    <div class="activity-icon"><i class="${icon}"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-action">${action} <a href="https://github.com/${target}" target="_blank">${target}</a></div>
+                        <div class="activity-date">${formattedDate}</div>
+                    </div>
+                `;
+                
+                activityFeed.appendChild(item);
+            });
+            
+            // If no meaningful events found
+            if (meaningfulEvents.length === 0) {
+                const noActivity = document.createElement('p');
+                noActivity.className = 'text-center';
+                noActivity.style.fontStyle = 'italic';
+                noActivity.textContent = 'No recent public activity found.';
+                activityFeed.appendChild(noActivity);
+            }
+        }
     </script>
 </body>
 </html>
