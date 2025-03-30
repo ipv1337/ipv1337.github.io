@@ -224,7 +224,6 @@
             position: fixed;
             bottom: 20px; /* Position at bottom right */
             right: 20px;
-            padding: 10px 15px;
             cursor: pointer;
             z-index: 1000;
             background-color: var(--card-bg);
@@ -233,16 +232,33 @@
             border-radius: 50%; /* Make it circular */
             width: 50px; /* Fixed size for circle */
             height: 50px;
-            font-size: 0.8em; /* Adjust text size */
-            line-height: 1; /* Center text vertically slightly better */
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-size: 1.2em; /* Larger icon size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
         }
         
         #theme-toggle:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-3px) rotate(5deg);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        #theme-toggle .icon-sun {
+            display: none;
+        }
+        
+        #theme-toggle .icon-moon {
+            display: inline-block;
+        }
+        
+        body.dark-theme #theme-toggle .icon-sun {
+            display: inline-block;
+        }
+        
+        body.dark-theme #theme-toggle .icon-moon {
+            display: none;
         }
 
         /* --- Cards & Items --- */
@@ -554,7 +570,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
-    <button id="theme-toggle">Dark</button>
+    <button id="theme-toggle">
+        <span class="icon-sun"><i class="fas fa-sun"></i></span>
+        <span class="icon-moon"><i class="fas fa-moon"></i></span>
+    </button>
     
     <header>
         <nav>
@@ -773,10 +792,8 @@
         function applyTheme(theme) {
             if (theme === 'dark') {
                 body.classList.add('dark-theme');
-                themeToggle.textContent = 'Light'; // Update button text
             } else {
                 body.classList.remove('dark-theme');
-                themeToggle.textContent = 'Dark'; // Update button text
             }
         }
 
