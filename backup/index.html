@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James H. Nguyen - Portfolio</title>
+
+    <style>
+        /* Basic Reset & Body */
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            transition: background-color 0.3s, color 0.3s; /* Smooth theme transition */
+            line-height: 1.6;
+        }
+
+        /* --- Light/Dark Theme Variables --- */
+        :root {
+            --bg-color-light: #ffffff;
+            --text-color-light: #333333;
+            --link-color-light: #0969da;
+            --card-bg-light: #f8f9fa;
+            --border-color-light: #dee2e6;
+            --subtle-text-light: #6c757d;
+            --accent-color-light: #0969da;
+            --hero-overlay-light: rgba(255, 255, 255, 0.92);
+
+            --bg-color-dark: #0d1117;
+            --text-color-dark: #e6edf3;
+            --link-color-dark: #58a6ff;
+            --card-bg-dark: #161b22;
+            --border-color-dark: #30363d;
+            --subtle-text-dark: #8b949e;
+            --accent-color-dark: #58a6ff;
+            --hero-overlay-dark: rgba(13, 17, 23, 0.92);
+
+            /* Default to light theme */
+            --bg-color: var(--bg-color-light);
+            --text-color: var(--text-color-light);
+            --link-color: var(--link-color-light);
+            --card-bg: var(--card-bg-light);
+            --border-color: var(--border-color-light);
+            --subtle-text: var(--subtle-text-light);
+            --accent-color: var(--accent-color-light);
+            --hero-overlay: var(--hero-overlay-light);
+        }
+
+        body.dark-theme {
+            --bg-color: var(--bg-color-dark);
+            --text-color: var(--text-color-dark);
+            --link-color: var(--link-color-dark);
+            --card-bg: var(--card-bg-dark);
+            --border-color: var(--border-color-dark);
+            --subtle-text: var(--subtle-text-dark);
+            --accent-color: var(--accent-color-dark);
+            --hero-overlay: var(--hero-overlay-dark);
+        }
+
+        /* Apply theme variables */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        a:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+
+        /* --- Layout & Sections --- */
+        header {
+            position: sticky; /* Make nav bar sticky */
+            top: 0;
+            z-index: 100;
+            background-color: var(--bg-color); /* Match body background */
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        nav li {
+            display: inline-block;
+            margin: 0 1em;
+        }
+
+        nav a {
+            font-weight: 500;
+            padding: 0.5em 0.2em;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+             scroll-behavior: smooth;
+        }
+
+        section {
+            padding: 80px 20px; /* Add more top padding to account for sticky nav */
+            max-width: 900px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section:last-of-type {
+             border-bottom: none; /* Remove border from last section */
+        }
+
+        .hero {
+            text-align: center;
+            min-height: 80vh; /* Make hero section take more vertical space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            background-color: var(--hero-overlay);
+            padding: 2rem;
+            border-radius: 12px;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.2em;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            color: var(--subtle-text);
+            margin-top: 0;
+            margin-bottom: 1em;
+            font-weight: 500;
+        }
+
+        /* Section Heading Styles */
+        section > h2 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 1.5em;
+            color: var(--text-color);
+            position: relative;
+            font-weight: 600;
+        }
+        
+        section > h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 0.5em auto 0;
+        }
+
+        /* --- Profile Picture Styling --- */
+        .profile-container {
+            position: relative;
+            margin-bottom: 2em;
+        }
+        
+        .profile-picture {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-picture:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Theme Toggle Button --- */
+        #theme-toggle {
+            position: fixed;
+            bottom: 20px; /* Position at bottom right */
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%; /* Make it circular */
+            width: 50px; /* Fixed size for circle */
+            height: 50px;
+            font-size: 1.2em; /* Larger icon size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        
+        #theme-toggle:hover {
+            transform: translateY(-3px) rotate(5deg);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        #theme-toggle .icon-sun {
+            display: none;
+        }
+        
+        #theme-toggle .icon-moon {
+            display: inline-block;
+        }
+        
+        body.dark-theme #theme-toggle .icon-sun {
+            display: inline-block;
+        }
+        
+        body.dark-theme #theme-toggle .icon-moon {
+            display: none;
+        }
+
+        /* --- Cards & Items --- */
+        .item {
+            background-color: var(--card-bg);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+        
+        .item h3 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: var(--link-color);
+            font-weight: 600;
+        }
+        
+        .item-meta {
+            font-size: 0.9em;
+            color: var(--subtle-text);
+            margin-bottom: 1em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .item p {
+            margin-top: 0.8em;
+            margin-bottom: 0.8em;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1em;
+        }
+        
+        .tag {
+            background-color: rgba(var(--accent-color-rgb), 0.1);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* GitHub stats and achievements */
+        .github-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 2em 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background-color: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            color: var(--subtle-text);
+        }
+        
+        .achievements {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 1.5em 0;
+            flex-wrap: wrap;
+        }
+        
+        .achievement {
+            background-color: var(--card-bg);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- Location --- */
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.5em;
+            color: var(--subtle-text);
+            font-size: 0.95em;
+        }
+        
+        /* --- Footer --- */
+         footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: var(--subtle-text);
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+         }
+         
+         .social-links {
+             display: flex;
+             justify-content: center;
+             gap: 20px;
+             margin-top: 20px;
+         }
+         
+         .social-links a {
+             color: var(--subtle-text);
+             font-size: 1.2em;
+             transition: color 0.2s ease;
+         }
+         
+         .social-links a:hover {
+             color: var(--accent-color);
+         }
+
+         /* --- Responsiveness --- */
+         @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            section {
+                padding: 60px 15px;
+            }
+            
+            .github-stats {
+                gap: 10px;
+            }
+            
+            .stat-item {
+                min-width: 100px;
+                padding: 12px 15px;
+            }
+         }
+         
+         @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.3em;
+            }
+            
+            section {
+                padding: 40px 15px;
+            }
+            
+            nav li {
+                margin: 0 0.5em;
+            }
+            
+            .profile-picture {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .item {
+                padding: 20px;
+            }
+            
+            .github-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .stat-item {
+                width: 80%;
+            }
+         }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 2em 0;
+        }
+        
+        .tech-item {
+            text-align: center;
+            width: 80px;
+        }
+        
+        .tech-icon {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 8px;
+            transition: transform 0.2s ease;
+            filter: grayscale(30%);
+        }
+        
+        .tech-item:hover .tech-icon {
+            transform: translateY(-5px) scale(1.1);
+            filter: grayscale(0%);
+        }
+        
+        .tech-name {
+            font-size: 0.8em;
+            color: var(--subtle-text);
+        }
+        
+        /* Project Images */
+        .project-image-container {
+            margin-bottom: 1.5em;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+        
+        .project-image-container:hover .project-image {
+            transform: scale(1.02);
+        }
+
+        /* Activity Feed styles */
+        .activity-feed {
+            margin: 2em 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.2em;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        
+        .activity-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        
+        .activity-icon {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin-right: 15px;
+            padding-top: 2px;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-action {
+            margin-bottom: 4px;
+        }
+        
+        .activity-date {
+            color: var(--subtle-text);
+            font-size: 0.85em;
+        }
+        
+        /* Fix for tags - was using a CSS variable not defined */
+        .tag {
+            background-color: rgba(9, 105, 218, 0.1);
+        }
+        
+        body.dark-theme .tag {
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+    </style>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Add Inter font from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <button id="theme-toggle">
+        <span class="icon-sun"><i class="fas fa-sun"></i></span>
+        <span class="icon-moon"><i class="fas fa-moon"></i></span>
+    </button>
+    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#connect">Connect</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="profile-container">
+                    <img src="images/profile.png" alt="James Nguyen" class="profile-picture">
+                </div>
+                <h1>James H. Nguyen</h1>
+                <h2>Principal Cloud Platform Engineer</h2>
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>&nbsp; Irvine, CA
+                </div>
+                <p>Building infrastructure and platform solutions at FLYR, Inc.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm a Principal Cloud Platform Engineer with expertise in building scalable, resilient infrastructure and cloud-native solutions. I specialize in implementing platform engineering best practices to enable development teams to ship better code faster.</p>
+            <p>My focus includes cloud architecture, infrastructure as code, DevOps methodologies, and building secure, automated systems that improve developer productivity and operational excellence.</p>
+            <p>When I'm not designing cloud systems, I'm constantly learning about new technologies and contributing to open-source projects that align with my interests in cloud infrastructure and platform engineering.</p>
+            
+            <h3>Technologies I Work With</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" class="tech-icon">
+                    <div class="tech-name">Google Cloud</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" class="tech-icon">
+                    <div class="tech-name">Terraform</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-icon">
+                    <div class="tech-name">Kubernetes</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon">
+                    <div class="tech-name">Docker</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="tech-icon">
+                    <div class="tech-name">GitHub</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Go" class="tech-icon">
+                    <div class="tech-name">Go</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon">
+                    <div class="tech-name">Python</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="tech-icon">
+                    <div class="tech-name">Linux</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="item">
+                <h3>Principal Cloud Platform Engineer at FLYR, Inc.</h3>
+                <div class="item-meta">
+                    <i class="far fa-calendar-alt"></i>&nbsp; Current
+                </div>
+                <ul>
+                    <li>Lead cloud infrastructure and platform architecture design for enterprise travel industry solutions</li>
+                    <li>Implement infrastructure as code practices using modern tooling and methodologies</li>
+                    <li>Design and maintain CI/CD pipelines to enable developer productivity</li>
+                    <li>Establish cloud security best practices and governance frameworks</li>
+                    <li>Mentor engineering teams on cloud-native technologies and DevOps practices</li>
+                </ul>
+            </div>
+            
+            <!-- You can add more experience items here -->
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="item">
+                <div class="project-image-container">
+                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Monorepo Architecture" class="project-image">
+                </div>
+                <h3>BlueCentre/monorepo</h3>
+                <div class="item-meta">
+                    <i class="fas fa-code-branch"></i>&nbsp; Monorepo Blueprint
+                </div>
+                <p>A structured approach to organizing monorepo architecture with best practices for scalability, maintainability, and developer workflow optimization.</p>
+                <div class="tags">
+                    <span class="tag">HCL</span>
+                    <span class="tag">Monorepo</span>
+                    <span class="tag">DevOps</span>
+                </div>
+                <p><a href="https://github.com/BlueCentre/monorepo" target="_blank"><i class="fab fa-github"></i> View on GitHub</a></p>
+            </div>
+            
+            <div class="item">
+                <div class="project-image-container">
+                    <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Google Cloud Foundation" class="project-image">
+                </div>
+                <h3>terraform-google-modules/terraform-example-foundation</h3>
+                <div class="item-meta">
+                    <i class="fas fa-code-branch"></i>&nbsp; Google Cloud Foundation Blueprint
+                </div>
+                <p>Shows how the CFT modules can be composed to build a secure cloud foundation. This project demonstrates enterprise-grade infrastructure patterns for Google Cloud deployments.</p>
+                <div class="tags">
+                    <span class="tag">HCL</span>
+                    <span class="tag">Terraform</span>
+                    <span class="tag">Google Cloud</span>
+                    <span class="tag">Infrastructure</span>
+                </div>
+                <p><a href="https://github.com/terraform-google-modules/terraform-example-foundation" target="_blank"><i class="fab fa-github"></i> View on GitHub</a></p>
+            </div>
+        </section>
+        
+        <section id="connect">
+            <h2>Connect</h2>
+            <p class="text-center">You can find me on GitHub where I contribute to various projects and maintain my own repositories.</p>
+            
+            <div class="github-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-stat="repos">227</div>
+                    <div class="stat-label">Repositories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-stat="stars">883</div>
+                    <div class="stat-label">Stars</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-stat="followers">26</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-stat="following">38</div>
+                    <div class="stat-label">Following</div>
+                </div>
+            </div>
+            
+            <p class="text-center">GitHub Achievements:</p>
+            <div class="achievements">
+                <div class="achievement">
+                    <i class="fas fa-award"></i> Pair Extraordinaire x3
+                </div>
+                <div class="achievement">
+                    <i class="fas fa-rocket"></i> YOLO
+                </div>
+                <div class="achievement">
+                    <i class="fas fa-code-branch"></i> Pull Shark x4
+                </div>
+                <div class="achievement">
+                    <i class="fas fa-bolt"></i> Quickdraw
+                </div>
+            </div>
+            
+            <div class="item">
+                <h3>Let's Connect</h3>
+                <p>I'm always interested in discussing cloud architecture, infrastructure as code, and platform engineering topics. Feel free to reach out through any of the channels below:</p>
+                <p><a href="https://github.com/ipv1337" target="_blank"><i class="fab fa-github"></i> GitHub Profile</a></p>
+                <p><a href="https://flyr.com" target="_blank"><i class="fas fa-building"></i> FLYR, Inc.</a></p>
+            </div>
+        </section>
+
+        <section id="blog">
+            <h2>Blog</h2>
+            <p>Latest thoughts and technical articles on cloud architecture and platform engineering.</p>
+            <div class="item">
+                <div class="project-image-container">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Google Cloud Security" class="project-image">
+                </div>
+                <h3>Setting Up a Secure Foundation on Google Cloud with Terraform</h3>
+                <div class="item-meta">
+                    <i class="far fa-calendar-alt"></i>&nbsp; Coming Soon
+                </div>
+                <p>A walkthrough of establishing a secure, scalable foundation for enterprise workloads on Google Cloud using infrastructure as code principles and Terraform modules.</p>
+            </div>
+            <div class="item">
+                <div class="project-image-container">
+                    <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Code Repository" class="project-image">
+                </div>
+                <h3>Monorepo Architecture: Lessons from Real-world Implementations</h3>
+                <div class="item-meta">
+                    <i class="far fa-calendar-alt"></i>&nbsp; Coming Soon
+                </div>
+                <p>Discussing the advantages, challenges, and practical considerations when adopting a monorepo approach for complex projects.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 James H. Nguyen. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://github.com/ipv1337" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Function to apply the theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+            } else {
+                body.classList.remove('dark-theme');
+            }
+        }
+
+        // Function to toggle theme and save preference
+        function toggleTheme() {
+            // Get current theme from body class or default to 'light'
+             let currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+             let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme); // Save preference to local storage
+            applyTheme(newTheme);
+        }
+
+        // Event listener for the button
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Apply saved theme on initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get theme from local storage or default based on system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            applyTheme(savedTheme);
+            
+            // Fetch GitHub data
+            fetchGitHubProfile();
+            fetchGitHubRepos();
+            fetchGitHubActivity();
+        });
+        
+        // GitHub API functions
+        
+        // Username for API calls
+        const githubUsername = 'ipv1337';
+        
+        // Function to fetch basic profile data
+        async function fetchGitHubProfile() {
+            try {
+                const response = await fetch(`https://api.github.com/users/${githubUsername}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Update stats with live data
+                    updateGitHubStats(data);
+                } else {
+                    console.error('GitHub API error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub profile:', error);
+            }
+        }
+        
+        // Function to update GitHub stats section
+        function updateGitHubStats(data) {
+            // Update repositories count
+            const repoCountElement = document.querySelector('.stat-number[data-stat="repos"]');
+            if (repoCountElement) {
+                repoCountElement.textContent = data.public_repos || '227';
+            }
+            
+            // Update followers count
+            const followersElement = document.querySelector('.stat-number[data-stat="followers"]');
+            if (followersElement) {
+                followersElement.textContent = data.followers || '26';
+            }
+            
+            // Update following count
+            const followingElement = document.querySelector('.stat-number[data-stat="following"]');
+            if (followingElement) {
+                followingElement.textContent = data.following || '38';
+            }
+            
+            // Update bio if available
+            if (data.bio) {
+                const bioElement = document.querySelector('#home p');
+                if (bioElement) {
+                    bioElement.textContent = data.bio;
+                }
+            }
+            
+            // Add GitHub stats summary
+            const connectSection = document.querySelector('#connect p.text-center');
+            if (connectSection && data.public_repos) {
+                connectSection.innerHTML = `You can find me on GitHub where I contribute to various projects and maintain my own <strong>${data.public_repos}</strong> repositories.`;
+            }
+        }
+        
+        // Function to fetch repositories
+        async function fetchGitHubRepos() {
+            try {
+                // Fetch repos sorted by stars
+                const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=100`);
+                const repos = await response.json();
+                
+                if (response.ok) {
+                    // Calculate total stars
+                    const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+                    
+                    // Update stars count
+                    const starsElement = document.querySelector('.stat-number[data-stat="stars"]');
+                    if (starsElement) {
+                        starsElement.textContent = totalStars || '883';
+                    }
+                    
+                    // Get top 2 repos to display
+                    updateFeaturedProjects(repos);
+                } else {
+                    console.error('GitHub API error:', repos.message);
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub repos:', error);
+            }
+        }
+        
+        // Function to update featured projects
+        function updateFeaturedProjects(repos) {
+            // Skip if no repos found
+            if (!repos || repos.length === 0) return;
+            
+            // Sort by stars and get top repos
+            const topRepos = [...repos].sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5);
+            
+            // Only update if we found interesting repos
+            if (topRepos.length > 0) {
+                const projectsContainer = document.querySelector('#projects');
+                if (!projectsContainer) return;
+                
+                // Get existing project items (keep them if no better repos found)
+                const existingItems = projectsContainer.querySelectorAll('.item');
+                
+                // Only update if we have interesting repos to show
+                topRepos.filter(repo => repo.stargazers_count > 0 || repo.description).forEach((repo, index) => {
+                    if (index < existingItems.length) {
+                        const item = existingItems[index];
+                        const heading = item.querySelector('h3');
+                        const description = item.querySelector('p:not(:last-child)');
+                        const link = item.querySelector('a');
+                        
+                        if (heading) heading.textContent = repo.name;
+                        if (description && repo.description) description.textContent = repo.description;
+                        if (link) link.href = repo.html_url;
+                        
+                        // Update tags
+                        const tagsContainer = item.querySelector('.tags');
+                        if (tagsContainer) {
+                            // Clear existing tags
+                            tagsContainer.innerHTML = '';
+                            
+                            // Add language tag if available
+                            if (repo.language) {
+                                const langTag = document.createElement('span');
+                                langTag.className = 'tag';
+                                langTag.textContent = repo.language;
+                                tagsContainer.appendChild(langTag);
+                            }
+                            
+                            // Add stars tag
+                            const starsTag = document.createElement('span');
+                            starsTag.className = 'tag';
+                            starsTag.innerHTML = `<i class="fas fa-star"></i> ${repo.stargazers_count}`;
+                            tagsContainer.appendChild(starsTag);
+                            
+                            // Add forks tag
+                            const forksTag = document.createElement('span');
+                            forksTag.className = 'tag';
+                            forksTag.innerHTML = `<i class="fas fa-code-branch"></i> ${repo.forks_count}`;
+                            tagsContainer.appendChild(forksTag);
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Function to fetch recent activity
+        async function fetchGitHubActivity() {
+            try {
+                // Get public events
+                const response = await fetch(`https://api.github.com/users/${githubUsername}/events/public?per_page=10`);
+                const events = await response.json();
+                
+                if (response.ok) {
+                    updateActivityFeed(events);
+                } else {
+                    console.error('GitHub API error:', events.message);
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub activity:', error);
+            }
+        }
+        
+        // Function to update activity feed
+        function updateActivityFeed(events) {
+            // Skip if no events found
+            if (!events || events.length === 0) return;
+            
+            // Get the container for activity feed
+            const connectSection = document.querySelector('#connect');
+            if (!connectSection) return;
+            
+            // Check if we already have an activity feed
+            let activityFeed = connectSection.querySelector('.activity-feed');
+            
+            // Create feed if it doesn't exist yet
+            if (!activityFeed) {
+                // Create heading
+                const heading = document.createElement('h3');
+                heading.className = 'text-center';
+                heading.style.marginTop = '2em';
+                heading.textContent = 'Recent GitHub Activity';
+                
+                // Create feed container
+                activityFeed = document.createElement('div');
+                activityFeed.className = 'activity-feed';
+                
+                // Insert after GitHub stats
+                const afterElement = connectSection.querySelector('.achievements');
+                if (afterElement && afterElement.nextElementSibling) {
+                    connectSection.insertBefore(heading, afterElement.nextElementSibling);
+                    connectSection.insertBefore(activityFeed, afterElement.nextElementSibling.nextElementSibling);
+                } else {
+                    connectSection.appendChild(heading);
+                    connectSection.appendChild(activityFeed);
+                }
+            }
+            
+            // Clear any existing events
+            activityFeed.innerHTML = '';
+            
+            // Process and display up to 5 recent meaningful events
+            const meaningfulEvents = events.filter(event => 
+                ['PushEvent', 'PullRequestEvent', 'IssuesEvent', 'CreateEvent', 'ReleaseEvent'].includes(event.type)
+            ).slice(0, 5);
+            
+            meaningfulEvents.forEach(event => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                
+                // Format date
+                const date = new Date(event.created_at);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                // Get event details
+                let icon = 'fas fa-code-branch';
+                let action = 'Committed to';
+                let target = event.repo.name;
+                
+                switch (event.type) {
+                    case 'PushEvent':
+                        icon = 'fas fa-code-branch';
+                        const commits = event.payload.commits ? event.payload.commits.length : 0;
+                        action = `Pushed ${commits} commit${commits === 1 ? '' : 's'} to`;
+                        break;
+                        
+                    case 'PullRequestEvent':
+                        icon = 'fas fa-code-pull-request';
+                        action = `${event.payload.action === 'opened' ? 'Opened' : 'Updated'} pull request in`;
+                        break;
+                        
+                    case 'IssuesEvent':
+                        icon = 'fas fa-exclamation-circle';
+                        action = `${event.payload.action === 'opened' ? 'Opened' : 'Updated'} issue in`;
+                        break;
+                        
+                    case 'CreateEvent':
+                        icon = 'fas fa-plus';
+                        action = `Created ${event.payload.ref_type || 'repository'}`;
+                        break;
+                        
+                    case 'ReleaseEvent':
+                        icon = 'fas fa-tag';
+                        action = 'Released';
+                        target = `${event.repo.name} ${event.payload.release?.tag_name || ''}`;
+                        break;
+                }
+                
+                item.innerHTML = `
+                    <div class="activity-icon"><i class="${icon}"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-action">${action} <a href="https://github.com/${target}" target="_blank">${target}</a></div>
+                        <div class="activity-date">${formattedDate}</div>
+                    </div>
+                `;
+                
+                activityFeed.appendChild(item);
+            });
+            
+            // If no meaningful events found
+            if (meaningfulEvents.length === 0) {
+                const noActivity = document.createElement('p');
+                noActivity.className = 'text-center';
+                noActivity.style.fontStyle = 'italic';
+                noActivity.textContent = 'No recent public activity found.';
+                activityFeed.appendChild(noActivity);
+            }
+        }
+    </script>
+</body>
+</html>
