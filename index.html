@@ -92,6 +92,13 @@
         }
 
         /* Apply theme variables */
+        body,
+        html {
+            height: 100%; /* Ensure html/body take full height if needed */
+            width: 100%;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -219,18 +226,42 @@
         
         /* Remove background image - focus on clean look */
         .hero::before {
-            display: none;
+            /* Re-enable for background image */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* Example Image: Abstract network/tech lines */
+            background-image: url('https://images.unsplash.com/photo-1550089467-a9779e8fc4e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center center;
+            opacity: 0.1; /* Start with low opacity */
+            z-index: -1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        body.dark-theme .hero::before {
+            opacity: 0.15; /* Slightly more visible in dark mode */
         }
         
         /* Hero content styling */
         .hero-content {
-            background-color: transparent; /* Remove overlay */
-            padding: 0; /* Remove padding */
-            border-radius: 0;
+            /* Re-introduce overlay for contrast */
+            background-color: var(--hero-overlay);
+            padding: 2.5rem; /* Add padding back */
+            border-radius: 12px; /* Rounded corners */
             z-index: 1;
-            backdrop-filter: none;
-            box-shadow: none;
+            backdrop-filter: blur(8px); /* Subtle blur effect */
+            box-shadow: var(--shadow); /* Subtle shadow */
             max-width: 700px; /* Limit width */
+            /* Add animation properties */
+            opacity: 0; /* Start hidden for animation */
+            animation: fadeInHero 1s ease-out 0.5s forwards; /* Delay slightly */
+        }
+
+        /* Keyframes for hero fade-in */
+        @keyframes fadeInHero {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         /* --- Profile Picture Styling --- */
@@ -978,7 +1009,7 @@
                     <p><a href="https://github.com/ipv1337" target="_blank"><i class="fab fa-github"></i> GitHub Profile</a></p>
                     <p><a href="https://flyr.com" target="_blank"><i class="fas fa-building"></i> FLYR, Inc.</a></p>
                     <!-- Add LinkedIn or other relevant links here -->
-                     <p><a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></p>
+                     <p><a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></p>
                 </div>
             </div>
         </section>
