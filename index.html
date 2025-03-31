@@ -564,6 +564,16 @@
             filter: grayscale(0%) opacity(1); /* Full color on hover */
         }
         
+        /* Specific fix for GitHub icon visibility in dark mode */
+        body.dark-theme .tech-icon[src*="github-original"] {
+            filter: invert(1) grayscale(100%) brightness(1.5); /* Invert color to white */
+        }
+        
+        /* Ensure hover effect works correctly with inverted GitHub icon */
+        body.dark-theme .tech-item:hover .tech-icon[src*="github-original"] {
+            filter: invert(1) grayscale(0%) brightness(1); /* Keep inverted, full color intensity */
+        }
+        
         .tech-name {
             font-size: 0.85rem;
             color: var(--subtle-text);
