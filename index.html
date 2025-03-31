@@ -230,8 +230,8 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            /* Example Image: Abstract network/tech lines */
-            background-image: url('https://images.unsplash.com/photo-1550089467-a9779e8fc4e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            /* Use local image file instead of Unsplash URL */
+            background-image: url('images/tech-background.jpg');
             background-size: cover;
             background-position: center center;
             opacity: 0.1; /* Start with low opacity */
@@ -1613,8 +1613,7 @@
                              break;
                     }
                     
-                    item.innerHTML = `
-                        <div class="activity-icon"><i class="${icon}"></i></div>
+                    item.innerHTML = `                        <div class="activity-icon"><i class="${icon}"></i></div>
                         <div class="activity-content">
                             <div class="activity-action">${actionText}</div>
                             <div class="activity-date">${formattedDate}</div>
@@ -1636,3 +1635,4 @@
     </script>
 </body>
 </html>
+
