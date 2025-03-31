@@ -161,8 +161,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background-color: var(--card-bg-dark); /* Use solid card background for contrast */
-            backdrop-filter: none; /* No blur needed for opaque background */
+            background-color: rgba(var(--bg-color-rgb), 0.8); /* Use RGB for transparency */
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             box-shadow: none; /* Cleaner look */
             padding: 0.5rem 0;
