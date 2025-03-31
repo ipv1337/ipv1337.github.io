@@ -745,6 +745,23 @@
             /* Will be populated by JS */
         }
 
+        /* --- Scroll Animation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.17, 0.55, 0.55, 1), transform 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+        
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dark mode header contrast fix */
+        body.dark-theme header {
+            background-color: rgba(var(--bg-color-rgb), 0.9); /* Increased opacity */
+        }
+
     </style>
     
 </head>
@@ -783,7 +800,7 @@
             </div>
         </section>
 
-        <section id="about">
+        <section id="about" class="reveal">
             <div class="container"> <!-- Add container -->
                 <h2>About Me</h2>
                 <p>I'm a Principal Cloud Platform Engineer with expertise in building scalable, resilient infrastructure and cloud-native solutions. I specialize in implementing platform engineering best practices to enable development teams to ship better code faster.</p>
@@ -828,10 +845,10 @@
             </div>
         </section>
 
-        <section id="experience">
+        <section id="experience" class="reveal">
             <div class="container"> <!-- Add container -->
                 <h2>Experience</h2>
-                <div class="item">
+                <div class="item reveal">
                     <h3>Principal Cloud Platform Engineer at FLYR, Inc.</h3>
                     <div class="item-meta">
                         <i class="far fa-calendar-alt"></i> Current
@@ -849,10 +866,10 @@
             </div>
         </section>
 
-        <section id="projects">
+        <section id="projects" class="reveal">
              <div class="container"> <!-- Add container -->
                 <h2>Featured Projects</h2>
-                <div class="item">
+                <div class="item reveal">
                     <div class="project-image-container">
                         <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Monorepo Architecture" class="project-image">
                     </div>
@@ -870,7 +887,7 @@
                     <!-- Link moved to h3 -->
                 </div>
                 
-                <div class="item">
+                <div class="item reveal">
                     <div class="project-image-container">
                         <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Google Cloud Foundation" class="project-image">
                     </div>
@@ -890,12 +907,12 @@
             </div>
         </section>
         
-        <section id="connect">
+        <section id="connect" class="reveal">
             <div class="container"> <!-- Add container -->
                 <h2>Connect</h2>
                 <p class="text-center">You can find me on GitHub where I contribute to various projects and maintain my own repositories.</p>
                 
-                <div class="github-stats">
+                <div class="github-stats reveal">
                     <div class="stat-item">
                         <div class="stat-number" data-stat="repos">...</div>
                         <div class="stat-label">Repositories</div>
@@ -933,7 +950,7 @@
                 
                  <!-- Activity Feed will be inserted here by JS -->
                 
-                <div class="item">
+                <div class="item reveal">
                     <h3>Let's Connect</h3>
                     <p>I'm always interested in discussing cloud architecture, infrastructure as code, and platform engineering topics. Feel free to reach out:</p>
                     <p><a href="https://github.com/ipv1337" target="_blank"><i class="fab fa-github"></i> GitHub Profile</a></p>
@@ -944,11 +961,11 @@
             </div>
         </section>
 
-        <section id="blog">
+        <section id="blog" class="reveal">
              <div class="container"> <!-- Add container -->
                 <h2>Blog</h2>
                 <p class="text-center" style="max-width: 600px; margin: 0 auto 2.5em auto; color: var(--subtle-text);">Latest thoughts and technical articles on cloud architecture and platform engineering.</p>
-                <div class="item">
+                <div class="item reveal">
                     <div class="project-image-container">
                         <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Google Cloud Security" class="project-image">
                     </div>
@@ -958,7 +975,7 @@
                     </div>
                     <p>A walkthrough of establishing a secure, scalable foundation for enterprise workloads on Google Cloud using infrastructure as code principles and Terraform modules.</p>
                 </div>
-                <div class="item">
+                <div class="item reveal">
                     <div class="project-image-container">
                         <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Code Repository" class="project-image">
                     </div>
@@ -1049,11 +1066,41 @@
             applyTheme(savedTheme); // Apply theme first
             
             // Fetch GitHub data
+            setupScrollReveal(); // Setup scroll animations
             fetchGitHubProfile();
             fetchGitHubRepos();
             fetchGitHubActivity();
         });
         
+        // --- Scroll Reveal Function --- 
+        function setupScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const observerOptions = {
+                root: null, // relative to document viewport 
+                rootMargin: '0px',
+                threshold: 0.1 // trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: Unobserve after revealing to save resources
+                        // observer.unobserve(entry.target);
+                    }
+                    // Optional: Remove class if element scrolls out of view (for re-revealing)
+                    // else {
+                    //     entry.target.classList.remove('is-visible');
+                    // }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        }
+
         // GitHub API functions (mostly unchanged, just formatting adjustments)
         const githubUsername = 'ipv1337';
         
