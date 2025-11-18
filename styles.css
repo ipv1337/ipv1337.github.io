@@ -46,30 +46,38 @@ body {
     --shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08);
     --shadow-hover-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.08);
 
+    /* Glassmorphism Variables */
+    --glass-bg-light: rgba(255, 255, 255, 0.7);
+    --glass-bg-dark: rgba(31, 41, 55, 0.7);
+    --glass-border-light: rgba(255, 255, 255, 0.5);
+    --glass-border-dark: rgba(255, 255, 255, 0.1);
+    
     /* Default to light theme */
     --bg-color: var(--bg-color-light);
     --text-color: var(--text-color-light);
     --link-color: var(--link-color-light);
-    --card-bg: var(--card-bg-light);
+    --card-bg: var(--glass-bg-light); /* Use glass bg */
     --border-color: var(--border-color-light);
     --subtle-text: var(--subtle-text-light);
     --accent-color: var(--accent-color-light);
     --hero-overlay: var(--hero-overlay-light);
     --shadow: var(--shadow-light);
     --shadow-hover: var(--shadow-hover-light);
+    --glass-border: var(--glass-border-light);
 }
 
 body.dark-theme {
     --bg-color: var(--bg-color-dark);
     --text-color: var(--text-color-dark);
     --link-color: var(--link-color-dark);
-    --card-bg: var(--card-bg-dark);
+    --card-bg: var(--glass-bg-dark); /* Use glass bg */
     --border-color: var(--border-color-dark);
     --subtle-text: var(--subtle-text-dark);
     --accent-color: var(--accent-color-dark);
     --hero-overlay: var(--hero-overlay-dark);
     --shadow: var(--shadow-dark);
     --shadow-hover: var(--shadow-hover-dark);
+    --glass-border: var(--glass-border-dark);
 }
 
 /* Apply theme variables */
@@ -174,14 +182,27 @@ nav a {
     transition: color 0.2s ease;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
         color: var(--accent-color);
         opacity: 1; /* Full opacity on hover */
 }
 
 nav a::after {
-    /* Remove underline effect, hover changes color */
-    display: none;
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
 }
 
 section {
@@ -320,10 +341,12 @@ body.dark-theme #theme-toggle .icon-moon { display: none; }
 /* --- Cards & Items (Experience, Projects, etc.) --- */
 .item {
     background-color: var(--card-bg);
+    backdrop-filter: blur(12px); /* Glassmorphism blur */
+    -webkit-backdrop-filter: blur(12px);
     padding: 2rem; /* More padding */
     margin-bottom: 2rem;
-    border-radius: 12px; /* More rounded */
-    border: 1px solid var(--border-color);
+    border-radius: 16px; /* More rounded */
+    border: 1px solid var(--glass-border); /* Glass border */
     box-shadow: var(--shadow);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -364,6 +387,42 @@ body.dark-theme #theme-toggle .icon-moon { display: none; }
     color: var(--subtle-text); /* Subtle text for descriptions */
 }
 
+/* --- Experience Timeline --- */
+#experience .container {
+    position: relative;
+    padding-left: 2rem; /* Space for line */
+}
+
+#experience .container::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5rem; /* Start below heading */
+    bottom: 2rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-color), transparent);
+    opacity: 0.5;
+}
+
+#experience .item {
+    position: relative;
+    margin-left: 1.5rem; /* Space from line */
+}
+
+#experience .item::before {
+    content: '';
+    position: absolute;
+    left: -2.6rem; /* Align with line */
+    top: 2.5rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    border: 4px solid var(--bg-color); /* Create "hole" effect */
+    box-shadow: 0 0 0 2px var(--accent-color);
+    z-index: 1;
+}
+
 /* Experience specific list styling */
 #experience .item ul {
     list-style-type: none; /* Remove default bullets */
@@ -386,6 +445,31 @@ body.dark-theme #theme-toggle .icon-moon { display: none; }
     color: var(--accent-color);
     font-size: 1.2em;
     line-height: 1;
+}
+
+/* --- Project Grid --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Make items equal height */
+    .projects-grid .item {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0; /* Remove bottom margin in grid */
+    }
+    
+    .projects-grid .item p {
+        flex-grow: 1; /* Push tags to bottom */
+    }
 }
 
 /* --- Tags --- */
@@ -519,6 +603,97 @@ body.dark-theme #theme-toggle .icon-moon { display: none; }
     }
     
     
+/* --- Typewriter Effect --- */
+.typewriter {
+    display: inline-block;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid var(--accent-color); /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    animation: 
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+    max-width: 100%;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--accent-color); }
+}
+
+/* --- Buttons & Forms --- */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.4);
+    opacity: 0.9;
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+input, textarea {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(var(--bg-color-rgb), 0.5);
+    color: var(--text-color);
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.2);
+}
+
+.social-links-connect {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+}
+
 /* --- Footer --- */
     footer {
     text-align: center;
@@ -590,6 +765,31 @@ body.dark-theme .tech-item:hover .tech-icon[src*="github-original"] {
     font-size: 0.85rem;
     color: var(--subtle-text);
     font-weight: 500; /* Noto Sans weight */
+}
+
+/* --- Tech Stack Marquee --- */
+.marquee-container {
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+    padding: 1rem 0;
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 /* --- Project Images --- */

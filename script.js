@@ -64,12 +64,54 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Fetch GitHub data
     setupScrollReveal(); // Setup scroll animations
+    setupScrollSpy(); // Setup scroll spy for nav
+    setupMarquee(); // Setup infinite marquee
     fetchGitHubProfile();
     fetchGitHubRepos();
     fetchGitHubActivity();
     // Update indicators after all fetches are attempted
     fetchAllGitHubDataAndUpdateIndicators(); 
 });
+
+// --- Scroll Spy Function ---
+function setupScrollSpy() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3 // Trigger when 30% of section is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+}
+
+// --- Marquee Setup ---
+function setupMarquee() {
+    const marqueeContent = document.querySelector('.marquee-content');
+    if (marqueeContent) {
+        // Clone content to ensure seamless scrolling
+        const clone = marqueeContent.cloneNode(true);
+        marqueeContent.parentNode.appendChild(clone);
+    }
+}
 
 // --- Scroll Reveal Function --- 
 function setupScrollReveal() {
