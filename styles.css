@@ -1,0 +1,795 @@
+/* Basic Reset & Body */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Noto Sans', system-ui, sans-serif; /* Base font */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.7;
+    font-size: 16px; /* Base font size */
+}
+
+/* --- Light/Dark Theme Variables (Inspired by Ashutosh's site) --- */
+:root {
+    /* Light Theme */
+    --bg-color-light: #F9FAFB; /* Very light gray */
+    --text-color-light: #1F2937; /* Dark gray */
+    --link-color-light: #2563EB; /* Blue */
+    --card-bg-light: #ffffff; /* White */
+    --border-color-light: #E5E7EB; /* Light gray border */
+    --subtle-text-light: #6B7280; /* Medium gray */
+    --accent-color-light: #2563EB; /* Blue */
+    --hero-overlay-light: rgba(249, 250, 251, 0.9); /* Slightly transparent light bg */
+    --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-hover-light: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+
+    /* Dark Theme */
+    --bg-color-dark: #111827; /* Very dark blue-gray */
+    --text-color-dark: #F9FAFB; /* Off-white */
+    --link-color-dark: #60A5FA; /* Light blue */
+    --card-bg-dark: #1F2937; /* Dark gray-blue */
+    --border-color-dark: #374151; /* Gray */
+    --subtle-text-dark: #9CA3AF; /* Lighter gray */
+    --accent-color-dark: #60A5FA; /* Light blue */
+    --hero-overlay-dark: rgba(17, 24, 39, 0.9); /* Slightly transparent dark bg */
+    --shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08);
+    --shadow-hover-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.08);
+
+    /* Default to light theme */
+    --bg-color: var(--bg-color-light);
+    --text-color: var(--text-color-light);
+    --link-color: var(--link-color-light);
+    --card-bg: var(--card-bg-light);
+    --border-color: var(--border-color-light);
+    --subtle-text: var(--subtle-text-light);
+    --accent-color: var(--accent-color-light);
+    --hero-overlay: var(--hero-overlay-light);
+    --shadow: var(--shadow-light);
+    --shadow-hover: var(--shadow-hover-light);
+}
+
+body.dark-theme {
+    --bg-color: var(--bg-color-dark);
+    --text-color: var(--text-color-dark);
+    --link-color: var(--link-color-dark);
+    --card-bg: var(--card-bg-dark);
+    --border-color: var(--border-color-dark);
+    --subtle-text: var(--subtle-text-dark);
+    --accent-color: var(--accent-color-dark);
+    --hero-overlay: var(--hero-overlay-dark);
+    --shadow: var(--shadow-dark);
+    --shadow-hover: var(--shadow-hover-dark);
+}
+
+/* Apply theme variables */
+body,
+html {
+    height: 100%; /* Ensure html/body take full height if needed */
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+a:hover {
+    text-decoration: none; /* Remove underline */
+    opacity: 0.8;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif; /* Heading font */
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.75em;
+    color: var(--text-color);
+}
+
+h1 {
+    font-size: 3rem; /* Slightly larger */
+    font-weight: 700;
+    margin-bottom: 0.3em;
+    letter-spacing: -0.5px;
+}
+
+h2 { /* Used for section titles */
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5em;
+    text-align: center;
+    color: var(--text-color);
+}
+
+/* Subtitle in Hero */
+.hero h2 {
+    font-size: 1.25rem;
+    color: var(--subtle-text);
+    font-weight: 400; /* Less prominent */
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+section > h2::after {
+        content: '';
+        display: block;
+        width: 50px; /* Slightly smaller */
+        height: 3px;
+        background-color: var(--accent-color);
+        margin: 0.6em auto 0;
+        border-radius: 1px;
+}
+
+/* --- Layout & Sections --- */
+.container {
+        max-width: 1024px; /* Consistent max width */
+        margin: 0 auto;
+        padding: 0 20px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(var(--bg-color-rgb), 0.8); /* Use RGB for transparency */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: none; /* Cleaner look */
+    padding: 0.5rem 0;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 1.2em; /* Slightly more spacing */
+}
+
+nav a {
+    font-weight: 500; /* Noto Sans weight */
+    padding: 0.8em 0.3em;
+    position: relative;
+    color: var(--text-color);
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+        color: var(--accent-color);
+        opacity: 1; /* Full opacity on hover */
+}
+
+nav a::after {
+    /* Remove underline effect, hover changes color */
+    display: none;
+}
+
+section {
+    padding: 6rem 0; /* More vertical padding */
+    border-bottom: 1px solid var(--border-color);
+}
+section:last-of-type {
+        border-bottom: none;
+}
+
+.hero {
+    text-align: center;
+    min-height: 90vh; /* Almost full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 20px; /* Add padding */
+    border-bottom: none; /* No border for hero */
+}
+
+/* Remove background image - focus on clean look */
+.hero::before {
+    /* Re-enable for background image */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Use local image file instead of Unsplash URL */
+    background-image: url('images/tech-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    opacity: 0.1; /* Start with low opacity */
+    z-index: -1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.dark-theme .hero::before {
+    opacity: 0.15; /* Slightly more visible in dark mode */
+}
+
+/* Hero content styling */
+.hero-content {
+    /* Re-introduce overlay for contrast */
+    background-color: var(--hero-overlay);
+    padding: 2.5rem; /* Add padding back */
+    border-radius: 12px; /* Rounded corners */
+    z-index: 1;
+    backdrop-filter: blur(8px); /* Subtle blur effect */
+    box-shadow: var(--shadow); /* Subtle shadow */
+    max-width: 700px; /* Limit width */
+    /* Add animation properties */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInHero 1s ease-out 0.5s forwards; /* Delay slightly */
+}
+
+/* Keyframes for hero fade-in */
+@keyframes fadeInHero {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Profile Picture Styling --- */
+.profile-container {
+    margin-bottom: 1.5em;
+}
+
+.profile-picture {
+    width: 160px; /* Slightly smaller */
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--card-bg); /* Border matches card background */
+    box-shadow: 0 0 0 3px var(--accent-color), var(--shadow); /* Accent ring + subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 4px var(--accent-color), var(--shadow-hover);
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em; /* More space */
+    color: var(--subtle-text);
+    font-size: 1rem;
+}
+.location i {
+    margin-right: 0.5em;
+}
+
+#home p { /* Specific styling for hero paragraph */
+        font-size: 1.1rem;
+        color: var(--subtle-text);
+        margin-top: 1.5em;
+}
+
+/* --- Theme Toggle Button --- */
+#theme-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    cursor: pointer;
+    z-index: 1000;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 45px; /* Slightly smaller */
+    height: 45px;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: translateY(-3px); /* Keep lift effect */
+    box-shadow: var(--shadow-hover);
+    background-color: var(--accent-color); /* Change bg on hover */
+    color: var(--card-bg); /* Change icon color */
+    border-color: var(--accent-color);
+}
+
+#theme-toggle .icon-sun { display: none; }
+#theme-toggle .icon-moon { display: inline-block; }
+body.dark-theme #theme-toggle .icon-sun { display: inline-block; }
+body.dark-theme #theme-toggle .icon-moon { display: none; }
+
+/* --- Cards & Items (Experience, Projects, etc.) --- */
+.item {
+    background-color: var(--card-bg);
+    padding: 2rem; /* More padding */
+    margin-bottom: 2rem;
+    border-radius: 12px; /* More rounded */
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.item:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: var(--shadow-hover);
+}
+
+.item h3 {
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.4em;
+    color: var(--text-color); /* Title uses main text color */
+    font-weight: 600; /* Outfit weight */
+}
+
+.item h3 a { /* If title is a link */
+    color: inherit; /* Inherit color from h3 */
+}
+.item h3 a:hover {
+    color: var(--link-color); /* Link color on hover */
+    opacity: 1;
+}
+
+.item-meta {
+    font-size: 0.9rem;
+    color: var(--subtle-text);
+    margin-bottom: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em; /* Gap for icons */
+}
+
+.item p {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+    color: var(--subtle-text); /* Subtle text for descriptions */
+}
+
+/* Experience specific list styling */
+#experience .item ul {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 0; /* Remove default padding */
+    margin-top: 1em;
+}
+
+#experience .item li {
+    position: relative;
+    padding-left: 1.5em; /* Space for custom bullet */
+    margin-bottom: 0.6em;
+    color: var(--subtle-text);
+}
+
+#experience .item li::before {
+    content: '•'; /* Custom bullet */
+    position: absolute;
+    left: 0;
+    top: -1px;
+    color: var(--accent-color);
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+/* --- Tags --- */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Use gap for spacing */
+    margin-top: 1.2em;
+}
+
+.tag {
+    background-color: var(--accent-color); /* Accent background */
+    color: var(--card-bg); /* Text color contrasts with accent */
+    padding: 5px 12px;
+    border-radius: 16px; /* Pill shape */
+    font-size: 0.8rem;
+    font-weight: 500; /* Noto Sans weight */
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Remove theme-specific tag background overrides */
+/* body.dark-theme .tag { ... } */
+
+/* --- GitHub stats and achievements --- */
+.github-stats {
+    display: grid; /* Use grid for alignment */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive columns */
+    gap: 1.5rem;
+    margin: 2.5em 0;
+}
+
+.stat-item {
+    background-color: var(--card-bg);
+    padding: 1.2rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-item:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+}
+
+.stat-number {
+    font-size: 1.8rem; /* Larger number */
+    font-weight: 700; /* Outfit weight */
+    font-family: 'Outfit', sans-serif;
+    color: var(--accent-color);
+    line-height: 1.1;
+    margin-bottom: 0.2em;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--subtle-text);
+    text-transform: capitalize; /* Capitalize labels */
+}
+
+/* Center text elements like intro paragraphs */
+.text-center {
+        text-align: center;
+}
+
+#connect p.text-center { /* Style intro paragraph in Connect section */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--subtle-text);
+    margin-bottom: 2em;
+}
+
+.achievements {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2em auto;
+    flex-wrap: wrap;
+    max-width: 700px; /* Limit width */
+}
+
+.achievement {
+    background-color: rgba(var(--accent-color-rgb), 0.1); /* Subtle accent bg */
+    color: var(--accent-color);
+    padding: 8px 15px;
+    border-radius: 20px; /* Pill shape */
+    border: 1px solid transparent; /* No border needed */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500; /* Noto Sans weight */
+}
+.achievement i {
+    opacity: 0.8;
+}
+
+/* Connect section link item */
+    #connect .item {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3rem; /* Space above the connect box */
+    }
+    #connect .item h3 {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 1em;
+    }
+    #connect .item p {
+        text-align: center;
+        margin-bottom: 1.5em; /* Space between lines */
+        color: var(--text-color); /* Use main text color */
+    }
+    #connect .item p a {
+        font-weight: 500;
+        display: inline-flex; /* Align icon and text */
+        align-items: center;
+        gap: 0.5em;
+        transition: color 0.2s ease;
+    }
+    #connect .item p a:hover {
+        color: var(--accent-color);
+        opacity: 1;
+    }
+    #connect .item p a i {
+        font-size: 1.1em;
+    }
+    
+    
+/* --- Footer --- */
+    footer {
+    text-align: center;
+    padding: 3rem 20px; /* More padding */
+    margin-top: 4rem; /* More separation */
+    font-size: 0.9rem;
+    color: var(--subtle-text);
+    background-color: var(--card-bg); /* Use card background */
+    border-top: 1px solid var(--border-color);
+    }
+    
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem; /* More space */
+        margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+        color: var(--subtle-text);
+        font-size: 1.4em; /* Larger icons */
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+    
+    .social-links a:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px); /* Slight lift on hover */
+    }
+
+/* --- Tech Stack Section --- */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem 2rem; /* More gap */
+    margin: 3em 0;
+}
+
+.tech-item {
+    text-align: center;
+    width: 90px; /* Slightly wider */
+}
+
+.tech-icon {
+    width: 48px; /* Consistent size */
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 0.75em;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    filter: grayscale(50%) opacity(0.8); /* Start slightly desaturated */
+}
+
+.tech-item:hover .tech-icon {
+    transform: translateY(-4px);
+    filter: grayscale(0%) opacity(1); /* Full color on hover */
+}
+
+/* Specific fix for GitHub icon visibility in dark mode */
+body.dark-theme .tech-icon[src*="github-original"] {
+    filter: invert(1) grayscale(100%) brightness(1.5); /* Invert color to white */
+}
+
+/* Ensure hover effect works correctly with inverted GitHub icon */
+body.dark-theme .tech-item:hover .tech-icon[src*="github-original"] {
+    filter: invert(1) grayscale(0%) brightness(1); /* Keep inverted, full color intensity */
+}
+
+.tech-name {
+    font-size: 0.85rem;
+    color: var(--subtle-text);
+    font-weight: 500; /* Noto Sans weight */
+}
+
+/* --- Project Images --- */
+.project-image-container {
+    margin-bottom: 1.5em;
+    border-radius: 10px; /* Consistent rounding */
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    position: relative; /* Needed for potential overlay effects */
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block; /* Remove extra space below image */
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother zoom */
+}
+
+.item:hover .project-image { /* Zoom image when hovering the item */
+    transform: scale(1.03);
+}
+
+/* --- Activity Feed --- */
+    .activity-feed {
+        margin: 3em auto 0; /* Add top margin */
+        max-width: 700px;
+    }
+    
+    /* Activity Feed Heading */
+    #connect > h3.text-center {
+        font-size: 1.75rem; /* Style the heading if created by JS */
+        margin-bottom: 1.5em;
+        color: var(--text-color);
+    }
+
+    .activity-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem; /* Use gap */
+        margin-bottom: 1rem;
+        padding: 1rem 1.25rem; /* Adjust padding */
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .activity-item:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+    
+    .activity-icon {
+        color: var(--accent-color);
+        font-size: 1.1em; /* Slightly smaller */
+        margin-right: 0; /* Remove margin, use gap */
+        padding-top: 3px; /* Align icon nicely */
+        flex-shrink: 0; /* Prevent icon from shrinking */
+    }
+    
+    .activity-content {
+        flex: 1;
+    }
+    
+    .activity-action {
+        margin-bottom: 4px;
+        line-height: 1.5; /* Better readability */
+        color: var(--text-color); /* Main text color */
+    }
+    .activity-action a {
+        font-weight: 500; /* Noto Sans weight */
+        color: var(--link-color);
+    }
+    .activity-action a:hover {
+        text-decoration: underline;
+        opacity: 0.9;
+    }
+    
+    .activity-date {
+        color: var(--subtle-text);
+        font-size: 0.8rem;
+    }
+
+/* Helper class for paragraphs in About section */
+#about p {
+        margin-bottom: 1.2em;
+        max-width: 750px; /* Limit width for readability */
+        margin-left: auto;
+        margin-right: auto;
+        text-align: justify; /* Justify text for a cleaner look */
+}
+#about p:last-of-type {
+        margin-bottom: 2em; /* Add more space before tech stack */
+}
+#about h3 { /* Tech stack heading */
+        text-align: center;
+        font-size: 1.5rem;
+        margin-top: 2.5em;
+        margin-bottom: 1.5em;
+        font-weight: 600; /* Outfit weight */
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 1.8rem; }
+    .hero h2 { font-size: 1.1rem; }
+    
+    section { padding: 4rem 0; }
+    
+    .container { padding: 0 15px; }
+    
+    nav ul { padding: 0.5rem 0; }
+    nav li { margin: 0 0.8em; }
+    nav a { padding: 0.6em 0.2em; }
+
+    .profile-picture { width: 140px; height: 140px; }
+    
+    .github-stats { gap: 1rem; }
+    .stat-item { padding: 1rem 0.8rem; }
+    .stat-number { font-size: 1.5rem; }
+    
+    #about p { text-align: left; } /* Revert justify on smaller screens */
+}
+    
+@media (max-width: 600px) {
+    body { font-size: 15px; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.6rem; }
+    .hero h2 { font-size: 1rem; }
+    
+    section { padding: 3rem 0; }
+    
+    header { padding: 0.3rem 0; }
+    nav li { margin: 0 0.5em; }
+    nav a { font-size: 0.95rem; }
+    
+    .profile-picture { width: 120px; height: 120px; }
+    
+    .item { padding: 1.5rem; }
+    .item h3 { font-size: 1.15rem; }
+
+    .github-stats {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    }
+    
+    .stat-item { padding: 0.8rem; }
+    .stat-number { font-size: 1.4rem; }
+
+    .tech-stack { gap: 1rem 1.5rem; }
+    .tech-item { width: 75px; }
+    .tech-icon { width: 40px; height: 40px; }
+    
+    #theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    footer { padding: 2.5rem 15px; }
+    .social-links { gap: 1.2rem; }
+    .social-links a { font-size: 1.3em; }
+    
+        /* Ensure activity feed wraps nicely */
+        .activity-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        .activity-icon { padding-top: 0; margin-bottom: 0.3rem; }
+}
+
+/* Utility to parse RGB from CSS variable */
+/* We need this for the transparent header background */
+/* :root variables for RGB are populated by JS */
+
+/* --- Scroll Animation --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.17, 0.55, 0.55, 1), transform 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dark mode header contrast fix */
+body.dark-theme header {
+    background-color: var(--card-bg-dark); /* Use solid card background for contrast */
+    backdrop-filter: none; /* No blur needed for opaque background */
+}
+
+/* Opacity change for stale/failed data */
+.github-stats,
+.activity-feed {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+}
+
+.data-stale {
+    opacity: 0.8; /* Make it slightly less prominent */
+}
