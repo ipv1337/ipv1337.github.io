@@ -1,0 +1,329 @@
+/* ===== Blog Post Styles ===== */
+
+/* Reading Progress */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    z-index: 1000;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* Post Header */
+.post-header {
+    padding: 160px 0 60px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    transition: var(--transition-fast);
+}
+
+.back-link:hover {
+    color: var(--accent-blue);
+}
+
+.post-header .post-meta {
+    margin-bottom: 1.5rem;
+}
+
+.post-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.post-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+}
+
+.post-header .post-tags {
+    margin-bottom: 0;
+}
+
+/* Post Hero Image */
+.post-hero {
+    margin-bottom: 4rem;
+}
+
+.post-hero img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Post Content */
+.post-content {
+    padding-bottom: 4rem;
+}
+
+.post-content .container {
+    max-width: 800px;
+}
+
+.post-content section {
+    margin-bottom: 3rem;
+}
+
+.post-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-top: 2.5rem;
+    color: var(--text-primary);
+}
+
+.post-content h2:first-child {
+    margin-top: 0;
+}
+
+.post-content h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+    color: var(--text-primary);
+}
+
+.post-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+}
+
+.post-content a {
+    color: var(--accent-blue);
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 212, 255, 0.3);
+    text-underline-offset: 3px;
+}
+
+.post-content a:hover {
+    text-decoration-color: var(--accent-blue);
+}
+
+.post-content ul,
+.post-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+.post-content li strong {
+    color: var(--text-primary);
+}
+
+.post-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.post-content em {
+    font-style: italic;
+}
+
+.post-content code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-glass);
+    padding: 0.2em 0.5em;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.post-content pre {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.post-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Architecture Diagram */
+.architecture-diagram {
+    margin: 2rem 0;
+}
+
+.architecture-diagram pre {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(124, 58, 237, 0.05));
+    border: 1px solid var(--border-glow);
+}
+
+.architecture-diagram code {
+    color: var(--accent-blue);
+    font-size: 0.8rem;
+}
+
+/* Blockquote */
+.post-content blockquote {
+    border-left: 3px solid var(--accent-purple);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* Post Footer */
+.post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.share-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-muted);
+}
+
+.share-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.share-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: var(--transition-base);
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+}
+
+.share-btn.twitter:hover {
+    border-color: #1da1f2;
+    color: #1da1f2;
+}
+
+.share-btn.linkedin:hover {
+    border-color: #0a66c2;
+    color: #0a66c2;
+}
+
+/* Related Posts */
+.related-posts {
+    padding: 4rem 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+.related-posts h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.related-card {
+    display: block;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    transition: var(--transition-base);
+}
+
+.related-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-glow);
+}
+
+.related-card.coming-soon {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.related-card .status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.related-card h4 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.related-card .meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .post-header {
+        padding: 140px 0 40px;
+    }
+    
+    .post-hero img {
+        border-radius: 12px;
+    }
+    
+    .post-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .post-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .architecture-diagram code {
+        font-size: 0.65rem;
+    }
+    
+    .share-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

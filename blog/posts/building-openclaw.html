@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building OpenClaw: An AI Agent That Lives on Your Devices - James H. Nguyen</title>
+    <meta name="description" content="An introduction to OpenClaw - a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure.">
+    <meta name="author" content="James H. Nguyen">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Building OpenClaw: An AI Agent That Lives on Your Devices">
+    <meta property="og:description" content="An introduction to OpenClaw - a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure.">
+    <meta property="og:image" content="https://ipv1337.dev/images/blog-openclaw.jpg">
+    <meta property="article:published_time" content="2026-02-05">
+    <meta property="article:author" content="James H. Nguyen">
+    <meta property="article:tag" content="OpenClaw">
+    <meta property="article:tag" content="AI Agents">
+    <meta property="article:tag" content="Open Source">
+    
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="canonical" href="https://ipv1337.dev/blog/posts/building-openclaw.html">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    
+    <link rel="stylesheet" href="/blog/blog.css">
+    <link rel="stylesheet" href="/blog/post.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <header>
+        <nav class="container">
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">JN</span>
+                <span>James H. Nguyen</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post">
+            <header class="post-header">
+                <div class="container">
+                    <a href="/blog/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+                    <div class="post-meta">
+                        <span class="post-category">AI Agents</span>
+                        <span class="post-date">February 5, 2026</span>
+                        <span class="post-read-time"><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <h1>Building OpenClaw: An AI Agent That Lives on Your Devices</h1>
+                    <p class="post-subtitle">
+                        An introduction to OpenClaw - a personal AI assistant that runs 24/7 across your Mac, 
+                        Android, and cloud infrastructure. Learn about the architecture, capabilities, and vision 
+                        behind this open-source project.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">OpenClaw</span>
+                        <span class="tag">AI Agents</span>
+                        <span class="tag">Open Source</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="post-hero">
+                <img src="/images/blog-openclaw.jpg" alt="OpenClaw AI Agent Architecture">
+            </div>
+
+            <div class="post-content">
+                <div class="container">
+                    <section>
+                        <h2>What is OpenClaw?</h2>
+                        <p>
+                            <strong>OpenClaw</strong> is an open-source personal AI assistant that goes far beyond 
+                            traditional chatbots. Unlike services that exist only when you open an app, OpenClaw 
+                            runs continuously on your own infrastructure — your Mac, your Android phone, your 
+                            cloud server — acting as a true digital assistant that's always aware and ready to help.
+                        </p>
+                        <p>
+                            Think of it as having a knowledgeable colleague who knows your preferences, remembers 
+                            your past conversations, monitors your systems, and can take action on your behalf. 
+                            It's proactive, not just reactive.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>The Problem with Traditional AI Assistants</h2>
+                        <p>
+                            Most AI assistants today have significant limitations:
+                        </p>
+                        <ul>
+                            <li><strong>Session-based:</strong> They forget everything between conversations</li>
+                            <li><strong>Reactive only:</strong> They wait for you to ask, never proactively help</li>
+                            <li><strong>Cloud-locked:</strong> All your data goes to third-party servers</li>
+                            <li><strong>Single-device:</strong> No awareness of your other devices or systems</li>
+                            <li><strong>Limited agency:</strong> They can suggest, but rarely do</li>
+                        </ul>
+                        <p>
+                            OpenClaw was built to address all of these. It's designed to be a true <em>agent</em> — 
+                            an AI that can remember, plan, monitor, and act.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Architecture Overview</h2>
+                        <p>
+                            OpenClaw follows a hub-and-spoke architecture with a central <strong>Gateway</strong> 
+                            and distributed <strong>ClawdNodes</strong>:
+                        </p>
+                        
+                        <div class="architecture-diagram">
+                            <pre><code class="language-plaintext">
+┌─────────────────────────────────────────────────────────────────┐
+│                        OpenClaw Gateway                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │   Sessions   │  │    Cron      │  │   Message Channels   │  │
+│  │   Manager    │  │   Scheduler  │  │  (Telegram, Signal,  │  │
+│  │              │  │              │  │   Discord, etc.)     │  │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
+│                              │                                   │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │   Memory     │  │    Tools     │  │   Browser Control    │  │
+│  │   System     │  │   Registry   │  │                      │  │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+         ┌────────────────────┼────────────────────┐
+         ▼                    ▼                    ▼
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│   ClawdNode     │  │   ClawdNode     │  │   ClawdNode     │
+│   (Mac #1)      │  │   (Mac #2)      │  │   (Android)     │
+│                 │  │                 │  │                 │
+│  • Exec cmds    │  │  • Exec cmds    │  │  • Camera       │
+│  • File access  │  │  • File access  │  │  • Location     │
+│  • Screen       │  │  • Screen       │  │  • Notifications│
+│  • Clipboard    │  │  • Clipboard    │  │  • SMS          │
+└─────────────────┘  └─────────────────┘  └─────────────────┘
+                            </code></pre>
+                        </div>
+
+                        <h3>The Gateway</h3>
+                        <p>
+                            The Gateway is the brain of the operation. It handles:
+                        </p>
+                        <ul>
+                            <li><strong>Session management:</strong> Multiple concurrent AI sessions with different contexts</li>
+                            <li><strong>Message routing:</strong> Connects to Telegram, Signal, Discord, Slack, and more</li>
+                            <li><strong>Cron scheduling:</strong> Automated tasks that run on schedule</li>
+                            <li><strong>Memory:</strong> Persistent knowledge that survives restarts</li>
+                            <li><strong>Tool orchestration:</strong> Coordinates actions across all connected devices</li>
+                        </ul>
+
+                        <h3>ClawdNodes</h3>
+                        <p>
+                            ClawdNodes are lightweight agents that run on your devices. They expose capabilities 
+                            to the Gateway:
+                        </p>
+                        <ul>
+                            <li><strong>Mac nodes:</strong> Shell commands, file access, screen capture, browser control</li>
+                            <li><strong>Android nodes:</strong> Camera, location, notifications, SMS, UI automation</li>
+                            <li><strong>Any device:</strong> Can be extended to support new platforms</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Key Capabilities</h2>
+                        
+                        <h3>🧠 Persistent Memory</h3>
+                        <p>
+                            OpenClaw maintains a markdown-based memory system. Important facts, preferences, 
+                            and decisions are stored in <code>MEMORY.md</code> and can be semantically searched. 
+                            This means the AI remembers what you've told it across sessions.
+                        </p>
+                        <pre><code class="language-markdown"># MEMORY.md
+
+## Preferences
+- James prefers PST timezone references
+- Deploy APKs to Pixel after changes
+- Use conventional commits
+
+## Quick References
+- Fork location: ~/Workspace/gh/lab/openclaw
+- Android ADB: 100.81.113.121:44981</code></pre>
+
+                        <h3>⏰ Scheduled Tasks (Cron)</h3>
+                        <p>
+                            The built-in cron system allows you to schedule tasks:
+                        </p>
+                        <ul>
+                            <li>Daily health checks across all your nodes</li>
+                            <li>Automated brew updates on all Macs</li>
+                            <li>Morning briefings summarizing GitHub activity</li>
+                            <li>Periodic reminders and check-ins</li>
+                        </ul>
+
+                        <h3>🔧 Rich Tool Ecosystem</h3>
+                        <p>
+                            OpenClaw ships with tools for:
+                        </p>
+                        <ul>
+                            <li>File operations (read, write, edit)</li>
+                            <li>Shell command execution</li>
+                            <li>Web browsing and scraping</li>
+                            <li>GitHub, Google Workspace, Slack integration</li>
+                            <li>Image generation</li>
+                            <li>And many more via the Skills system</li>
+                        </ul>
+
+                        <h3>📱 Multi-Device Awareness</h3>
+                        <p>
+                            Because ClawdNodes report in from all your devices, OpenClaw has a unified view:
+                        </p>
+                        <pre><code class="language-plaintext">> "What's the status of my devices?"
+
+🖥️ James-MacBook-Pro (Gateway)
+   CPU: 12%, Memory: 45%, Disk: 234GB free
+   
+💻 james-mbp (ClawdNode)
+   Online, last seen: 2 minutes ago
+   
+📱 James' Pixel (ClawdNode)
+   Battery: 78%, Location: Home</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>The Android Companion App</h2>
+                        <p>
+                            We recently built a full-featured Android app that transforms your phone into a 
+                            powerful ClawdNode:
+                        </p>
+                        <ul>
+                            <li><strong>Home screen widgets:</strong> Status at a glance, quick action buttons</li>
+                            <li><strong>Rich notifications:</strong> Actionable alerts with inline reply</li>
+                            <li><strong>Camera integration:</strong> Snap photos or record clips on command</li>
+                            <li><strong>UI automation:</strong> Control any app via accessibility services</li>
+                            <li><strong>Location sharing:</strong> Optional, on-demand location access</li>
+                        </ul>
+                        <p>
+                            The app features a custom dark theme with frosted glass aesthetics and red accents, 
+                            designed to feel premium while being functional.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Privacy-First Design</h2>
+                        <p>
+                            Unlike cloud AI services, OpenClaw runs on <em>your</em> infrastructure:
+                        </p>
+                        <ul>
+                            <li>Your data never leaves your network (unless you want it to)</li>
+                            <li>Memory is stored locally in plain markdown files</li>
+                            <li>You control which AI models are used</li>
+                            <li>All node communication uses encrypted channels</li>
+                            <li>Open source means full auditability</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Getting Started</h2>
+                        <p>
+                            OpenClaw is available on npm and GitHub:
+                        </p>
+                        <pre><code class="language-bash"># Install globally
+npm install -g openclaw
+
+# Start the gateway
+openclaw gateway start
+
+# Connect via Telegram, Signal, or CLI
+openclaw chat</code></pre>
+                        <p>
+                            Check out the <a href="https://docs.openclaw.ai" target="_blank">documentation</a> 
+                            for detailed setup instructions, or join the 
+                            <a href="https://discord.com/invite/clawd" target="_blank">Discord community</a> 
+                            for help.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>What's Next?</h2>
+                        <p>
+                            We're actively developing new features:
+                        </p>
+                        <ul>
+                            <li><strong>Improved agent collaboration:</strong> Multiple agents working together</li>
+                            <li><strong>Enhanced browser automation:</strong> More reliable web interactions</li>
+                            <li><strong>Voice integration:</strong> Speech-to-text and text-to-speech</li>
+                            <li><strong>iOS companion app:</strong> Bringing ClawdNode to iPhone</li>
+                        </ul>
+                        <p>
+                            Stay tuned for more deep dives into specific components, and feel free to reach 
+                            out if you're building something cool with OpenClaw!
+                        </p>
+                    </section>
+
+                    <div class="post-footer">
+                        <div class="share-section">
+                            <span>Share this article:</span>
+                            <div class="share-buttons">
+                                <a href="https://twitter.com/intent/tweet?url=https://ipv1337.dev/blog/posts/building-openclaw.html&text=Building OpenClaw: An AI Agent That Lives on Your Devices" 
+                                   target="_blank" class="share-btn twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ipv1337.dev/blog/posts/building-openclaw.html" 
+                                   target="_blank" class="share-btn linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <section class="related-posts">
+            <div class="container">
+                <h3>Continue Reading</h3>
+                <div class="related-grid">
+                    <a href="/blog/posts/agentic-coding.html" class="related-card coming-soon">
+                        <span class="status">Coming Soon</span>
+                        <h4>Agentic Coding: The Future of Developer Productivity</h4>
+                        <span class="meta">AI Agents • 10 min read</span>
+                    </a>
+                    <a href="/blog/posts/openclaw-android-app.html" class="related-card coming-soon">
+                        <span class="status">Coming Soon</span>
+                        <h4>OpenClaw Android Companion: From Idea to Implementation</h4>
+                        <span class="meta">Projects • 12 min read</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/ipv1337" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2025 James H. Nguyen. Built with passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+        
+        // Reading progress
+        const progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+    </script>
+</body>
+</html>

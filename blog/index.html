@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - James H. Nguyen</title>
+    <meta name="description" content="Technical articles on cloud architecture, platform engineering, AI agents, and DevOps by James H. Nguyen.">
+    
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="alternate" type="application/rss+xml" title="James H. Nguyen's Blog" href="/blog/rss.xml">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="/blog/blog.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <header>
+        <nav class="container">
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">JN</span>
+                <span>James H. Nguyen</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="blog-hero">
+            <div class="container">
+                <span class="section-label">// BLOG</span>
+                <h1>Thoughts & <span class="gradient-text">Insights</span></h1>
+                <p class="hero-description">
+                    Exploring cloud architecture, platform engineering, AI agents, and the future of developer tooling.
+                </p>
+            </div>
+        </section>
+
+        <section class="blog-filters">
+            <div class="container">
+                <div class="filter-tags">
+                    <button class="filter-tag active" data-filter="all">All Posts</button>
+                    <button class="filter-tag" data-filter="ai-agents">AI Agents</button>
+                    <button class="filter-tag" data-filter="cloud">Cloud</button>
+                    <button class="filter-tag" data-filter="devops">DevOps</button>
+                    <button class="filter-tag" data-filter="projects">Projects</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-posts">
+            <div class="container">
+                <div class="posts-grid" id="postsGrid">
+                    <!-- Posts will be loaded dynamically -->
+                </div>
+                
+                <div class="no-posts" id="noPosts" style="display: none;">
+                    <i class="fas fa-file-alt"></i>
+                    <p>No posts found in this category.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <div class="container">
+                <div class="newsletter-card">
+                    <div class="newsletter-content">
+                        <h3>Stay Updated</h3>
+                        <p>Get notified when I publish new articles on cloud engineering, AI agents, and tech insights.</p>
+                    </div>
+                    <div class="newsletter-cta">
+                        <a href="/blog/rss.xml" class="btn btn-secondary">
+                            <i class="fas fa-rss"></i>
+                            Subscribe via RSS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/ipv1337" target="_blank" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2025 James H. Nguyen. Built with passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Blog posts data
+        const posts = [
+            {
+                id: 'building-openclaw',
+                title: 'Building OpenClaw: An AI Agent That Lives on Your Devices',
+                excerpt: 'An introduction to OpenClaw - a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure. Learn about the architecture, capabilities, and vision behind this open-source project.',
+                date: '2026-02-05',
+                readTime: '8 min read',
+                category: 'ai-agents',
+                tags: ['OpenClaw', 'AI Agents', 'Open Source'],
+                image: '/images/blog-openclaw.jpg',
+                status: 'published'
+            },
+            {
+                id: 'agentic-coding',
+                title: 'Agentic Coding: The Future of Developer Productivity',
+                excerpt: 'How AI coding agents are transforming software development. My experience pair programming with Claude, Codex, and other AI assistants - workflows, productivity gains, and lessons learned.',
+                date: '2026-02-12',
+                readTime: '10 min read',
+                category: 'ai-agents',
+                tags: ['Agentic Coding', 'AI', 'Productivity'],
+                image: '/images/blog-agentic-coding.jpg',
+                status: 'coming-soon'
+            },
+            {
+                id: 'openclaw-android-app',
+                title: 'OpenClaw Android Companion: From Idea to Implementation',
+                excerpt: 'A deep dive into building the OpenClaw Android app - design decisions, frosted glass aesthetics, widgets, accessibility services, and making AI truly mobile.',
+                date: '2026-02-19',
+                readTime: '12 min read',
+                category: 'projects',
+                tags: ['Android', 'OpenClaw', 'Mobile'],
+                image: '/images/blog-android-app.jpg',
+                status: 'coming-soon'
+            },
+            {
+                id: 'secure-gcp-foundation',
+                title: 'Setting Up a Secure Foundation on Google Cloud with Terraform',
+                excerpt: 'A comprehensive walkthrough of establishing a secure, scalable foundation for enterprise workloads on Google Cloud using infrastructure as code principles.',
+                date: '2026-02-26',
+                readTime: '15 min read',
+                category: 'cloud',
+                tags: ['Google Cloud', 'Terraform', 'Security'],
+                image: '/images/blog-cloud-security.jpg',
+                status: 'coming-soon'
+            },
+            {
+                id: 'rise-of-agentic-bots',
+                title: 'The Rise of Agentic Bots: Beyond Traditional Chatbots',
+                excerpt: 'The evolution from simple chatbots to autonomous AI agents. What makes an agent "agentic", privacy considerations, and the future of personal AI assistants.',
+                date: '2026-03-05',
+                readTime: '7 min read',
+                category: 'ai-agents',
+                tags: ['AI Agents', 'Chatbots', 'Future'],
+                image: '/images/blog-agentic-bots.jpg',
+                status: 'coming-soon'
+            },
+            {
+                id: 'monorepo-lessons',
+                title: 'Monorepo Architecture: Lessons from Real-world Implementations',
+                excerpt: 'Practical insights from implementing monorepo architectures at scale. Benefits, challenges, tooling recommendations, and when it makes sense.',
+                date: '2026-03-12',
+                readTime: '11 min read',
+                category: 'devops',
+                tags: ['Monorepo', 'DevOps', 'Architecture'],
+                image: '/images/blog-monorepo.jpg',
+                status: 'coming-soon'
+            }
+        ];
+
+        // Render posts
+        function renderPosts(filter = 'all') {
+            const grid = document.getElementById('postsGrid');
+            const noPosts = document.getElementById('noPosts');
+            
+            const filteredPosts = filter === 'all' 
+                ? posts 
+                : posts.filter(p => p.category === filter);
+            
+            if (filteredPosts.length === 0) {
+                grid.innerHTML = '';
+                noPosts.style.display = 'flex';
+                return;
+            }
+            
+            noPosts.style.display = 'none';
+            
+            grid.innerHTML = filteredPosts.map(post => `
+                <article class="post-card ${post.status === 'coming-soon' ? 'coming-soon' : ''}" data-category="${post.category}">
+                    <div class="post-image">
+                        <img src="${post.image}" alt="${post.title}" loading="lazy">
+                        ${post.status === 'coming-soon' ? '<span class="status-badge">Coming Soon</span>' : ''}
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="post-category">${formatCategory(post.category)}</span>
+                            <span class="post-date">${formatDate(post.date)}</span>
+                            <span class="post-read-time"><i class="far fa-clock"></i> ${post.readTime}</span>
+                        </div>
+                        <h2 class="post-title">
+                            ${post.status === 'published' 
+                                ? `<a href="/blog/posts/${post.id}.html">${post.title}</a>`
+                                : post.title
+                            }
+                        </h2>
+                        <p class="post-excerpt">${post.excerpt}</p>
+                        <div class="post-tags">
+                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        ${post.status === 'published' 
+                            ? `<a href="/blog/posts/${post.id}.html" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>`
+                            : ''
+                        }
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function formatCategory(category) {
+            const map = {
+                'ai-agents': 'AI Agents',
+                'cloud': 'Cloud',
+                'devops': 'DevOps',
+                'projects': 'Projects'
+            };
+            return map[category] || category;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-tag').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderPosts(btn.dataset.filter);
+            });
+        });
+
+        // Initial render
+        renderPosts();
+    </script>
+</body>
+</html>

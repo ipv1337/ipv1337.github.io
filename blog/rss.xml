@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>James H. Nguyen's Blog</title>
+        <link>https://ipv1337.dev/blog/</link>
+        <description>Technical articles on cloud architecture, platform engineering, AI agents, and DevOps.</description>
+        <language>en-us</language>
+        <lastBuildDate>Wed, 05 Feb 2026 00:00:00 PST</lastBuildDate>
+        <atom:link href="https://ipv1337.dev/blog/rss.xml" rel="self" type="application/rss+xml"/>
+        
+        <item>
+            <title>Building OpenClaw: An AI Agent That Lives on Your Devices</title>
+            <link>https://ipv1337.dev/blog/posts/building-openclaw.html</link>
+            <description>An introduction to OpenClaw - a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure. Learn about the architecture, capabilities, and vision behind this open-source project.</description>
+            <pubDate>Wed, 05 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/building-openclaw.html</guid>
+            <category>AI Agents</category>
+        </item>
+    </channel>
+</rss>
