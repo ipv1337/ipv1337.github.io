@@ -3,45 +3,1028 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>James H. Nguyen - Portfolio</title>
-    <meta name="description" content="Principal Cloud Platform Engineer specializing in cloud architecture, infrastructure as code, and DevOps.">
+    <title>James H. Nguyen - Principal Cloud Platform Engineer</title>
+    <meta name="description" content="Principal Cloud Platform Engineer specializing in cloud architecture, infrastructure as code, Kubernetes, and DevOps. Building scalable, resilient infrastructure at FLYR, Inc.">
     <meta name="author" content="James H. Nguyen">
+    <meta name="keywords" content="Cloud Platform Engineer, DevOps, Kubernetes, Terraform, Google Cloud, Infrastructure as Code, Platform Engineering">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ipv1337.github.io/">
-    <meta property="og:title" content="James H. Nguyen - Portfolio">
-    <meta property="og:description" content="Principal Cloud Platform Engineer specializing in cloud architecture, infrastructure as code, and DevOps.">
-    <meta property="og:image" content="https://ipv1337.github.io/images/profile.png">
+    <meta property="og:url" content="https://ipv1337.dev/">
+    <meta property="og:title" content="James H. Nguyen - Principal Cloud Platform Engineer">
+    <meta property="og:description" content="Building scalable, resilient cloud infrastructure and platform solutions.">
+    <meta property="og:image" content="https://ipv1337.dev/images/og-image.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ipv1337.github.io/">
-    <meta property="twitter:title" content="James H. Nguyen - Portfolio">
-    <meta property="twitter:description" content="Principal Cloud Platform Engineer specializing in cloud architecture, infrastructure as code, and DevOps.">
-    <meta property="twitter:image" content="https://ipv1337.github.io/images/profile.png">
+    <meta property="twitter:url" content="https://ipv1337.dev/">
+    <meta property="twitter:title" content="James H. Nguyen - Principal Cloud Platform Engineer">
+    <meta property="twitter:description" content="Building scalable, resilient cloud infrastructure and platform solutions.">
+    <meta property="twitter:image" content="https://ipv1337.dev/images/og-image.jpg">
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="canonical" href="https://ipv1337.dev/">
 
-    <!-- Add Outfit and Noto Sans fonts from Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            /* Color Palette - Cyber/Tech Theme */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            --glow-primary: rgba(102, 126, 234, 0.4);
+            --glow-accent: rgba(0, 212, 255, 0.3);
+            
+            /* Dark Theme (Default) */
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(18, 18, 26, 0.8);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(102, 126, 234, 0.3);
+            
+            /* Accent Colors */
+            --accent-blue: #00d4ff;
+            --accent-purple: #7c3aed;
+            --accent-pink: #ec4899;
+            --accent-green: #10b981;
+            
+            /* Typography */
+            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            
+            /* Spacing */
+            --section-padding: 120px;
+            --container-max: 1200px;
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== Animated Background ===== */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(102, 126, 234, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 100% 0%, rgba(124, 58, 237, 0.1), transparent),
+                radial-gradient(ellipse 50% 30% at 0% 100%, rgba(0, 212, 255, 0.08), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Typography ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 2.75rem); }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-purple);
+        }
+
+        /* ===== Scroll Progress ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== Navigation ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-base);
+        }
+
+        header.scrolled {
+            padding: 0.75rem 0;
+            background: rgba(10, 10, 15, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: var(--transition-base);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 24px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/hero-bg.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title-accent {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid var(--accent-blue);
+            white-space: nowrap;
+            animation: typing 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .hero-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-location i {
+            color: var(--accent-pink);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 20px var(--glow-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--glow-primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-glow);
+            color: white;
+        }
+
+        /* ===== Profile Picture ===== */
+        .profile-container {
+            margin-bottom: 2rem;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
+                        var(--accent-gradient) border-box;
+            box-shadow: 0 0 40px var(--glow-accent);
+            transition: var(--transition-base);
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px var(--glow-accent);
+        }
+
+        /* ===== Sections ===== */
+        section {
+            padding: var(--section-padding) 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== Cards ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== Tech Stack ===== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: var(--transition-base);
+            cursor: default;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .tech-icon {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: grayscale(30%);
+            transition: var(--transition-base);
+        }
+
+        .tech-item:hover .tech-icon {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .tech-name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== Experience ===== */
+        .experience-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 2px;
+        }
+
+        .experience-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--glow-accent);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .experience-company {
+            color: var(--accent-blue);
+        }
+
+        .experience-date {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-glass);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .experience-list {
+            list-style: none;
+        }
+
+        .experience-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .experience-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+        }
+
+        /* ===== Projects ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition-base);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-glow);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+
+        .project-image-container {
+            overflow: hidden;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title a {
+            color: var(--text-primary);
+        }
+
+        .project-title a:hover {
+            color: var(--accent-blue);
+        }
+
+        .project-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .tag:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        /* ===== GitHub Stats ===== */
+        .github-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: var(--transition-base);
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Achievements ===== */
+        .achievements {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .achievement:hover {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .achievement i {
+            color: var(--accent-purple);
+        }
+
+        /* ===== Contact Form ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            transition: var(--transition-base);
+        }
+
+        .contact-link:hover {
+            border-color: var(--border-glow);
+            color: var(--text-primary);
+            transform: translateX(5px);
+        }
+
+        .contact-link i {
+            font-size: 1.25rem;
+            color: var(--accent-blue);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px var(--glow-accent);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* ===== Blog ===== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition-base);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-status {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            background: rgba(124, 58, 237, 0.15);
+            color: var(--accent-purple);
+            border-radius: 20px;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .blog-title {
+            margin-bottom: 1rem;
+        }
+
+        .blog-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            transition: var(--transition-base);
+        }
+
+        .social-link:hover {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Scroll Animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 80px;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 100px 20px;
+            }
+
+            .github-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-    <button id="theme-toggle">
-        <span class="icon-sun"><i class="fas fa-sun"></i></span>
-        <span class="icon-moon"><i class="fas fa-moon"></i></span>
-    </button>
-    
-    <header>
-        <nav class="container"> <!-- Add container class -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <header id="header">
+        <nav class="container">
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -49,164 +1032,223 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#connect">Connect</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#resources">Resources</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <!-- Removed container from here, content centered by flexbox -->
+            <div class="hero-bg"></div>
             <div class="hero-content">
                 <div class="profile-container">
-                    <img src="images/profile.png" alt="James Nguyen" class="profile-picture">
+                    <img src="images/profile.png" alt="James H. Nguyen" class="profile-picture">
                 </div>
-                <h1>James H. Nguyen</h1>
-                <h2><span class="typewriter">Principal Cloud Platform Engineer</span></h2>
-                <div class="location">
-                    <i class="fas fa-map-marker-alt"></i>Irvine, CA
+                <div class="hero-badge">
+                    <span class="pulse"></span>
+                    Available for consulting
                 </div>
-                <p>Building infrastructure and platform solutions at FLYR, Inc.</p>
-                <a href="#" class="btn-primary"><i class="fas fa-file-alt"></i> Download Resume</a>
+                <h1>James H. <span class="hero-title-accent">Nguyen</span></h1>
+                <p class="hero-subtitle">
+                    <span class="typewriter">Principal Cloud Platform Engineer</span>
+                </p>
+                <div class="hero-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Irvine, CA</span>
+                </div>
+                <p class="hero-description">
+                    Building scalable, resilient infrastructure and cloud-native solutions. 
+                    Enabling development teams to ship better code faster through platform engineering excellence.
+                </p>
+                <div class="hero-cta">
+                    <a href="#connect" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Get in Touch
+                    </a>
+                    <a href="https://github.com/ipv1337" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-github"></i>
+                        View GitHub
+                    </a>
+                </div>
             </div>
         </section>
 
         <section id="about" class="reveal">
-            <div class="container"> <!-- Add container -->
-                <h2>About Me</h2>
-                <p>I'm a Principal Cloud Platform Engineer with expertise in building scalable, resilient infrastructure and cloud-native solutions. I specialize in implementing platform engineering best practices to enable development teams to ship better code faster.</p>
-                <p>My focus includes cloud architecture, infrastructure as code, DevOps methodologies, and building secure, automated systems that improve developer productivity and operational excellence.</p>
-                <p>When I'm not designing cloud systems, I'm constantly learning about new technologies and contributing to open-source projects that align with my interests in cloud infrastructure and platform engineering. I'm also passionate about sharing knowledge and helping others grow in the field of cloud engineering.</p>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">// ABOUT ME</span>
+                    <h2>Crafting Cloud Excellence</h2>
+                    <p>Passionate about building infrastructure that scales and teams that thrive.</p>
+                </div>
+
+                <div class="card">
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+                        I'm a Principal Cloud Platform Engineer with deep expertise in building scalable, resilient infrastructure 
+                        and cloud-native solutions. I specialize in implementing platform engineering best practices to enable 
+                        development teams to ship better code faster.
+                    </p>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+                        My focus includes cloud architecture, infrastructure as code, DevOps methodologies, and building secure, 
+                        automated systems that improve developer productivity and operational excellence.
+                    </p>
+                    <p style="color: var(--text-secondary); line-height: 1.8;">
+                        When I'm not designing cloud systems, I'm constantly learning about new technologies and contributing 
+                        to open-source projects. I'm passionate about sharing knowledge and helping others grow in the field 
+                        of cloud engineering.
+                    </p>
+                </div>
+
+                <h3 style="text-align: center; margin-top: 4rem; margin-bottom: 0.5rem;">Technologies I Work With</h3>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Hover to see proficiency</p>
                 
-                <h3>Technologies I Work With</h3>
-                <div class="marquee-container">
-                    <div class="marquee-content">
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" class="tech-icon">
-                            <div class="tech-name">Google Cloud</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" class="tech-icon">
-                            <div class="tech-name">Terraform</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-icon">
-                            <div class="tech-name">Kubernetes</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon">
-                            <div class="tech-name">Docker</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="tech-icon">
-                            <div class="tech-name">GitHub</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Go" class="tech-icon">
-                            <div class="tech-name">Go</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon">
-                            <div class="tech-name">Python</div>
-                        </div>
-                        <div class="tech-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="tech-icon">
-                            <div class="tech-name">Linux</div>
-                        </div>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" class="tech-icon">
+                        <span class="tech-name">Google Cloud</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" class="tech-icon">
+                        <span class="tech-name">Terraform</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-icon">
+                        <span class="tech-name">Kubernetes</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon">
+                        <span class="tech-name">Docker</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="tech-icon" style="filter: invert(1);">
+                        <span class="tech-name">GitHub</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Go" class="tech-icon">
+                        <span class="tech-name">Go</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon">
+                        <span class="tech-name">Python</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="tech-icon">
+                        <span class="tech-name">Linux</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="experience" class="reveal">
-            <div class="container"> <!-- Add container -->
-                <h2>Experience</h2>
-                <div class="item reveal">
-                    <h3>Principal Cloud Platform Engineer at FLYR, Inc.</h3>
-                    <div class="item-meta">
-                        <i class="far fa-calendar-alt"></i> Current
-                    </div>
-                    <ul>
-                        <li>Lead cloud infrastructure and platform architecture design for enterprise travel industry solutions</li>
-                        <li>Implement infrastructure as code practices using modern tooling and methodologies</li>
-                        <li>Design and maintain CI/CD pipelines to enable developer productivity</li>
-                        <li>Establish cloud security best practices and governance frameworks</li>
-                        <li>Mentor engineering teams on cloud-native technologies and DevOps practices</li>
-                    </ul>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">// EXPERIENCE</span>
+                    <h2>Professional Journey</h2>
+                    <p>Building and scaling cloud infrastructure for enterprise organizations.</p>
                 </div>
-                
-                <!-- You can add more experience items here -->
+
+                <div class="card">
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h3 class="experience-title">
+                                Principal Cloud Platform Engineer at <span class="experience-company">FLYR, Inc.</span>
+                            </h3>
+                            <span class="experience-date">Current</span>
+                        </div>
+                        <ul class="experience-list">
+                            <li>Lead cloud infrastructure and platform architecture design for enterprise travel industry solutions</li>
+                            <li>Implement infrastructure as code practices using modern tooling and methodologies</li>
+                            <li>Design and maintain CI/CD pipelines to enable developer productivity</li>
+                            <li>Establish cloud security best practices and governance frameworks</li>
+                            <li>Mentor engineering teams on cloud-native technologies and DevOps practices</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="projects" class="reveal">
-             <div class="container"> <!-- Add container -->
-                <h2>Featured Projects</h2>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">// FEATURED WORK</span>
+                    <h2>Open Source Projects</h2>
+                    <p>Contributing to the cloud-native ecosystem through open source.</p>
+                </div>
+
                 <div class="projects-grid">
-                    <div class="item reveal">
+                    <div class="project-card">
                         <div class="project-image-container">
-                            <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Monorepo Architecture" class="project-image">
+                            <img src="images/project-monorepo.jpg" alt="Monorepo Architecture" class="project-image">
                         </div>
-                        <h3><a href="https://github.com/BlueCentre/monorepo" target="_blank">BlueCentre/monorepo</a></h3>
-                        <div class="item-meta">
-                            <i class="fas fa-code-branch"></i>&nbsp; Monorepo Blueprint
+                        <div class="project-content">
+                            <h3 class="project-title">
+                                <i class="fas fa-code-branch" style="color: var(--accent-blue);"></i>
+                                <a href="https://github.com/BlueCentre/monorepo" target="_blank">BlueCentre/monorepo</a>
+                            </h3>
+                            <p class="project-meta">Monorepo Blueprint</p>
+                            <p class="project-description">
+                                A structured approach to organizing monorepo architecture with best practices for scalability, 
+                                maintainability, and developer workflow optimization.
+                            </p>
+                            <div class="tags">
+                                <span class="tag">HCL</span>
+                                <span class="tag">Monorepo</span>
+                                <span class="tag">DevOps</span>
+                            </div>
                         </div>
-                        <p>A structured approach to organizing monorepo architecture with best practices for scalability, maintainability, and developer workflow optimization.</p>
-                        <div class="tags">
-                            <!-- Tags will be dynamically updated by JS -->
-                            <span class="tag">HCL</span>
-                            <span class="tag">Monorepo</span>
-                            <span class="tag">DevOps</span>
-                        </div>
-                        <!-- Link moved to h3 -->
                     </div>
-                    
-                    <div class="item reveal">
+
+                    <div class="project-card">
                         <div class="project-image-container">
-                            <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Google Cloud Foundation" class="project-image">
+                            <img src="images/project-gcp-foundation.jpg" alt="Google Cloud Foundation" class="project-image">
                         </div>
-                        <h3><a href="https://github.com/terraform-google-modules/terraform-example-foundation" target="_blank">terraform-google-modules/terraform-example-foundation</a></h3>
-                        <div class="item-meta">
-                            <i class="fas fa-cloud"></i>&nbsp; Google Cloud Foundation Blueprint
+                        <div class="project-content">
+                            <h3 class="project-title">
+                                <i class="fas fa-cloud" style="color: var(--accent-purple);"></i>
+                                <a href="https://github.com/terraform-google-modules/terraform-example-foundation" target="_blank">terraform-example-foundation</a>
+                            </h3>
+                            <p class="project-meta">Google Cloud Foundation Blueprint</p>
+                            <p class="project-description">
+                                Shows how the CFT modules can be composed to build a secure cloud foundation. 
+                                Enterprise-grade infrastructure patterns for Google Cloud deployments.
+                            </p>
+                            <div class="tags">
+                                <span class="tag">HCL</span>
+                                <span class="tag">Terraform</span>
+                                <span class="tag">Google Cloud</span>
+                            </div>
                         </div>
-                        <p>Shows how the CFT modules can be composed to build a secure cloud foundation. This project demonstrates enterprise-grade infrastructure patterns for Google Cloud deployments.</p>
-                        <div class="tags">
-                            <!-- Tags will be dynamically updated by JS -->
-                            <span class="tag">HCL</span>
-                            <span class="tag">Terraform</span>
-                            <span class="tag">Google Cloud</span>
-                        </div>
-                         <!-- Link moved to h3 -->
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <section id="connect" class="reveal">
-            <div class="container"> <!-- Add container -->
-                <h2>Connect</h2>
-                <p class="text-center">You can find me on GitHub where I contribute to various projects and maintain my own repositories.</p>
-                
-                <div class="github-stats reveal">
-                    <div class="stat-item">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">// GITHUB & CONNECT</span>
+                    <h2>Let's Build Together</h2>
+                    <p>Find me on GitHub or reach out to discuss cloud architecture and platform engineering.</p>
+                </div>
+
+                <div class="github-stats">
+                    <div class="stat-card">
                         <div class="stat-number" data-stat="repos">...</div>
                         <div class="stat-label">Repositories</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-card">
                         <div class="stat-number" data-stat="stars">...</div>
-                        <div class="stat-label">Stars</div>
+                        <div class="stat-label">Stars Earned</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-card">
                         <div class="stat-number" data-stat="followers">...</div>
                         <div class="stat-label">Followers</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-card">
                         <div class="stat-number" data-stat="following">...</div>
                         <div class="stat-label">Following</div>
                     </div>
                 </div>
-                
-                <p class="text-center" style="margin-top: 2.5em; font-weight: 500;">GitHub Achievements:</p>
+
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1rem;">GitHub Achievements</p>
                 <div class="achievements">
                     <div class="achievement">
                         <i class="fas fa-handshake"></i> Pair Extraordinaire x3
@@ -220,109 +1262,220 @@
                     <div class="achievement">
                         <i class="fas fa-bolt-lightning"></i> Quickdraw
                     </div>
-                    <!-- Replace fas fa-award, fas fa-code-branch, fas fa-bolt with more fitting icons -->
                 </div>
-                
-                 <!-- Activity Feed will be inserted here by JS -->
-                
-                <div class="item reveal">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always interested in discussing cloud architecture, infrastructure as code, and platform engineering topics. Feel free to reach out:</p>
-                    
-                    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+                <div class="contact-grid" style="margin-top: 4rem;">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p>
+                            I'm always interested in discussing cloud architecture, infrastructure as code, 
+                            and platform engineering topics. Feel free to reach out!
+                        </p>
+                        <div class="contact-links">
+                            <a href="https://github.com/ipv1337" target="_blank" class="contact-link">
+                                <i class="fab fa-github"></i>
+                                <span>github.com/ipv1337</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="contact-link">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn Profile</span>
+                            </a>
+                            <a href="https://flyr.com" target="_blank" class="contact-link">
+                                <i class="fas fa-building"></i>
+                                <span>FLYR, Inc.</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
+                            <textarea id="message" name="message" placeholder="How can I help you?" required></textarea>
                         </div>
-                        <button type="submit" class="btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
                     </form>
-
-                    <div class="social-links-connect">
-                        <p><a href="https://github.com/ipv1337" target="_blank"><i class="fab fa-github"></i> GitHub Profile</a></p>
-                        <p><a href="https://flyr.com" target="_blank"><i class="fas fa-building"></i> FLYR, Inc.</a></p>
-                        <!-- Add LinkedIn or other relevant links here -->
-                        <p><a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></p>
-                    </div>
                 </div>
             </div>
         </section>
 
         <section id="blog" class="reveal">
-             <div class="container"> <!-- Add container -->
-                <h2>Blog</h2>
-                <p class="text-center" style="max-width: 600px; margin: 0 auto 2.5em auto; color: var(--subtle-text);">Latest thoughts and technical articles on cloud architecture and platform engineering.</p>
-                <p class="text-center" style="max-width: 600px; margin: 0 auto 2.5em auto; color: var(--subtle-text);">I'm always looking to share knowledge and insights. If you have specific topics or questions you'd like to see covered in a future post, feel free to reach out or suggest them!</p>
-                <div class="item reveal">
-                    <div class="project-image-container">
-                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Google Cloud Security" class="project-image">
-                    </div>
-                    <h3>Setting Up a Secure Foundation on Google Cloud with Terraform</h3>
-                    <div class="item-meta">
-                        <i class="far fa-calendar-alt"></i>&nbsp; Draft in Progress
-                    </div>
-                    <p>A walkthrough of establishing a secure, scalable foundation for enterprise workloads on Google Cloud using infrastructure as code principles and Terraform modules.</p>
-                    <p><em>Key topics will include: core security principles, IAM configuration, network setup, and logging/monitoring strategies.</em></p>
-                </div>
-                <div class="item reveal">
-                    <div class="project-image-container">
-                        <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Code Repository" class="project-image">
-                    </div>
-                    <h3>Monorepo Architecture: Lessons from Real-world Implementations</h3>
-                    <div class="item-meta">
-                        <i class="far fa-calendar-alt"></i>&nbsp; Outline Available - Coming Soon!
-                    </div>
-                    <p>Discussing the advantages, challenges, and practical considerations when adopting a monorepo approach for complex projects.</p>
-                    <p><em>Exploring benefits, challenges, and tooling for effective monorepos.</em></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="resources" class="reveal">
             <div class="container">
-                <h2>Helpful Resources</h2>
-                <p class="text-center" style="max-width: 600px; margin: 0 auto 2.5em auto; color: var(--subtle-text);">A curated list of tools, articles, and communities that I find valuable in the realm of cloud platform engineering.</p>
-                <div class="item reveal">
-                    <h3><a href="https://cloud.google.com/docs" target="_blank">Google Cloud Documentation</a></h3>
-                    <div class="item-meta"><i class="fas fa-book"></i> Official Documentation & Guides</div>
-                    <p>The official documentation for all Google Cloud services. An essential resource for specifics, tutorials, and best practices.</p>
-                    <div class="tags"><span class="tag">GCP</span><span class="tag">Documentation</span><span class="tag">Official</span></div>
+                <div class="section-header">
+                    <span class="section-label">// THOUGHTS & INSIGHTS</span>
+                    <h2>Technical Blog</h2>
+                    <p>Sharing knowledge about cloud architecture and platform engineering.</p>
                 </div>
-                <div class="item reveal">
-                    <h3><a href="https://www.cncf.io/" target="_blank">Cloud Native Computing Foundation (CNCF)</a></h3>
-                    <div class="item-meta"><i class="fas fa-users"></i> Community & Projects</div>
-                    <p>Home to many open-source projects like Kubernetes and Prometheus. Great for understanding the cloud-native landscape.</p>
-                    <div class="tags"><span class="tag">Open Source</span><span class="tag">Cloud Native</span><span class="tag">Community</span></div>
-                </div>
-                <div class="item reveal">
-                    <h3><a href="https://stackoverflow.com/questions/tagged/google-cloud-platform+devops" target="_blank">Stack Overflow - Cloud & DevOps</a></h3>
-                    <div class="item-meta"><i class="fas fa-question-circle"></i> Q&A and Problem Solving</div>
-                    <p>A go-to place for specific technical questions and answers from a large community of developers and engineers.</p>
-                    <div class="tags"><span class="tag">Q&A</span><span class="tag">Troubleshooting</span><span class="tag">Community</span></div>
+
+                <div class="blog-grid">
+                    <div class="blog-card">
+                        <img src="images/blog-cloud-security.jpg" alt="Cloud Security" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-status">Coming Soon</span>
+                            </div>
+                            <h3 class="blog-title">Setting Up a Secure Foundation on Google Cloud with Terraform</h3>
+                            <p class="blog-description">
+                                A walkthrough of establishing a secure, scalable foundation for enterprise workloads 
+                                on Google Cloud using infrastructure as code principles and Terraform modules.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="images/blog-monorepo.jpg" alt="Monorepo Architecture" class="blog-image">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-status">Coming Soon</span>
+                            </div>
+                            <h3 class="blog-title">Monorepo Architecture: Lessons from Real-world Implementations</h3>
+                            <p class="blog-description">
+                                Discussing the advantages, challenges, and practical considerations when adopting 
+                                a monorepo approach for complex projects.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-         <div class="container"> <!-- Add container -->
-            <p>&copy; 2025 James H. Nguyen. All rights reserved.</p>
-            <div class="social-links">
-                <a href="https://github.com/ipv1337" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                <!-- Add other social links -->
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/ipv1337" target="_blank" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2025 James H. Nguyen. Built with passion and deployed on GitHub Pages.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Scroll Progress
+        const scrollProgress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active nav link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // GitHub Stats
+        const githubUsername = 'ipv1337';
+        
+        async function fetchGitHubStats() {
+            try {
+                // Fetch user profile
+                const userResponse = await fetch(`https://api.github.com/users/${githubUsername}`);
+                if (!userResponse.ok) throw new Error('Failed to fetch user');
+                const userData = await userResponse.json();
+
+                document.querySelector('[data-stat="repos"]').textContent = userData.public_repos;
+                document.querySelector('[data-stat="followers"]').textContent = userData.followers;
+                document.querySelector('[data-stat="following"]').textContent = userData.following;
+
+                // Fetch repos for stars count
+                const reposResponse = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
+                if (!reposResponse.ok) throw new Error('Failed to fetch repos');
+                const repos = await reposResponse.json();
+                
+                const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+                document.querySelector('[data-stat="stars"]').textContent = totalStars;
+            } catch (error) {
+                console.error('Error fetching GitHub stats:', error);
+            }
+        }
+
+        fetchGitHubStats();
+
+        // Typewriter reset on scroll back
+        const typewriter = document.querySelector('.typewriter');
+        const heroSection = document.getElementById('home');
+        
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typewriter.style.animation = 'none';
+                    typewriter.offsetHeight; // Trigger reflow
+                    typewriter.style.animation = 'typing 3s steps(40) 0.5s forwards, blink 0.75s step-end infinite';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        heroObserver.observe(heroSection);
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>
-
