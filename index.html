@@ -240,14 +240,26 @@
             width: 100%;
             height: 100%;
             background: url('images/hero-bg.jpg') center/cover no-repeat;
-            opacity: 0.15;
+            opacity: 0.1;
             z-index: -1;
+        }
+
+        #heroCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
         }
 
         .hero-content {
             text-align: center;
             max-width: 800px;
             animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -296,10 +308,17 @@
         }
 
         .hero-title-accent {
-            background: var(--accent-gradient);
+            background: linear-gradient(90deg, #00d4ff, #7c3aed, #ec4899, #00d4ff);
+            background-size: 300% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero-subtitle {
@@ -311,15 +330,12 @@
 
         .typewriter {
             display: inline-block;
-            overflow: hidden;
-            border-right: 2px solid var(--accent-blue);
-            white-space: nowrap;
-            animation: typing 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
+            min-width: 280px;
         }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+        .typewriter-text {
+            border-right: 2px solid var(--accent-blue);
+            animation: blink 0.75s step-end infinite;
         }
 
         @keyframes blink {
@@ -1038,6 +1054,7 @@
 
     <main>
         <section id="home" class="hero">
+            <canvas id="heroCanvas"></canvas>
             <div class="hero-bg"></div>
             <div class="hero-content">
                 <div class="profile-container">
@@ -1049,7 +1066,7 @@
                 </div>
                 <h1>James H. <span class="hero-title-accent">Nguyen</span></h1>
                 <p class="hero-subtitle">
-                    <span class="typewriter">Principal Cloud Platform Engineer</span>
+                    <span class="typewriter"><span class="typewriter-text" id="typewriter"></span></span>
                 </p>
                 <div class="hero-location">
                     <i class="fas fa-map-marker-alt"></i>
@@ -1458,19 +1475,158 @@
 
         fetchGitHubStats();
 
-        // Typewriter reset on scroll back
-        const typewriter = document.querySelector('.typewriter');
-        const heroSection = document.getElementById('home');
+        // ===== Typewriter with rotating phrases =====
+        const phrases = [
+            'Principal Cloud Platform Engineer',
+            'Building scalable infrastructure',
+            'Enabling developer productivity',
+            'Architecting cloud-native solutions'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typewriterEl = document.getElementById('typewriter');
         
+        function typewrite() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 30 : 80;
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Pause before next phrase
+            }
+            
+            setTimeout(typewrite, typeSpeed);
+        }
+        
+        // Start typewriter
+        setTimeout(typewrite, 1000);
+
+        // ===== Particle Animation (Canvas) =====
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                // Color variation between cyan and purple
+                const hue = Math.random() > 0.5 ? 190 : 270;
+                this.color = `hsla(${hue}, 80%, 60%, ${this.opacity})`;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Wrap around edges
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function connectParticles() {
+            const maxDistance = 120;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * 0.15;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(100, 130, 230, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            connectParticles();
+            animationId = requestAnimationFrame(animateParticles);
+        }
+        
+        // Initialize and start animation
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+        
+        // Pause animation when not visible (performance)
+        const heroSection = document.getElementById('home');
         const heroObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    typewriter.style.animation = 'none';
-                    typewriter.offsetHeight; // Trigger reflow
-                    typewriter.style.animation = 'typing 3s steps(40) 0.5s forwards, blink 0.75s step-end infinite';
+                    if (!animationId) animateParticles();
+                } else {
+                    if (animationId) {
+                        cancelAnimationFrame(animationId);
+                        animationId = null;
+                    }
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.1 });
 
         heroObserver.observe(heroSection);
 
