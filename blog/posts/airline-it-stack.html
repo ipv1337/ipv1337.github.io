@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline IT Stack: Why It’s Stuck (and How It Actually Works) - James H. Nguyen</title>
+    <meta name="description" content="A detailed technical breakdown of the airline IT stack (GDS, PSS, direct channels), how components interact, and why modernization stalls.">
+    <meta name="author" content="James H. Nguyen">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Airline IT Stack: Why It’s Stuck (and How It Actually Works)">
+    <meta property="og:description" content="A detailed technical breakdown of the airline IT stack (GDS, PSS, direct channels), how components interact, and why modernization stalls.">
+    <meta property="og:image" content="https://ipv1337.dev/images/blog-airline-stack.png">
+    <meta property="article:published_time" content="2026-02-06">
+    <meta property="article:author" content="James H. Nguyen">
+    <meta property="article:tag" content="Platform Engineering">
+    <meta property="article:tag" content="Systems">
+    <meta property="article:tag" content="Architecture">
+    
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="canonical" href="https://ipv1337.dev/blog/posts/airline-it-stack.html">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    
+    <link rel="stylesheet" href="/blog/blog.css">
+    <link rel="stylesheet" href="/blog/post.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <header>
+        <nav class="container">
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">JN</span>
+                <span>James H. Nguyen</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post">
+            <div class="post-header">
+                <div class="container">
+                    <a href="/blog/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+                    <div class="post-meta">
+                        <span class="post-category">Systems</span>
+                        <span class="post-date">February 6, 2026</span>
+                        <span class="post-read-time"><i class="far fa-clock"></i> 10 min read</span>
+                    </div>
+                    <h1>Airline IT Stack: Why It’s Stuck (and How It Actually Works)</h1>
+                    <p class="post-subtitle">
+                        A detailed technical breakdown of the airline IT stack—GDS, PSS, direct channels, and the economic forces that keep
+                        modernization stalled despite clear incentives to improve.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">Platform Engineering</span>
+                        <span class="tag">Systems</span>
+                        <span class="tag">Architecture</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-hero">
+                <img src="/images/blog-airline-stack.png" alt="Airline IT Stack Overview">
+            </div>
+
+            <div class="post-content">
+                <div class="container">
+                    <section>
+                        <h2>TL;DR</h2>
+                        <p>
+                            The airline industry runs on a layered stack built around Global Distribution Systems (GDS) and Passenger Service Systems (PSS).
+                            Direct channels are modern, but the shared backbone remains rigid, making it difficult to sell modern products and forcing the
+                            industry into a “reverse tragedy of the commons” where no single airline wants to pay the cost of interoperability upgrades alone.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>1) The Stack — Who Does What?</h2>
+                        <p>
+                            The airline IT stack can be understood as a set of layers with very different incentives:
+                        </p>
+                        <ul>
+                            <li><strong>Customer Channels:</strong> OTAs (Expedia, Booking), travel agents, airline websites/apps.</li>
+                            <li><strong>Distribution:</strong> GDS (Sabre, Amadeus, Travelport) for availability, pricing, ticketing.</li>
+                            <li><strong>Airline Core:</strong> PSS for inventory, fares, ticketing, and check-in.</li>
+                            <li><strong>Ops/Fulfillment:</strong> boarding, baggage, upgrades, and airport systems.</li>
+                        </ul>
+
+                        <div class="architecture-diagram">
+                            <pre><code class="language-plaintext">Customer Channels
+  - OTA / Agent / Airline App
+           |
+           v
+    Global Distribution System (GDS)
+           |
+           v
+  Passenger Service System (PSS)
+           |
+           v
+   Operations & Fulfillment</code></pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>2) Why GDS Still Runs the World</h2>
+                        <p>
+                            GDS is the interoperability layer. It allows agents and OTAs to assemble itineraries across airlines using decades‑old command-line
+                            systems. The problem: it’s based on rigid data models and rules that don’t express modern product features (bundles, flexible seating,
+                            dynamic upgrades). This blocks innovation at the distribution layer.
+                        </p>
+                        <p>
+                            The result: airlines can innovate on their own apps and websites, but they can’t consistently expose those features through the GDS.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>3) Direct Channels vs. Interoperability</h2>
+                        <p>
+                            Direct channels are where airlines make the most money. They can do:
+                        </p>
+                        <ul>
+                            <li>Upsells (bags, seats, early boarding)</li>
+                            <li>Credit card promos</li>
+                            <li>Dynamic offers</li>
+                        </ul>
+
+                        <p>
+                            But direct channels fragment the ecosystem. Customers lose the seamless ability to compare and combine itineraries across carriers.
+                        </p>
+
+                        <div class="architecture-diagram">
+                            <pre><code class="language-plaintext">Legacy Path (GDS)
+Customer -> OTA/Agent -> GDS -> PSS -> Ticket
+
+Modern Path (Direct)
+Customer -> Airline App -> PSS -> Upsell Engine -> Ticket + Ancillaries</code></pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>4) The Economic Stalemate (Reverse Tragedy of the Commons)</h2>
+                        <p>
+                            Each airline is disincentivized to modernize interoperability alone. If one carrier upgrades but partners do not, it pays the cost
+                            without receiving network effects. In equilibrium, everyone stays on “good enough” systems.
+                        </p>
+                        <p>
+                            This creates a systemic modernization deadlock—even though all parties would benefit if they moved together.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>5) Why It’s a Public Concern</h2>
+                        <p>
+                            Airlines function as essential infrastructure. The public depends on them for long‑haul travel and rural connectivity. But the incentives
+                            are shareholder‑focused, not public‑service‑focused. That gap is why regulatory pressure is often the only force capable of shifting the
+                            technical equilibrium.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Suggested Diagrams / Visuals</h2>
+                        <ul>
+                            <li><strong>Layered Stack Diagram:</strong> Customer → GDS → PSS → Ops.</li>
+                            <li><strong>Legacy vs Direct Flow:</strong> Compare GDS booking vs airline app booking.</li>
+                            <li><strong>Reverse Tragedy Graphic:</strong> Network of airlines where no one upgrades.</li>
+                            <li><strong>Data Model Gap:</strong> “Seat = {type, price}” vs “Bundle = {seat, bag, lounge, rebook}”.</li>
+                        </ul>
+                    </section>
+
+                    <div class="post-footer">
+                        <div class="share-section">
+                            <span>Share this article:</span>
+                            <div class="share-buttons">
+                                <a href="https://twitter.com/intent/tweet?url=https://ipv1337.dev/blog/posts/airline-it-stack.html&text=Airline IT Stack: Why It’s Stuck (and How It Actually Works)" 
+                                   target="_blank" class="share-btn twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ipv1337.dev/blog/posts/airline-it-stack.html" 
+                                   target="_blank" class="share-btn linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <section class="related-posts">
+            <div class="container">
+                <h3>Continue Reading</h3>
+                <div class="related-grid">
+                    <a href="/blog/posts/agentic-coding.html" class="related-card coming-soon">
+                        <span class="status">Coming Soon</span>
+                        <h4>Agentic Coding: The Future of Developer Productivity</h4>
+                        <span class="meta">AI Agents • 10 min read</span>
+                    </a>
+                    <a href="/blog/posts/openclaw-android-app.html" class="related-card coming-soon">
+                        <span class="status">Coming Soon</span>
+                        <h4>OpenClaw Android Companion: From Idea to Implementation</h4>
+                        <span class="meta">Projects • 12 min read</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/ipv1337" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2025 James H. Nguyen. Built with passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+        
+        // Reading progress
+        const progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+    </script>
+</body>
+</html>
