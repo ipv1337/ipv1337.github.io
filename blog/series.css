@@ -1,0 +1,881 @@
+/* ===== Series Styles ===== */
+/* For multi-part blog series: landing page, in-post series nav, callouts */
+
+/* ————— Series Hero ————— */
+.series-hero {
+    padding: 160px 0 60px;
+    text-align: center;
+}
+
+.series-hero .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    transition: var(--transition-fast);
+}
+
+.series-hero .back-link:hover {
+    color: var(--accent-blue);
+}
+
+.series-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.series-tagline {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+}
+
+.series-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.series-meta-item {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.series-meta-item i {
+    color: var(--accent-purple);
+}
+
+/* ————— Series Progress Bar ————— */
+.series-progress {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.series-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.series-progress-fill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.series-progress-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+/* ————— Series Badge (used in hero and in-post) ————— */
+.series-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent-purple);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+}
+
+.series-badge-icon {
+    font-size: 0.9rem;
+}
+
+/* ————— Phase Timeline (Landing Page) ————— */
+.series-timeline {
+    padding: 2rem 0 4rem;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Left column: marker + line */
+.timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 48px;
+}
+
+.timeline-number {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Published state: filled gradient */
+.timeline-item.published .timeline-number {
+    background: var(--primary-gradient);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Upcoming state: outlined */
+.timeline-item.upcoming .timeline-number {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-glow);
+    color: var(--text-muted);
+}
+
+.timeline-line {
+    width: 2px;
+    flex-grow: 1;
+    min-height: 40px;
+    background: linear-gradient(to bottom, var(--border-glow), var(--border-color));
+}
+
+.timeline-item.upcoming .timeline-line {
+    background: linear-gradient(to bottom, var(--border-color), transparent);
+    opacity: 0.5;
+}
+
+/* Right column: card */
+.timeline-card {
+    flex-grow: 1;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    transition: var(--transition-base);
+}
+
+.timeline-item.published .timeline-card:hover {
+    border-color: var(--border-glow);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.timeline-item.upcoming .timeline-card {
+    opacity: 0.7;
+}
+
+.timeline-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.phase-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-blue);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.timeline-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.timeline-status.published {
+    color: var(--accent-green);
+}
+
+.timeline-status.upcoming {
+    color: var(--text-muted);
+}
+
+.timeline-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+}
+
+.timeline-card h2 a {
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+}
+
+.timeline-card h2 a:hover {
+    color: var(--accent-blue);
+}
+
+.timeline-excerpt {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.timeline-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.timeline-meta i {
+    margin-right: 0.3rem;
+}
+
+.timeline-card .read-more {
+    margin-top: 0.5rem;
+}
+
+/* ————— Series Context / Meta Badge ————— */
+.series-context {
+    padding: 0 0 4rem;
+}
+
+.meta-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.06), rgba(124, 58, 237, 0.06));
+    border: 1px solid var(--border-glow);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.meta-badge-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.1rem;
+}
+
+.meta-badge-content {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.meta-badge-content strong {
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.series-origin {
+    text-align: center;
+}
+
+.series-origin p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* ————— In-Post Series Banner ————— */
+/* Placed at top of each post, just below the post-header */
+.series-banner {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.series-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.series-banner-number {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.series-banner-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.series-banner-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.series-banner-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.series-banner-title a {
+    color: var(--text-primary);
+}
+
+.series-banner-title a:hover {
+    color: var(--accent-blue);
+}
+
+.series-banner-dots {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.series-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--border-glow);
+    background: transparent;
+    transition: var(--transition-fast);
+}
+
+.series-dot.active {
+    background: var(--accent-purple);
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 8px rgba(124, 58, 237, 0.5);
+}
+
+.series-dot.completed {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+/* ————— In-Post Series Nav (replaces Related Posts) ————— */
+.series-nav {
+    padding: 3rem 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+.series-nav .container {
+    max-width: 800px;
+}
+
+.series-nav-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.series-nav-header h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.series-nav-header p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.series-nav-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.series-nav-link {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: var(--transition-base);
+    text-decoration: none;
+}
+
+.series-nav-link:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+}
+
+.series-nav-link.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.series-nav-link.prev {
+    text-align: left;
+}
+
+.series-nav-link.next {
+    text-align: right;
+}
+
+.series-nav-direction {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+}
+
+.series-nav-link-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.series-nav-link:hover .series-nav-link-title {
+    color: var(--accent-blue);
+}
+
+/* ————— Callout Boxes ————— */
+/* Used for: "Try it yourself", "Reality Check", "What We Learned" */
+.callout {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+    border-left: 3px solid;
+}
+
+.callout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.callout-header i {
+    font-size: 1rem;
+}
+
+.callout-body {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.callout-body p:last-child {
+    margin-bottom: 0;
+}
+
+.callout-body code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+}
+
+/* Callout variants */
+.callout.try-it {
+    background: rgba(16, 185, 129, 0.06);
+    border-left-color: var(--accent-green);
+}
+
+.callout.try-it .callout-header {
+    color: var(--accent-green);
+}
+
+.callout.reality-check {
+    background: rgba(236, 72, 153, 0.06);
+    border-left-color: var(--accent-pink);
+}
+
+.callout.reality-check .callout-header {
+    color: var(--accent-pink);
+}
+
+.callout.insight {
+    background: rgba(0, 212, 255, 0.06);
+    border-left-color: var(--accent-blue);
+}
+
+.callout.insight .callout-header {
+    color: var(--accent-blue);
+}
+
+.callout.warning {
+    background: rgba(251, 191, 36, 0.06);
+    border-left-color: #fbbf24;
+}
+
+.callout.warning .callout-header {
+    color: #fbbf24;
+}
+
+/* ————— Role Cards (Org Chart) ————— */
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.role-card {
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+    transition: var(--transition-base);
+}
+
+.role-card:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+}
+
+.role-card-emoji {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.role-card-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.role-card-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-purple);
+    margin-bottom: 0.5rem;
+}
+
+.role-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.role-card-model {
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0.6rem;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    display: inline-block;
+}
+
+/* Lead role card highlighted */
+.role-card.lead {
+    border-color: var(--border-glow);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(124, 58, 237, 0.08));
+}
+
+/* ————— Diff View ————— */
+.diff-block {
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.diff-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.diff-filename {
+    color: var(--text-secondary);
+}
+
+.diff-labels {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.diff-label-old {
+    color: var(--accent-pink);
+}
+
+.diff-label-new {
+    color: var(--accent-green);
+}
+
+.diff-block pre {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+}
+
+.diff-block code .diff-add {
+    background: rgba(16, 185, 129, 0.12);
+    display: block;
+    margin: 0 -1.25rem;
+    padding: 0 1.25rem;
+    border-left: 3px solid var(--accent-green);
+}
+
+.diff-block code .diff-remove {
+    background: rgba(236, 72, 153, 0.12);
+    display: block;
+    margin: 0 -1.25rem;
+    padding: 0 1.25rem;
+    border-left: 3px solid var(--accent-pink);
+    opacity: 0.7;
+}
+
+.diff-block code .diff-context {
+    display: block;
+    margin: 0 -1.25rem;
+    padding: 0 1.25rem;
+    color: var(--text-muted);
+}
+
+/* ————— Pipeline / Flowchart (Part 3) ————— */
+.pipeline {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.pipeline-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+}
+
+.pipeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 40px;
+}
+
+.pipeline-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.pipeline-icon.user     { background: rgba(0, 212, 255, 0.15); color: var(--accent-blue); }
+.pipeline-icon.lead     { background: rgba(102, 126, 234, 0.15); color: #667eea; }
+.pipeline-icon.analyst  { background: rgba(124, 58, 237, 0.15); color: var(--accent-purple); }
+.pipeline-icon.writer   { background: rgba(236, 72, 153, 0.15); color: var(--accent-pink); }
+.pipeline-icon.devops   { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+.pipeline-icon.cron     { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+
+.pipeline-line {
+    width: 2px;
+    height: 24px;
+    background: var(--border-glow);
+    opacity: 0.4;
+}
+
+.pipeline-content {
+    padding: 0.5rem 0 1.5rem;
+    flex-grow: 1;
+}
+
+.pipeline-step-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.15rem;
+}
+
+.pipeline-step-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.pipeline-step-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ————— Workspace Tree (file tree display) ————— */
+.file-tree {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.file-tree .dir {
+    color: var(--accent-blue);
+}
+
+.file-tree .file {
+    color: var(--text-secondary);
+}
+
+.file-tree .file-desc {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+/* ————— Responsive ————— */
+@media (max-width: 768px) {
+    .series-hero {
+        padding: 140px 0 40px;
+    }
+
+    .series-meta {
+        gap: 1rem;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .timeline-marker {
+        flex-direction: row;
+        width: auto;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .timeline-line {
+        height: 2px;
+        width: 40px;
+        min-height: auto;
+    }
+
+    .timeline-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .timeline-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .timeline-card h2 {
+        font-size: 1.2rem;
+    }
+
+    .series-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .series-nav-links {
+        grid-template-columns: 1fr;
+    }
+
+    .role-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .callout {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .series-meta {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .timeline-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .role-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-step {
+        gap: 0.75rem;
+    }
+}
