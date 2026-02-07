@@ -1,0 +1,41 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0f14"/>
+      <stop offset="100%" stop-color="#0a111a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <text x="90" y="90" fill="#cfe6ff" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Reverse Tragedy of the Commons</text>
+  <text x="90" y="130" fill="#9bb3c7" font-family="Inter, Arial, sans-serif" font-size="20">Each airline waits for others to modernize, so no one moves</text>
+
+  <g stroke="#64ffda" stroke-width="2" fill="#0f1a24">
+    <circle cx="700" cy="470" r="210"/>
+  </g>
+
+  <!-- nodes -->
+  <g font-family="Inter, Arial, sans-serif" font-size="18" fill="#e9f3ff" stroke="#4fc3f7" stroke-width="2">
+    <circle cx="700" cy="250" r="60" fill="#0f1a24"/>
+    <text x="665" y="256">Airline A</text>
+
+    <circle cx="520" cy="360" r="60" fill="#0f1a24"/>
+    <text x="485" y="366">Airline B</text>
+
+    <circle cx="880" cy="360" r="60" fill="#0f1a24"/>
+    <text x="845" y="366">Airline C</text>
+
+    <circle cx="560" cy="560" r="60" fill="#0f1a24"/>
+    <text x="525" y="566">Airline D</text>
+
+    <circle cx="840" cy="560" r="60" fill="#0f1a24"/>
+    <text x="805" y="566">Airline E</text>
+  </g>
+
+  <g stroke="#64ffda" stroke-width="2" opacity="0.6">
+    <path d="M700 250 L520 360"/>
+    <path d="M700 250 L880 360"/>
+    <path d="M520 360 L560 560"/>
+    <path d="M880 360 L840 560"/>
+    <path d="M560 560 L840 560"/>
+  </g>
+</svg>

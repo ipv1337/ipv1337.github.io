@@ -1,0 +1,57 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0f14"/>
+      <stop offset="100%" stop-color="#0a111a"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4fc3f7"/>
+      <stop offset="100%" stop-color="#64ffda"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <text x="70" y="80" fill="#cfe6ff" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Legacy vs Direct Booking Flows</text>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="22" fill="#dce9f6">
+    <text x="120" y="150">Legacy (GDS)</text>
+    <text x="780" y="150">Direct (Airline)</text>
+  </g>
+
+  <!-- legacy flow -->
+  <g stroke="url(#neon)" stroke-width="2" fill="#0f1a24">
+    <rect x="120" y="200" rx="12" ry="12" width="420" height="70"/>
+    <rect x="120" y="320" rx="12" ry="12" width="420" height="70"/>
+    <rect x="120" y="440" rx="12" ry="12" width="420" height="70"/>
+    <rect x="120" y="560" rx="12" ry="12" width="420" height="70"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="20" fill="#e9f3ff">
+    <text x="150" y="245">Customer / Agent / OTA</text>
+    <text x="150" y="365">GDS</text>
+    <text x="150" y="485">PSS</text>
+    <text x="150" y="605">Ticket / Ops</text>
+  </g>
+  <g stroke="#64ffda" stroke-width="2">
+    <path d="M330 270 V320"/>
+    <path d="M330 390 V440"/>
+    <path d="M330 510 V560"/>
+  </g>
+
+  <!-- direct flow -->
+  <g stroke="url(#neon)" stroke-width="2" fill="#0f1a24">
+    <rect x="780" y="200" rx="12" ry="12" width="420" height="70"/>
+    <rect x="780" y="320" rx="12" ry="12" width="420" height="70"/>
+    <rect x="780" y="440" rx="12" ry="12" width="420" height="70"/>
+    <rect x="780" y="560" rx="12" ry="12" width="420" height="70"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="20" fill="#e9f3ff">
+    <text x="810" y="245">Customer</text>
+    <text x="810" y="365">Airline App / Website</text>
+    <text x="810" y="485">PSS</text>
+    <text x="810" y="605">Upsell + Ticket</text>
+  </g>
+  <g stroke="#64ffda" stroke-width="2">
+    <path d="M990 270 V320"/>
+    <path d="M990 390 V440"/>
+    <path d="M990 510 V560"/>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0f14"/>
+      <stop offset="100%" stop-color="#0a111a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <text x="90" y="90" fill="#cfe6ff" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Data Model Gap</text>
+  <text x="90" y="130" fill="#9bb3c7" font-family="Inter, Arial, sans-serif" font-size="20">Legacy GDS can’t represent modern product bundles</text>
+
+  <g font-family="JetBrains Mono, monospace" font-size="22" fill="#e9f3ff">
+    <text x="120" y="230">Seat = {</text>
+    <text x="140" y="270">type,</text>
+    <text x="140" y="310">price</text>
+    <text x="120" y="350">}</text>
+
+    <text x="760" y="230">Bundle = {</text>
+    <text x="780" y="270">seat,</text>
+    <text x="780" y="310">bag,</text>
+    <text x="780" y="350">lounge,</text>
+    <text x="780" y="390">rebook</text>
+    <text x="760" y="430">}</text>
+  </g>
+
+  <g stroke="#64ffda" stroke-width="2" opacity="0.6">
+    <rect x="100" y="190" rx="12" ry="12" width="420" height="200" fill="#0f1a24"/>
+    <rect x="740" y="190" rx="12" ry="12" width="420" height="260" fill="#0f1a24"/>
+    <path d="M540 300 H720"/>
+  </g>
+</svg>
