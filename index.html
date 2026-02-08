@@ -1305,6 +1305,380 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* ===== Architecture Diagram Panel ===== */
+        .arch-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(124, 58, 237, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.25);
+            border-radius: 12px;
+            color: var(--accent-blue);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+            letter-spacing: 0.5px;
+        }
+
+        .arch-toggle-btn:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(124, 58, 237, 0.2));
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .arch-toggle-btn .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+        }
+
+        .arch-toggle-btn.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .arch-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .arch-panel.expanded {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .arch-panel-inner {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .arch-panel-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Diagram Container */
+        .arch-diagram {
+            position: relative;
+            width: 100%;
+            min-height: 300px;
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+
+        .arch-diagram::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Diagram Nodes */
+        .arch-node {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(18, 18, 26, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            cursor: default;
+            transition: var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .arch-node:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+            z-index: 10;
+        }
+
+        .arch-node .node-icon {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .arch-node .node-glow {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            top: -3px;
+            right: -3px;
+            box-shadow: 0 0 8px var(--accent-blue);
+            animation: nodeGlowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes nodeGlowPulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Node color variants */
+        .arch-node.node-primary {
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+        .arch-node.node-primary .node-glow { background: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue); }
+
+        .arch-node.node-secondary {
+            border-color: rgba(124, 58, 237, 0.4);
+        }
+        .arch-node.node-secondary .node-glow { background: var(--accent-purple); box-shadow: 0 0 8px var(--accent-purple); }
+
+        .arch-node.node-accent {
+            border-color: rgba(236, 72, 153, 0.4);
+        }
+        .arch-node.node-accent .node-glow { background: var(--accent-pink); box-shadow: 0 0 8px var(--accent-pink); }
+
+        .arch-node.node-success {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+        .arch-node.node-success .node-glow { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+
+        /* Tooltip */
+        .arch-tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            padding: 0.6rem 1rem;
+            background: rgba(18, 18, 26, 0.95);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .arch-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--border-glow);
+        }
+
+        .arch-node:hover .arch-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Flow layout for diagrams */
+        .arch-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .arch-flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .arch-flow-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: -0.5rem;
+        }
+
+        /* Connector arrows between rows */
+        .arch-connector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            position: relative;
+        }
+
+        .arch-connector::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(102, 126, 234, 0.5), rgba(124, 58, 237, 0.5));
+            animation: connectorPulse 2s ease-in-out infinite;
+        }
+
+        .arch-connector::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid rgba(124, 58, 237, 0.6);
+        }
+
+        @keyframes connectorPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Horizontal connectors */
+        .arch-h-connector {
+            display: flex;
+            align-items: center;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(102, 126, 234, 0.5), rgba(124, 58, 237, 0.5));
+            position: relative;
+            animation: connectorPulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .arch-h-connector::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            width: 0;
+            height: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 5px solid rgba(124, 58, 237, 0.6);
+        }
+
+        /* Group boxes */
+        .arch-group {
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .arch-group-label {
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            background: rgba(10, 10, 15, 0.9);
+            padding: 0 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .arch-group .arch-flow-row {
+            gap: 0.75rem;
+        }
+
+        /* Foundation layer styles for terraform diagram */
+        .arch-layer {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .arch-layer-label {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.5rem 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            border-right: 2px solid rgba(124, 58, 237, 0.3);
+        }
+
+        .arch-layer-content {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive diagram adjustments */
+        @media (max-width: 768px) {
+            .arch-diagram {
+                padding: 1rem;
+                min-height: 250px;
+            }
+
+            .arch-node {
+                font-size: 0.65rem;
+                padding: 0.45rem 0.7rem;
+            }
+
+            .arch-flow-row {
+                gap: 0.5rem;
+            }
+
+            .arch-tooltip {
+                font-size: 0.65rem;
+                max-width: 200px;
+                white-space: normal;
+            }
+
+            .arch-h-connector {
+                width: 15px;
+            }
+
+            .arch-layer-label {
+                font-size: 0.5rem;
+                min-width: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .arch-node {
+                font-size: 0.6rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            .arch-h-connector {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1566,6 +1940,138 @@
                                 <span class="tag">Monorepo</span>
                                 <span class="tag">DevOps</span>
                             </div>
+                            <button class="arch-toggle-btn" data-target="arch-monorepo" aria-expanded="false">
+                                <i class="fas fa-diagram-project"></i>
+                                <span>Architecture Diagram</span>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </button>
+                        </div>
+                        <div class="arch-panel" id="arch-monorepo">
+                            <div class="arch-panel-inner">
+                                <div class="arch-panel-title">// Monorepo Architecture</div>
+                                <div class="arch-diagram">
+                                    <div class="arch-flow">
+                                        <!-- Top: Build System -->
+                                        <div class="arch-flow-label">Build System</div>
+                                        <div class="arch-flow-row">
+                                            <div class="arch-node node-primary">
+                                                <span class="node-glow"></span>
+                                                <i class="fas fa-hammer node-icon" style="color: var(--accent-blue);"></i>
+                                                <span>Bazel</span>
+                                                <div class="arch-tooltip">Build system — hermetic, incremental builds with remote caching</div>
+                                            </div>
+                                            <div class="arch-h-connector"></div>
+                                            <div class="arch-node node-success">
+                                                <span class="node-glow"></span>
+                                                <i class="fas fa-vial node-icon" style="color: var(--accent-green);"></i>
+                                                <span>Testing</span>
+                                                <div class="arch-tooltip">Automated test suites — unit, integration, and e2e testing per target</div>
+                                            </div>
+                                            <div class="arch-h-connector"></div>
+                                            <div class="arch-node node-accent">
+                                                <span class="node-glow"></span>
+                                                <i class="fas fa-check-double node-icon" style="color: var(--accent-pink);"></i>
+                                                <span>Linting</span>
+                                                <div class="arch-tooltip">Code quality gates — formatters, linters, and static analysis</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <!-- CI/CD Pipeline -->
+                                        <div class="arch-flow-label">CI/CD Pipeline</div>
+                                        <div class="arch-flow-row">
+                                            <div class="arch-node node-secondary">
+                                                <span class="node-glow"></span>
+                                                <i class="fab fa-github node-icon" style="color: var(--accent-purple);"></i>
+                                                <span>GitHub Actions</span>
+                                                <div class="arch-tooltip">CI/CD orchestration — triggered on PR and merge events</div>
+                                            </div>
+                                            <div class="arch-h-connector"></div>
+                                            <div class="arch-node node-primary">
+                                                <span class="node-glow"></span>
+                                                <i class="fas fa-cube node-icon" style="color: var(--accent-blue);"></i>
+                                                <span>Container Registry</span>
+                                                <div class="arch-tooltip">Artifact storage — Docker images and build artifacts</div>
+                                            </div>
+                                            <div class="arch-h-connector"></div>
+                                            <div class="arch-node node-success">
+                                                <span class="node-glow"></span>
+                                                <i class="fas fa-rocket node-icon" style="color: var(--accent-green);"></i>
+                                                <span>Deploy</span>
+                                                <div class="arch-tooltip">Deployment targets — Kubernetes, Cloud Run, or serverless</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <!-- Monorepo Structure -->
+                                        <div class="arch-flow-label">Repository Structure</div>
+                                        <div class="arch-flow-row" style="gap: 1.25rem;">
+                                            <div class="arch-group">
+                                                <span class="arch-group-label">apps/</span>
+                                                <div class="arch-flow-row">
+                                                    <div class="arch-node node-primary">
+                                                        <i class="fas fa-server node-icon" style="color: var(--accent-blue);"></i>
+                                                        <span>API</span>
+                                                        <div class="arch-tooltip">Backend services — REST/gRPC APIs, microservices</div>
+                                                    </div>
+                                                    <div class="arch-node node-primary">
+                                                        <i class="fas fa-desktop node-icon" style="color: var(--accent-blue);"></i>
+                                                        <span>Web</span>
+                                                        <div class="arch-tooltip">Frontend apps — React/Next.js web applications</div>
+                                                    </div>
+                                                    <div class="arch-node node-primary">
+                                                        <i class="fas fa-terminal node-icon" style="color: var(--accent-blue);"></i>
+                                                        <span>CLI</span>
+                                                        <div class="arch-tooltip">Command-line tools — developer and operational CLIs</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <div class="arch-flow-row" style="gap: 1.25rem;">
+                                            <div class="arch-group">
+                                                <span class="arch-group-label">libs/</span>
+                                                <div class="arch-flow-row">
+                                                    <div class="arch-node node-secondary">
+                                                        <i class="fas fa-puzzle-piece node-icon" style="color: var(--accent-purple);"></i>
+                                                        <span>Shared</span>
+                                                        <div class="arch-tooltip">Shared libraries — common utilities, types, and helpers</div>
+                                                    </div>
+                                                    <div class="arch-node node-secondary">
+                                                        <i class="fas fa-database node-icon" style="color: var(--accent-purple);"></i>
+                                                        <span>Data</span>
+                                                        <div class="arch-tooltip">Data access layer — database clients, models, migrations</div>
+                                                    </div>
+                                                    <div class="arch-node node-secondary">
+                                                        <i class="fas fa-shield-halved node-icon" style="color: var(--accent-purple);"></i>
+                                                        <span>Auth</span>
+                                                        <div class="arch-tooltip">Auth module — JWT, OAuth, RBAC implementation</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="arch-group">
+                                                <span class="arch-group-label">infra/</span>
+                                                <div class="arch-flow-row">
+                                                    <div class="arch-node node-accent">
+                                                        <i class="fas fa-cloud node-icon" style="color: var(--accent-pink);"></i>
+                                                        <span>Terraform</span>
+                                                        <div class="arch-tooltip">Infrastructure as Code — cloud resource definitions</div>
+                                                    </div>
+                                                    <div class="arch-node node-accent">
+                                                        <i class="fas fa-dharmachakra node-icon" style="color: var(--accent-pink);"></i>
+                                                        <span>K8s</span>
+                                                        <div class="arch-tooltip">Kubernetes manifests — deployments, services, configs</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1587,6 +2093,163 @@
                                 <span class="tag">HCL</span>
                                 <span class="tag">Terraform</span>
                                 <span class="tag">Google Cloud</span>
+                            </div>
+                            <button class="arch-toggle-btn" data-target="arch-terraform" aria-expanded="false">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Foundation Layers</span>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </button>
+                        </div>
+                        <div class="arch-panel" id="arch-terraform">
+                            <div class="arch-panel-inner">
+                                <div class="arch-panel-title">// GCP Foundation Blueprint</div>
+                                <div class="arch-diagram">
+                                    <div class="arch-flow">
+                                        <!-- Layer 0: Bootstrap -->
+                                        <div class="arch-flow-label">0 — Bootstrap</div>
+                                        <div class="arch-layer">
+                                            <div class="arch-layer-label" style="border-color: rgba(0, 212, 255, 0.4);">L0</div>
+                                            <div class="arch-layer-content">
+                                                <div class="arch-node node-primary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-key node-icon" style="color: var(--accent-blue);"></i>
+                                                    <span>Seed Project</span>
+                                                    <div class="arch-tooltip">Initial GCP project — service accounts, APIs, and state bucket</div>
+                                                </div>
+                                                <div class="arch-node node-primary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-bucket node-icon" style="color: var(--accent-blue);"></i>
+                                                    <span>TF State</span>
+                                                    <div class="arch-tooltip">Remote state storage — GCS bucket with versioning and locking</div>
+                                                </div>
+                                                <div class="arch-node node-primary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-code-branch node-icon" style="color: var(--accent-blue);"></i>
+                                                    <span>CI/CD</span>
+                                                    <div class="arch-tooltip">Cloud Build pipelines — plan/apply triggers for each stage</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <!-- Layer 1: Org -->
+                                        <div class="arch-flow-label">1 — Organization</div>
+                                        <div class="arch-layer">
+                                            <div class="arch-layer-label" style="border-color: rgba(124, 58, 237, 0.4);">L1</div>
+                                            <div class="arch-layer-content">
+                                                <div class="arch-node node-secondary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-sitemap node-icon" style="color: var(--accent-purple);"></i>
+                                                    <span>Org Policies</span>
+                                                    <div class="arch-tooltip">Organization-level constraints — security guardrails and compliance</div>
+                                                </div>
+                                                <div class="arch-node node-secondary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-folder-tree node-icon" style="color: var(--accent-purple);"></i>
+                                                    <span>Folders</span>
+                                                    <div class="arch-tooltip">Resource hierarchy — org → folders → projects structure</div>
+                                                </div>
+                                                <div class="arch-node node-secondary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-scroll node-icon" style="color: var(--accent-purple);"></i>
+                                                    <span>Audit Logs</span>
+                                                    <div class="arch-tooltip">Centralized logging — org-level log sinks and BigQuery export</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <!-- Layer 2: Environments -->
+                                        <div class="arch-flow-label">2 — Environments</div>
+                                        <div class="arch-layer">
+                                            <div class="arch-layer-label" style="border-color: rgba(16, 185, 129, 0.4);">L2</div>
+                                            <div class="arch-layer-content">
+                                                <div class="arch-node node-success">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-flask node-icon" style="color: var(--accent-green);"></i>
+                                                    <span>Development</span>
+                                                    <div class="arch-tooltip">Dev environment — sandbox projects, relaxed policies</div>
+                                                </div>
+                                                <div class="arch-node node-success">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-microscope node-icon" style="color: var(--accent-green);"></i>
+                                                    <span>Non-Production</span>
+                                                    <div class="arch-tooltip">Staging/QA — mirrors prod config, integration testing</div>
+                                                </div>
+                                                <div class="arch-node node-success">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-shield-halved node-icon" style="color: var(--accent-green);"></i>
+                                                    <span>Production</span>
+                                                    <div class="arch-tooltip">Production — hardened security, HA, strict change management</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <!-- Layer 3: Networks -->
+                                        <div class="arch-flow-label">3 — Networks</div>
+                                        <div class="arch-layer">
+                                            <div class="arch-layer-label" style="border-color: rgba(236, 72, 153, 0.4);">L3</div>
+                                            <div class="arch-layer-content">
+                                                <div class="arch-node node-accent">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-network-wired node-icon" style="color: var(--accent-pink);"></i>
+                                                    <span>Shared VPC</span>
+                                                    <div class="arch-tooltip">Hub-and-spoke VPC — centralized networking with service projects</div>
+                                                </div>
+                                                <div class="arch-node node-accent">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-globe node-icon" style="color: var(--accent-pink);"></i>
+                                                    <span>DNS</span>
+                                                    <div class="arch-tooltip">Cloud DNS — private zones, forwarding, and peering</div>
+                                                </div>
+                                                <div class="arch-node node-accent">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-lock node-icon" style="color: var(--accent-pink);"></i>
+                                                    <span>Firewall</span>
+                                                    <div class="arch-tooltip">Firewall policies — hierarchical rules, VPC SC perimeters</div>
+                                                </div>
+                                                <div class="arch-node node-accent">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-bridge node-icon" style="color: var(--accent-pink);"></i>
+                                                    <span>Interconnect</span>
+                                                    <div class="arch-tooltip">Hybrid connectivity — VPN, Interconnect, or Partner links</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="arch-connector"></div>
+
+                                        <!-- Layer 4: Projects -->
+                                        <div class="arch-flow-label">4 — Projects</div>
+                                        <div class="arch-layer">
+                                            <div class="arch-layer-label" style="border-color: rgba(102, 126, 234, 0.4);">L4</div>
+                                            <div class="arch-layer-content">
+                                                <div class="arch-node node-primary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-cubes node-icon" style="color: var(--accent-blue);"></i>
+                                                    <span>App Projects</span>
+                                                    <div class="arch-tooltip">Workload projects — GKE, Cloud Run, App Engine deployments</div>
+                                                </div>
+                                                <div class="arch-node node-primary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-database node-icon" style="color: var(--accent-blue);"></i>
+                                                    <span>Data Projects</span>
+                                                    <div class="arch-tooltip">Data platform — BigQuery, Dataflow, Cloud Storage, Pub/Sub</div>
+                                                </div>
+                                                <div class="arch-node node-primary">
+                                                    <span class="node-glow"></span>
+                                                    <i class="fas fa-user-shield node-icon" style="color: var(--accent-blue);"></i>
+                                                    <span>IAM Bindings</span>
+                                                    <div class="arch-tooltip">Access control — project-level IAM, service accounts, Workload Identity</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

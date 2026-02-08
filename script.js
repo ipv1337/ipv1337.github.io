@@ -617,3 +617,79 @@ function updateActivityFeed(events) {
             // console.log("No recent meaningful GitHub activity found to display.");
     }
 }
+
+// ===== Architecture Diagram Panel Toggle =====
+function setupArchDiagrams() {
+    const toggleBtns = document.querySelectorAll('.arch-toggle-btn');
+
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card hover effects from interfering
+            const targetId = btn.getAttribute('data-target');
+            const panel = document.getElementById(targetId);
+            if (!panel) return;
+
+            const isExpanded = panel.classList.contains('expanded');
+
+            // Toggle panel
+            if (isExpanded) {
+                panel.classList.remove('expanded');
+                btn.classList.remove('active');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                panel.classList.add('expanded');
+                btn.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+
+                // Stagger-animate the nodes appearing
+                const nodes = panel.querySelectorAll('.arch-node');
+                nodes.forEach((node, i) => {
+                    node.style.opacity = '0';
+                    node.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        node.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                        node.style.opacity = '1';
+                        node.style.transform = 'translateY(0)';
+                    }, 80 + i * 50);
+                });
+
+                // Stagger-animate connectors
+                const connectors = panel.querySelectorAll('.arch-connector, .arch-h-connector');
+                connectors.forEach((conn, i) => {
+                    conn.style.opacity = '0';
+                    setTimeout(() => {
+                        conn.style.transition = 'opacity 0.5s ease';
+                        conn.style.opacity = '1';
+                    }, 200 + i * 80);
+                });
+
+                // Scroll the panel into view smoothly after expansion
+                setTimeout(() => {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        });
+    });
+
+    // Prevent project-card hover transform when panel is expanded
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        const panel = card.querySelector('.arch-panel');
+        if (panel) {
+            // Disable the card lift on hover when diagram is open
+            const observer = new MutationObserver(() => {
+                if (panel.classList.contains('expanded')) {
+                    card.style.transform = 'none';
+                } else {
+                    card.style.transform = '';
+                }
+            });
+            observer.observe(panel, { attributes: true, attributeFilter: ['class'] });
+        }
+    });
+}
+
+// Initialize architecture diagrams on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    setupArchDiagrams();
+});
