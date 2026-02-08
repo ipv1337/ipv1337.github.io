@@ -784,6 +784,8 @@
     font-size: 0.85rem;
     line-height: 1.8;
     color: var(--text-secondary);
+    white-space: pre;
+    overflow-x: auto;
 }
 
 .file-tree .dir {
