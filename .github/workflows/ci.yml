@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check GTM snippet on all HTML pages
+        run: |
+          GTM_ID="G-MN16CB3V3T"
+          MISSING=()
+
+          while IFS= read -r file; do
+            # Skip backup directory
+            [[ "$file" == */backup/* ]] && continue
+
+            if ! grep -q "$GTM_ID" "$file"; then
+              MISSING+=("$file")
+            fi
+          done < <(find . -name "*.html" -type f)
+
+          if [ ${#MISSING[@]} -gt 0 ]; then
+            echo "::error::Google Tag Manager ($GTM_ID) missing from the following pages:"
+            for f in "${MISSING[@]}"; do
+              echo "  ❌ $f"
+            done
+            echo ""
+            echo "Add this snippet to <head> after <meta charset=\"UTF-8\">:"
+            echo ""
+            echo '  <!-- Google tag (gtag.js) -->'
+            echo "  <script async src=\"https://www.googletagmanager.com/gtag/js?id=$GTM_ID\"></script>"
+            echo '  <script>'
+            echo '    window.dataLayer = window.dataLayer || [];'
+            echo '    function gtag(){dataLayer.push(arguments);}'
+            echo "    gtag('js', new Date());"
+            echo "    gtag('config', '$GTM_ID');"
+            echo '  </script>'
+            exit 1
+          fi
+
+          echo "✅ All HTML pages have GTM ($GTM_ID)"
+
+      - name: Validate HTML structure
+        run: |
+          ERRORS=()
+          while IFS= read -r file; do
+            [[ "$file" == */backup/* ]] && continue
+
+            # Check for required meta tags
+            if ! grep -q '<meta charset' "$file"; then
+              ERRORS+=("$file: missing <meta charset>")
+            fi
+            if ! grep -q '<title>' "$file"; then
+              ERRORS+=("$file: missing <title>")
+            fi
+            if ! grep -q '<meta name="description"' "$file"; then
+              ERRORS+=("$file: missing <meta name=\"description\">")
+            fi
+          done < <(find . -name "*.html" -type f)
+
+          if [ ${#ERRORS[@]} -gt 0 ]; then
+            echo "::warning::HTML structure issues found:"
+            for e in "${ERRORS[@]}"; do
+              echo "  ⚠️ $e"
+            done
+            # Warning only, don't fail
+          else
+            echo "✅ All HTML pages have required meta tags"
+          fi
