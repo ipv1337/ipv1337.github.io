@@ -689,7 +689,11 @@ function setupArchDiagrams() {
     });
 }
 
-// Initialize architecture diagrams on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize architecture diagrams on DOM ready (or immediately if already loaded)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        setupArchDiagrams();
+    });
+} else {
     setupArchDiagrams();
-});
+}
