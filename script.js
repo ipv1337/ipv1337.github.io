@@ -54,7 +54,7 @@ function toggleTheme() {
 }
 
 // Event listener for the button
-themeToggle.addEventListener('click', toggleTheme);
+if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
 
 // Apply saved theme on initial load
 document.addEventListener('DOMContentLoaded', () => {
