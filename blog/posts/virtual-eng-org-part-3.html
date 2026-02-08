@@ -704,34 +704,48 @@ Never mark a task Done without running its quality gate.</code></pre>
 
                         <p>
                             The architecturally correct approach: each agent gets its own bot token
-                            via <a href="https://t.me/BotFather">@BotFather</a>. Each bot connects
-                            to the same OpenClaw gateway but routes to a different agent:
+                            via <a href="https://t.me/BotFather">@BotFather</a>. OpenClaw's
+                            <code>channels.telegram.accounts</code> object supports multiple keyed
+                            entries, each with its own <code>botToken</code>. Then
+                            <code>bindings</code> routes each agent to its account:
                         </p>
 
-<pre><code class="language-json">// Telegram channel config — one bot token per agent
-{
+<pre><code class="language-json">{
   "channels": {
-    "telegram": [
-      {
-        "botToken": "TOKEN_FOR_LEAD_BOT",
-        "agentId": "main",
-        "dmPolicy": "allowlist",
-        "allowFrom": ["1761903237"]
-      },
-      {
-        "botToken": "TOKEN_FOR_WRITER_BOT",
-        "agentId": "writer",
-        "dmPolicy": "allowlist",
-        "allowFrom": ["1761903237"]
-      },
-      {
-        "botToken": "TOKEN_FOR_ARCHITECT_BOT",
-        "agentId": "architect",
-        "dmPolicy": "allowlist",
-        "allowFrom": ["1761903237"]
+    "telegram": {
+      "botToken": "TOKEN_FOR_LEAD_BOT",
+      "dmPolicy": "allowlist",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial",
+      "allowFrom": ["1761903237"],
+      "accounts": {
+        "writer": {
+          "botToken": "TOKEN_FOR_WRITER_BOT",
+          "dmPolicy": "allowlist",
+          "groupPolicy": "deny",
+          "streamMode": "partial",
+          "allowFrom": ["1761903237"]
+        },
+        "architect": {
+          "botToken": "TOKEN_FOR_ARCHITECT_BOT",
+          "dmPolicy": "allowlist",
+          "groupPolicy": "deny",
+          "streamMode": "partial",
+          "allowFrom": ["1761903237"]
+        }
       }
-    ]
-  }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "writer",
+      "match": { "channel": "telegram", "accountId": "writer" }
+    },
+    {
+      "agentId": "architect",
+      "match": { "channel": "telegram", "accountId": "architect" }
+    }
+  ]
 }</code></pre>
 
                         <p>
@@ -749,7 +763,9 @@ Never mark a task Done without running its quality gate.</code></pre>
                         <p>
                             <strong>Pros:</strong> Clean separation. Each agent has its own chat
                             thread. You can have a direct creative conversation with the Writer
-                            without the Lead intermediating. No routing conflicts.
+                            without the Lead intermediating. No routing conflicts. Each account
+                            gets independent <code>dmPolicy</code>, <code>groupPolicy</code>, and
+                            <code>allowFrom</code> controls.
                         </p>
                         <p>
                             <strong>Cons:</strong> Five bots to create and manage. Five chat threads
@@ -799,33 +815,49 @@ Never mark a task Done without running its quality gate.</code></pre>
                             model — five agents posting in one group gets noisy.
                         </p>
 
-                        <h3>What We Chose: The Lead Orchestrates Everything</h3>
+                        <h3>What We Chose: Hybrid (Lead + Optional Direct Access)</h3>
 
                         <p>
-                            We removed the binding entirely. All channels route to the Lead (main
-                            agent). The Lead delegates to sub-agents via
-                            <code>sessions_spawn</code> and synthesizes results before reporting
-                            back. Here's why:
+                            After exploring all three approaches — and shipping the wrong one first —
+                            we landed on a fourth: the <strong>hybrid model</strong>. The Lead bot
+                            remains the primary interface. All orchestration, cron-triggered work,
+                            and pipeline management routes through the main agent. But we also
+                            registered separate bots for each specialist and configured them as
+                            Telegram accounts in the gateway.
+                        </p>
+                        <p>
+                            The key insight: <strong>if you only talk to the Lead bot, nothing
+                            changes.</strong> The hybrid is identical to Approach 3 until you
+                            choose to use it. The specialist bots sit idle until you DM one
+                            directly. Chatting with the Architect bot is optional — it's there
+                            when you want a quick design opinion without the Lead intermediating,
+                            or when you want to workshop prose with the Writer without spawning
+                            a sub-agent.
+                        </p>
+                        <p>
+                            This works because the <code>accounts</code> object in
+                            <code>channels.telegram</code> and the <code>bindings</code> array
+                            are additive. Adding accounts doesn't change the routing for the
+                            default bot. The Lead still handles everything it handled before.
+                            The specialist bots are purely opt-in.
                         </p>
 
                         <ul>
-                            <li><strong>It matches the Phase 3 model.</strong> The whole point of
-                            the orchestration skill is that the human says what they want and the
-                            system figures out who does what. Routing messages to individual agents
-                            puts the human back in the manager role.</li>
-                            <li><strong>Status updates are centralized.</strong> The Lead checks on
-                            sub-agents via <code>sessions_list</code> and
-                            <code>sessions_history</code>, then gives one synthesized summary
-                            instead of five agents posting independently.</li>
-                            <li><strong>No config complexity.</strong> No extra bots, no groups, no
-                            mention patterns. The default routing just works.</li>
+                            <li><strong>Default workflow (99% of the time):</strong> You message
+                            the Lead bot. It orchestrates via <code>sessions_spawn</code>.
+                            Standup and QA crons run autonomously. You're the stakeholder.</li>
+                            <li><strong>Direct access (when you want it):</strong> You DM the
+                            Architect bot for a quick config review. You DM the Writer bot
+                            to brainstorm a blog angle. The specialist responds with its own
+                            persona, memory, and tool access. No Lead intermediation.</li>
                         </ul>
 
                         <p>
-                            The sub-agents don't lose their identity — they still have dedicated
-                            workspaces, SOUL.md, and specialized tool access. They just don't need
-                            their own phone line. The Lead is the single point of contact, and the
-                            agents are the team behind the desk.
+                            The trade-off we were worried about — five chat threads turning you
+                            back into a project manager — only happens if you <em>choose</em>
+                            to manage five threads. If you don't DM the specialist bots, they
+                            don't exist from your perspective. It's free optionality with zero
+                            downside.
                         </p>
 
                         <div class="callout try-it">
@@ -835,17 +867,20 @@ Never mark a task Done without running its quality gate.</code></pre>
                             <div class="callout-body">
                                 <p>The right choice depends on your workflow:</p>
                                 <ul>
-                                    <li><strong>Solo orchestrator</strong> (what we use) — best when
-                                    you want autonomous pipeline execution. You talk to one agent,
-                                    it manages the team.</li>
-                                    <li><strong>Separate bots</strong> — best when you want direct,
-                                    interactive conversations with specific agents (e.g.,
-                                    workshopping prose with a Writer).</li>
-                                    <li><strong>Group mentions</strong> — best for team visibility,
-                                    where you want all agents in one thread and can direct tasks
-                                    with @mentions.</li>
+                                    <li><strong>Solo orchestrator</strong> — best when
+                                    you want autonomous pipeline execution with no extra
+                                    setup. You talk to one agent, it manages the team.</li>
+                                    <li><strong>Hybrid</strong> (what we use) — Lead as
+                                    primary, specialist bots available for direct deep-dives.
+                                    Same default behavior, free optionality.</li>
+                                    <li><strong>Separate bots</strong> — best when you want
+                                    direct, interactive conversations with specific agents
+                                    as the primary workflow.</li>
+                                    <li><strong>Group mentions</strong> — best for team
+                                    visibility, where you want all agents in one thread and
+                                    can direct tasks with @mentions.</li>
                                 </ul>
-                                <p>All three preserve agent identity. The difference is who routes
+                                <p>All four preserve agent identity. The difference is who routes
                                 the work: you, the channel config, or the Lead agent.</p>
                             </div>
                         </div>
@@ -1137,7 +1172,7 @@ EOF</code></pre>
                         </p>
 
                         <ul>
-                            <li><strong>Inter-agent communication.</strong> Right now, agents don't talk to each other. The Writer can't ask the Architect a question mid-draft. All coordination goes through the Lead, which means the Lead's context window is the bottleneck. Peer-to-peer agent messaging would help, but it doesn't exist yet.</li>
+                            <li><strong>Inter-agent communication.</strong> Right now, agents don't talk to each other directly during a task. The Writer can't ask the Architect a question mid-draft. All coordination goes through the Lead, which means the Lead's context window is the bottleneck. The hybrid model gives the <em>human</em> direct access to specialists, but agents still can't peer-message. That's a feature gap worth watching.</li>
                             <li><strong>Cost visibility.</strong> We don't have per-task cost tracking. We know the monthly bill, but not "how much did the Part 3 pipeline cost?" Instrumenting this would require tracking token usage per sub-agent spawn and aggregating by task ID.</li>
                             <li><strong>Error recovery.</strong> If the morning standup cron fails (gateway restart, API outage), nothing happens until the next day's cron fires. There's no retry mechanism, no dead letter queue, no alerting. The system is resilient to individual gate failures (tasks bounce back to In Progress) but not to infrastructure failures.</li>
                             <li><strong>Scaling beyond one team.</strong> Five agents, one task board, one orchestration skill. What happens with 20 agents across three projects? The markdown board doesn't scale. The flat skill doesn't compose. This is a prototype for one team, not a framework for many.</li>
