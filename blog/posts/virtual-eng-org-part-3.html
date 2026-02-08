@@ -649,6 +649,208 @@ Never mark a task Done without running its quality gate.</code></pre>
                         </div>
                     </section>
 
+                    <!-- === CHANNEL ROUTING: THREE APPROACHES === -->
+                    <section>
+                        <h2>Channel Routing: Who Answers the Phone?</h2>
+
+                        <p>
+                            With five agents configured, a practical question arises: how does the
+                            human talk to them? When you message the bot on Telegram, which agent
+                            responds? We explored three approaches and want to share the trade-offs
+                            honestly — because we shipped the wrong one first.
+                        </p>
+
+                        <h3>Approach 1: Shared Bot with Bindings (What We Tried)</h3>
+
+                        <p>
+                            Our first attempt used OpenClaw's <code>bindings</code> to route
+                            Telegram DMs to the Writer agent:
+                        </p>
+
+<pre><code class="language-json">{
+  "bindings": [
+    {
+      "agentId": "writer",
+      "match": {
+        "channel": "telegram",
+        "peer": { "kind": "dm", "id": "1761903237" }
+      }
+    }
+  ]
+}</code></pre>
+
+                        <p>
+                            This broke immediately. <strong>All</strong> Telegram DMs now went to
+                            the Writer — including messages meant for the Lead. We couldn't talk to
+                            the main agent on Telegram at all. The binding is a routing rule, not a
+                            filter. It captures the entire channel.
+                        </p>
+
+                        <div class="callout reality-check">
+                            <div class="callout-header">
+                                <i class="fas fa-exclamation-triangle"></i> Reality Check
+                            </div>
+                            <div class="callout-body">
+                                <p>We shipped this binding in our config, restarted the gateway,
+                                and only discovered the problem when James messaged the bot and got
+                                the Writer persona instead of the Lead. The fix was to remove the
+                                binding entirely. Lesson: <strong>test channel routing changes
+                                before assuming they work.</strong> A binding that captures too
+                                broadly can lock you out of your primary agent.</p>
+                            </div>
+                        </div>
+
+                        <h3>Approach 2: Separate Bot per Agent (The Clean Solution)</h3>
+
+                        <p>
+                            The architecturally correct approach: each agent gets its own bot token
+                            via <a href="https://t.me/BotFather">@BotFather</a>. Each bot connects
+                            to the same OpenClaw gateway but routes to a different agent:
+                        </p>
+
+<pre><code class="language-json">// Telegram channel config — one bot token per agent
+{
+  "channels": {
+    "telegram": [
+      {
+        "botToken": "TOKEN_FOR_LEAD_BOT",
+        "agentId": "main",
+        "dmPolicy": "allowlist",
+        "allowFrom": ["1761903237"]
+      },
+      {
+        "botToken": "TOKEN_FOR_WRITER_BOT",
+        "agentId": "writer",
+        "dmPolicy": "allowlist",
+        "allowFrom": ["1761903237"]
+      },
+      {
+        "botToken": "TOKEN_FOR_ARCHITECT_BOT",
+        "agentId": "architect",
+        "dmPolicy": "allowlist",
+        "allowFrom": ["1761903237"]
+      }
+    ]
+  }
+}</code></pre>
+
+                        <p>
+                            With this setup, each bot has its own identity:
+                        </p>
+
+                        <ul>
+                            <li><strong>@TeamLeadBot</strong> → main agent (orchestration, coordination)</li>
+                            <li><strong>@TeamWriterBot</strong> → writer agent (drafting, prose)</li>
+                            <li><strong>@TeamArchitectBot</strong> → architect agent (technical review)</li>
+                            <li><strong>@TeamAnalystBot</strong> → analyst agent (research)</li>
+                            <li><strong>@TeamDevOpsBot</strong> → devops agent (validation, QA)</li>
+                        </ul>
+
+                        <p>
+                            <strong>Pros:</strong> Clean separation. Each agent has its own chat
+                            thread. You can have a direct creative conversation with the Writer
+                            without the Lead intermediating. No routing conflicts.
+                        </p>
+                        <p>
+                            <strong>Cons:</strong> Five bots to create and manage. Five chat threads
+                            to track. You become the project manager again — deciding which bot to
+                            message for which task. This is the opposite of the orchestration model.
+                        </p>
+
+                        <h3>Approach 3: Group-Based Routing with Mentions</h3>
+
+                        <p>
+                            A middle ground: one bot in a Telegram group, with
+                            <code>mentionPatterns</code> routing messages to specific agents:
+                        </p>
+
+<pre><code class="language-json">{
+  "agents": {
+    "list": [
+      {
+        "id": "writer",
+        "groupChat": {
+          "mentionPatterns": ["@writer", "writer"]
+        }
+      },
+      {
+        "id": "architect",
+        "groupChat": {
+          "mentionPatterns": ["@architect", "architect"]
+        }
+      }
+    ]
+  }
+}</code></pre>
+
+                        <p>
+                            In the group, <code>writer, draft a post about X</code> routes to the
+                            Writer. <code>architect, review this config</code> routes to the
+                            Architect. Unmentioned messages go to the default agent.
+                        </p>
+                        <p>
+                            <strong>Pros:</strong> Single bot, single group. Direct agent access
+                            when needed. DMs still go to the Lead for normal chat.
+                        </p>
+                        <p>
+                            <strong>Cons:</strong> Requires disabling bot privacy in @BotFather.
+                            Every message needs an @mention to route correctly. Multiple agents
+                            could respond if patterns overlap. It's chattier than the orchestrator
+                            model — five agents posting in one group gets noisy.
+                        </p>
+
+                        <h3>What We Chose: The Lead Orchestrates Everything</h3>
+
+                        <p>
+                            We removed the binding entirely. All channels route to the Lead (main
+                            agent). The Lead delegates to sub-agents via
+                            <code>sessions_spawn</code> and synthesizes results before reporting
+                            back. Here's why:
+                        </p>
+
+                        <ul>
+                            <li><strong>It matches the Phase 3 model.</strong> The whole point of
+                            the orchestration skill is that the human says what they want and the
+                            system figures out who does what. Routing messages to individual agents
+                            puts the human back in the manager role.</li>
+                            <li><strong>Status updates are centralized.</strong> The Lead checks on
+                            sub-agents via <code>sessions_list</code> and
+                            <code>sessions_history</code>, then gives one synthesized summary
+                            instead of five agents posting independently.</li>
+                            <li><strong>No config complexity.</strong> No extra bots, no groups, no
+                            mention patterns. The default routing just works.</li>
+                        </ul>
+
+                        <p>
+                            The sub-agents don't lose their identity — they still have dedicated
+                            workspaces, SOUL.md, and specialized tool access. They just don't need
+                            their own phone line. The Lead is the single point of contact, and the
+                            agents are the team behind the desk.
+                        </p>
+
+                        <div class="callout try-it">
+                            <div class="callout-header">
+                                <i class="fas fa-terminal"></i> Choose your approach
+                            </div>
+                            <div class="callout-body">
+                                <p>The right choice depends on your workflow:</p>
+                                <ul>
+                                    <li><strong>Solo orchestrator</strong> (what we use) — best when
+                                    you want autonomous pipeline execution. You talk to one agent,
+                                    it manages the team.</li>
+                                    <li><strong>Separate bots</strong> — best when you want direct,
+                                    interactive conversations with specific agents (e.g.,
+                                    workshopping prose with a Writer).</li>
+                                    <li><strong>Group mentions</strong> — best for team visibility,
+                                    where you want all agents in one thread and can direct tasks
+                                    with @mentions.</li>
+                                </ul>
+                                <p>All three preserve agent identity. The difference is who routes
+                                the work: you, the channel config, or the Lead agent.</p>
+                            </div>
+                        </div>
+                    </section>
+
                     <!-- === THE SKILL IN FULL === -->
                     <section>
                         <h2>The Orchestration Skill in Detail</h2>
