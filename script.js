@@ -1,3 +1,7 @@
+// Wrap in IIFE to avoid const conflicts with inline scripts
+(function() {
+"use strict";
+
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 const root = document.documentElement;
@@ -697,3 +701,5 @@ if (document.readyState === 'loading') {
 } else {
     setupArchDiagrams();
 }
+
+})(); // end IIFE
