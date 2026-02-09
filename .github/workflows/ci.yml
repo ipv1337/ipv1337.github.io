@@ -74,3 +74,50 @@ jobs:
           else
             echo "✅ All HTML pages have required meta tags"
           fi
+
+      - name: Validate blog posts.json
+        run: |
+          POSTS_JSON="./blog/posts.json"
+
+          if [ ! -f "$POSTS_JSON" ]; then
+            echo "::error::blog/posts.json not found!"
+            exit 1
+          fi
+
+          # Validate JSON syntax
+          if ! python3 -m json.tool "$POSTS_JSON" > /dev/null 2>&1; then
+            echo "::error::blog/posts.json has invalid JSON syntax"
+            exit 1
+          fi
+
+          ERRORS=()
+
+          # Check every post in posts.json has a matching HTML file
+          for url in $(python3 -c "import json; [print(p['url']) for p in json.load(open('$POSTS_JSON'))]"); do
+            filepath=".${url}"
+            if [ ! -f "$filepath" ]; then
+              ERRORS+=("Post in posts.json references missing file: $filepath")
+            fi
+          done
+
+          # Check every HTML file in blog/posts/ is listed in posts.json
+          LISTED_URLS=$(python3 -c "import json; [print(p['url']) for p in json.load(open('$POSTS_JSON'))]")
+          while IFS= read -r file; do
+            rel_path="/${file#./}"
+            if ! echo "$LISTED_URLS" | grep -qF "$rel_path"; then
+              ERRORS+=("Blog post not in posts.json: $rel_path")
+            fi
+          done < <(find ./blog/posts -name "*.html" -type f)
+
+          if [ ${#ERRORS[@]} -gt 0 ]; then
+            echo "::error::Blog manifest issues found:"
+            for e in "${ERRORS[@]}"; do
+              echo "  ❌ $e"
+            done
+            echo ""
+            echo "Update blog/posts.json to match the actual blog post files."
+            exit 1
+          fi
+
+          POST_COUNT=$(python3 -c "import json; print(len(json.load(open('$POSTS_JSON'))))")
+          echo "✅ blog/posts.json is valid ($POST_COUNT posts, all files exist)"

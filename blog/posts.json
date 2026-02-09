@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "virtual-eng-org-part-3",
+    "title": "The Orchestration Skill — Automating the Workflow",
+    "series": "The Virtual Engineering Org — Part 3",
+    "description": "Task boards, quality gates, and cron-driven automation. How we stopped managing the AI team and became the client.",
+    "image": "/images/virtual-eng-org-part-3.jpg",
+    "date": "2026-02-07",
+    "url": "/blog/posts/virtual-eng-org-part-3.html",
+    "tags": ["AI", "OpenClaw", "Multi-Agent"]
+  },
+  {
+    "slug": "virtual-eng-org-part-2",
+    "title": "Giving Each Agent a Desk — Persistent Identities",
+    "series": "The Virtual Engineering Org — Part 2",
+    "description": "How we went from ephemeral sub-agents to a permanent AI engineering team with identity, memory, and channel routing.",
+    "image": "/images/virtual-eng-org-part-2.jpg",
+    "date": "2026-02-07",
+    "url": "/blog/posts/virtual-eng-org-part-2.html",
+    "tags": ["AI", "OpenClaw", "Multi-Agent"]
+  },
+  {
+    "slug": "virtual-eng-org-part-1",
+    "title": "The Lead Agent — Teaching Your AI to Delegate",
+    "series": "The Virtual Engineering Org — Part 1",
+    "description": "How we went from a single AI assistant to a 5-agent engineering org — and what broke along the way.",
+    "image": "/images/virtual-eng-org-part-1.jpg",
+    "date": "2026-02-07",
+    "url": "/blog/posts/virtual-eng-org-part-1.html",
+    "tags": ["AI", "OpenClaw", "Multi-Agent"]
+  },
+  {
+    "slug": "airline-it-stack",
+    "title": "Airline IT Stack: Why It's Stuck (and How It Actually Works)",
+    "description": "A detailed technical breakdown of the airline IT stack — GDS, PSS, direct channels — how components interact, and why modernization stalls.",
+    "image": "/images/blog-airline-stack.png",
+    "date": "2026-02-06",
+    "url": "/blog/posts/airline-it-stack.html",
+    "tags": ["Architecture", "Aviation", "Deep Dive"]
+  },
+  {
+    "slug": "building-openclaw",
+    "title": "Building OpenClaw: An AI Agent That Lives on Your Devices",
+    "description": "An introduction to OpenClaw — a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure.",
+    "image": "/images/blog-openclaw.jpg",
+    "date": "2026-02-05",
+    "url": "/blog/posts/building-openclaw.html",
+    "tags": ["AI", "OpenClaw", "DevOps"]
+  }
+]

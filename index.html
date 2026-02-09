@@ -1188,6 +1188,16 @@
             color: var(--text-muted);
         }
 
+        .blog-series {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-blue);
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
         .blog-title {
             margin-bottom: 1rem;
         }
@@ -2392,33 +2402,10 @@
                     <p>Sharing knowledge about cloud architecture, AI agents, and platform engineering.</p>
                 </div>
 
-                <div class="blog-grid">
-                    <a href="/blog/posts/building-openclaw.html" class="blog-card">
-                        <img src="images/blog-openclaw.jpg" alt="OpenClaw AI Agent" class="blog-image">
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span class="blog-status" style="background: rgba(16, 185, 129, 0.9);">New</span>
-                            </div>
-                            <h3 class="blog-title">Building OpenClaw: An AI Agent That Lives on Your Devices</h3>
-                            <p class="blog-description">
-                                An introduction to OpenClaw - a personal AI assistant that runs 24/7 across your 
-                                Mac, Android, and cloud infrastructure.
-                            </p>
-                        </div>
-                    </a>
-
-                    <div class="blog-card" style="opacity: 0.7;">
-                        <img src="images/blog-cloud-security.jpg" alt="Cloud Security" class="blog-image">
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span class="blog-status">Coming Soon</span>
-                            </div>
-                            <h3 class="blog-title">Agentic Coding: The Future of Developer Productivity</h3>
-                            <p class="blog-description">
-                                How AI coding agents are transforming software development. Workflows, productivity 
-                                gains, and lessons learned from pair programming with AI.
-                            </p>
-                        </div>
+                <div class="blog-grid" id="blogGrid">
+                    <!-- Blog posts loaded dynamically from /blog/posts.json -->
+                    <div class="blog-loading" style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-secondary, #888);">
+                        Loading posts...
                     </div>
                 </div>
 
@@ -2887,6 +2874,6 @@
             });
         });
     </script>
-    <script src="script.js?v=20260208b"></script>
+    <script src="script.js?v=20260208c"></script>
 </body>
 </html>

@@ -693,13 +693,95 @@ function setupArchDiagrams() {
     });
 }
 
+// ===== Dynamic Blog Posts Loader =====
+function setupBlogPosts() {
+    const blogGrid = document.getElementById('blogGrid');
+    if (!blogGrid) return;
+
+    const MAX_POSTS = 4; // Show latest 4 on landing page
+
+    fetch('/blog/posts.json')
+        .then(r => {
+            if (!r.ok) throw new Error('Failed to load posts');
+            return r.json();
+        })
+        .then(posts => {
+            // Sort by date descending (newest first)
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Take only the latest posts for the landing page
+            const latestPosts = posts.slice(0, MAX_POSTS);
+
+            blogGrid.innerHTML = '';
+
+            latestPosts.forEach((post, i) => {
+                const isNew = isWithinDays(post.date, 7);
+                const card = document.createElement('a');
+                card.href = post.url;
+                card.className = 'blog-card';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+
+                const seriesTag = post.series
+                    ? `<span class="blog-series">${post.series}</span>`
+                    : '';
+
+                const statusBadge = isNew
+                    ? '<span class="blog-status" style="background: rgba(16, 185, 129, 0.9);">New</span>'
+                    : '';
+
+                const dateStr = formatDate(post.date);
+
+                card.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}" class="blog-image" loading="lazy">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            ${statusBadge}
+                            ${seriesTag}
+                            <span class="blog-date">${dateStr}</span>
+                        </div>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-description">${post.description}</p>
+                    </div>
+                `;
+
+                blogGrid.appendChild(card);
+
+                // Stagger animation
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + i * 100);
+            });
+        })
+        .catch(err => {
+            console.warn('Blog posts failed to load:', err);
+            blogGrid.innerHTML = '<p style="text-align:center; color: var(--text-secondary, #888); grid-column:1/-1;">Blog posts unavailable</p>';
+        });
+}
+
+function isWithinDays(dateStr, days) {
+    const postDate = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - postDate;
+    return diffMs >= 0 && diffMs < days * 24 * 60 * 60 * 1000;
+}
+
+function formatDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 // Initialize architecture diagrams on DOM ready (or immediately if already loaded)
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         setupArchDiagrams();
+        setupBlogPosts();
     });
 } else {
     setupArchDiagrams();
+    setupBlogPosts();
 }
 
 })(); // end IIFE
