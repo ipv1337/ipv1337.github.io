@@ -560,7 +560,8 @@ function updateActivityFeed(events) {
                     icon = 'fas fa-arrow-up';
                         const branch = event.payload.ref.split('/').pop();
                         const commitCount = event.payload.commits?.length || 0;
-                    actionText = `Pushed ${commitCount} commit${commitCount !== 1 ? 's' : ''} to <a href="${repoUrl}/tree/${branch}" target="_blank">${repoName}</a>`;
+                    // Use main repo URL instead of branch-specific URL to avoid 404s on deleted branches
+                    actionText = `Pushed ${commitCount} commit${commitCount !== 1 ? 's' : ''} to <a href="${repoUrl}" target="_blank">${repoName}</a>`;
                     break;
                 case 'PullRequestEvent':
                     icon = 'fas fa-code-pull-request';
