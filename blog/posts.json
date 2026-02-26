@@ -10,6 +10,15 @@
     "tags": ["AI", "OpenClaw", "Multi-Agent", "delegation"]
   },
   {
+    "slug": "agentic-coding",
+    "title": "Agentic Coding: Why the Next Productivity Leap Is About Collaboration, Not Autocomplete",
+    "description": "Agentic coding reframes software development around collaborative, tool-using AI agents. Learn what it is, how it works, and how to adopt it safely.",
+    "image": "/images/blog-agentic-coding.jpg",
+    "date": "2026-02-25",
+    "url": "/blog/posts/agentic-coding.html",
+    "tags": ["Agentic Coding", "AI", "Productivity"]
+  },
+  {
     "slug": "virtual-eng-org-part-3",
     "title": "The Orchestration Skill — Automating the Workflow",
     "series": "The Virtual Engineering Org — Part 3",
@@ -56,14 +65,5 @@
     "date": "2026-02-05",
     "url": "/blog/posts/building-openclaw.html",
     "tags": ["AI", "OpenClaw", "DevOps"]
-  },
-  {
-    "slug": "agentic-coding",
-    "title": "Agentic Coding: Why the Next Productivity Leap Is About Collaboration, Not Autocomplete",
-    "description": "Agentic coding reframes software development around collaborative, tool-using AI agents. Learn what it is, how it works, and how to adopt it safely.",
-    "image": "/images/blog-agentic-coding.jpg",
-    "date": "2026-02-25",
-    "url": "/blog/posts/agentic-coding.html",
-    "tags": ["Agentic Coding", "AI", "Productivity"]
   }
 ]

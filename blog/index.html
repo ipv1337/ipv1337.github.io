@@ -252,9 +252,11 @@
             const grid = document.getElementById('postsGrid');
             const noPosts = document.getElementById('noPosts');
             
-            const filteredPosts = filter === 'all' 
+            const filteredPosts = (filter === 'all' 
                 ? posts 
-                : posts.filter(p => p.category === filter);
+                : posts.filter(p => p.category === filter))
+                .slice()
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
             
             if (filteredPosts.length === 0) {
                 grid.innerHTML = '';
