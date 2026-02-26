@@ -1,5 +1,15 @@
 [
   {
+    "slug": "virtual-eng-org-part-4",
+    "title": "Making It Stick — Teaching Your AI Workflow to Self-Organize",
+    "series": "The Virtual Engineering Org — Part 4",
+    "description": "How three files — AGENTS.md, SOUL.md, and the orchestrate skill — turned a team of idle agents into a self-routing engineering org.",
+    "image": "/images/virtual-eng-org-part-4.png",
+    "date": "2026-02-26",
+    "url": "/blog/posts/virtual-eng-org-part-4.html",
+    "tags": ["AI", "OpenClaw", "Multi-Agent", "delegation"]
+  },
+  {
     "slug": "virtual-eng-org-part-3",
     "title": "The Orchestration Skill — Automating the Workflow",
     "series": "The Virtual Engineering Org — Part 3",

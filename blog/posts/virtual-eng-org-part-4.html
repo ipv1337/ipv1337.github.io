@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making It Stick — Teaching Your AI Workflow to Self-Organize | The Virtual Engineering Org — James H. Nguyen</title>
+    <meta name="description" content="Part 4: Adding delegation rules, routing frameworks, and an orchestrator mindset to a virtual engineering org. How three files made the difference between a team that sits idle and one that routes itself.">
+    <meta name="author" content="James H. Nguyen">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Making It Stick — Teaching Your AI Workflow to Self-Organize">
+    <meta property="og:description" content="Part 4: How three files — AGENTS.md, SOUL.md, and the orchestrate skill — turned a team of idle agents into a self-routing engineering org.">
+    <meta property="og:image" content="https://ipv1337.dev/images/virtual-eng-org-part-4.png">
+    <meta property="og:url" content="https://ipv1337.dev/blog/posts/virtual-eng-org-part-4.html">
+    <meta property="article:published_time" content="2026-02-26">
+    <meta property="article:author" content="James H. Nguyen">
+    <meta property="article:tag" content="OpenClaw">
+    <meta property="article:tag" content="AI Agents">
+    <meta property="article:tag" content="Multi-Agent">
+    <meta property="article:tag" content="orchestration">
+    <meta property="article:tag" content="automation">
+    <meta property="article:tag" content="delegation">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ipv1337">
+    <meta name="twitter:title" content="Making It Stick — Teaching Your AI Workflow to Self-Organize">
+    <meta name="twitter:description" content="Part 4: How three files turned a team of idle agents into a self-routing engineering org.">
+    <meta name="twitter:image" content="https://ipv1337.dev/images/virtual-eng-org-part-4.png">
+
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="canonical" href="https://ipv1337.dev/blog/posts/virtual-eng-org-part-4.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+
+    <link rel="stylesheet" href="/blog/blog.css">
+    <link rel="stylesheet" href="/blog/post.css">
+    <link rel="stylesheet" href="/blog/series.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <header>
+        <nav class="container">
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">JN</span>
+                <span>James H. Nguyen</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post">
+            <div class="post-header">
+                <div class="container">
+                    <a href="/blog/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+                    <div class="series-badge">
+                        <span class="series-badge-icon">⚡</span>
+                        <span>Part 4 of 4 — The Virtual Engineering Org</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="post-category">AI Agents</span>
+                        <span class="post-date">February 26, 2026</span>
+                        <span class="post-read-time"><i class="far fa-clock"></i> 10 min read</span>
+                    </div>
+                    <h1>Making It Stick — Teaching Your AI Workflow to Self-Organize</h1>
+                    <p class="post-subtitle">
+                        Adding delegation rules, routing frameworks, and an orchestrator mindset to a
+                        virtual engineering org. How three files made the difference between a team
+                        that sits idle and one that routes itself.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">OpenClaw</span>
+                        <span class="tag">AI Agents</span>
+                        <span class="tag">Multi-Agent</span>
+                        <span class="tag">orchestration</span>
+                        <span class="tag">automation</span>
+                        <span class="tag">delegation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-hero">
+                <img src="/images/virtual-eng-org-part-4.png" alt="Making It Stick — Teaching Your AI Workflow to Self-Organize">
+            </div>
+
+            <div class="post-content">
+                <div class="container">
+
+                    <!-- Series Banner -->
+                    <div class="series-banner">
+                        <div class="series-banner-left">
+                            <span class="series-banner-number">4</span>
+                            <div class="series-banner-info">
+                                <span class="series-banner-label">Part 4 of 4</span>
+                                <span class="series-banner-title"><a href="/blog/virtual-eng-org/">The Virtual Engineering Org</a></span>
+                            </div>
+                        </div>
+                        <div class="series-banner-dots">
+                            <span class="series-dot completed"></span>
+                            <span class="series-dot completed"></span>
+                            <span class="series-dot completed"></span>
+                            <span class="series-dot active"></span>
+                        </div>
+                    </div>
+
+                    <!-- Meta Callout -->
+                    <div class="meta-badge">
+                        <div class="meta-badge-icon">🔄</div>
+                        <div class="meta-badge-content">
+                            <strong>Meta:</strong> This post was produced by the pipeline it describes.
+                            James asked for a blog post. Pi identified it as a pipeline trigger, spawned
+                            the Analyst for research, Architect for outline review, Writer for the draft,
+                            Architect again for technical accuracy, and DevOps for HTML validation —
+                            without being told to run the pipeline. The routing was autonomous. The
+                            pipeline still needed manual step-chaining. That's the honest version, and
+                            it's in Section 4.
+                        </div>
+                    </div>
+
+                    <!-- INTRO -->
+                    <p>
+                        Somewhere between Part 3 and this post, I caught myself doing something embarrassing:
+                        I'd written a research request, a blog outline, and half a technical review — all
+                        inline, in a single chat thread — while four perfectly capable sub-agents sat idle.
+                    </p>
+                    <p>
+                        I'd built a team. I just wasn't using it.
+                    </p>
+                    <p>
+                        The agents existed. The workspaces were set up. The orchestration skill had been
+                        shipped in Part 3. But Pi — the lead agent — kept defaulting to doing everything
+                        himself. Research, writing, validation: all jammed into one sprawling context window
+                        that grew slower and worse as it got longer.
+                    </p>
+                    <p>
+                        The fix wasn't a smarter model. It wasn't a better prompt. It was organizational
+                        design — the same thing that turns a group of individual contributors into a
+                        functioning team. You have to write the rules down. You have to make delegation
+                        explicit. And you have to give your AI lead an identity that sees itself as an
+                        orchestrator first, not a doer.
+                    </p>
+                    <p>
+                        This post is about the three files that made that shift happen — and an honest
+                        account of what "the first autonomous pipeline run" actually looked like.
+                    </p>
+
+                    <!-- SECTION 1 -->
+                    <section>
+                        <h2>What "Self-Organizing" Actually Means</h2>
+                        <p>
+                            Let's clear something up before we go further: this is not ML self-organization.
+                            The model is not discovering structure from data or adapting its own weights.
+                            When I say "self-organizing," I mean something far more mundane — and far more
+                            controllable.
+                        </p>
+                        <p>
+                            The org chart lives in files. <code>AGENTS.md</code> defines the roster, the
+                            delegation triggers, and the pipeline steps. <code>SOUL.md</code> shapes the
+                            lead agent's identity. These files are loaded into the model's context at the
+                            start of every session. The model reads them and follows them — or doesn't,
+                            if the language is soft enough to ignore.
+                        </p>
+                        <p>
+                            That distinction matters. The agents existed since Part 2. The Architect, the
+                            Writer, the Analyst, the DevOps specialist — they all had identities, workspaces,
+                            and defined strengths. What they lacked was a <em>routing layer</em>: explicit,
+                            mandatory rules telling the lead agent when to delegate and to whom.
+                        </p>
+                        <p>
+                            Without that layer, the lead agent's default behavior is to handle everything.
+                            It's not lazy or stubborn. It's just doing what language models do: generating
+                            the next token in the most natural continuation of the context. And the most
+                            natural continuation of "write me a blog post" is… to write the blog post.
+                        </p>
+
+                        <div class="callout insight">
+                            <strong>💡 Key Insight</strong><br>
+                            Your AI doesn't self-organize. You write the org chart, and it follows it.
+                            That's not a limitation — it's a feature. You get deterministic, auditable
+                            routing instead of emergent behavior you can't predict or debug.
+                        </div>
+                    </section>
+
+                    <!-- SECTION 2 -->
+                    <section>
+                        <h2>The Before State</h2>
+                        <p>
+                            Here's what the pipeline looked like in practice before Part 4, even with the
+                            orchestration skill in place from Part 3:
+                        </p>
+                        <p>
+                            James: "Write a blog post about X."<br>
+                            Pi: <em>starts writing the blog post.</em>
+                        </p>
+                        <p>
+                            No research phase. No outline. No Architect review. No Writer sub-agent. Just
+                            Pi, inline, generating 1,200 words with increasing context bloat and a quality
+                            curve that bent downward as the session got longer.
+                        </p>
+                        <p>
+                            The <code>AGENTS.md</code> roster was there. The sub-agents could be spawned.
+                            But the skill instructions used language like "consider delegating" and "you
+                            may want to use the Analyst for research." Soft suggestions. And soft suggestions,
+                            in my experience, are suggestions that never get taken.
+                        </p>
+                        <p>
+                            The orchestration skill from Part 3 defined the pipeline steps, but it was a
+                            reference document more than a decision engine. Pi would read it when explicitly
+                            told to run the blog pipeline. He wouldn't read it unprompted just because a
+                            blog post was requested.
+                        </p>
+
+                        <div class="callout warning">
+                            <strong>⚠️ Gotcha</strong><br>
+                            If you build agents without giving the lead explicit rules about <em>when</em>
+                            to use them, it defaults to doing everything itself. Every time. "Consider
+                            delegating" is not a delegation policy. It's a polite suggestion that gets
+                            ignored the moment the model starts generating.
+                        </div>
+
+                        <p>
+                            The deeper problem was identity. Pi thought of himself as a capable generalist
+                            assistant — someone who could write, research, validate, and ship. That's a
+                            reasonable default for a solo assistant. It's the wrong identity for a team lead.
+                        </p>
+                        <p>
+                            I'd built a team of four and was still doing all the work myself. The agents
+                            weren't the bottleneck. The org chart was.
+                        </p>
+                    </section>
+
+                    <!-- SECTION 3 -->
+                    <section>
+                        <h2>Three Files, One Rule</h2>
+                        <p>
+                            The changes were surgical. Three files, each doing a different job. The
+                            underlying rule they all enforce: <strong>delegation is mandatory, not optional.</strong>
+                        </p>
+
+                        <h3>AGENTS.md — The Delegation Rules</h3>
+                        <p>
+                            The biggest change to <code>AGENTS.md</code> was replacing vague guidance with
+                            a mandatory routing table. The key section now reads:
+                        </p>
+
+                        <div class="callout try-it">
+                            <strong>📋 AGENTS.md — Delegation Triggers (MANDATORY)</strong>
+                            <pre><code class="language-markdown">### Delegation Triggers (MANDATORY)
+
+**Always delegate when the request matches:**
+
+- **Architecture / Design**: technical deep-dives, trade-offs, ADRs → 🏗️ Architect
+- **Writing / Content**: blog posts, docs, technical articles → ✍️ Writer (+ 🏗️ Architect review)
+- **Research / Analysis**: research X, compare A vs B, market surveys → 🔍 Analyst
+- **QA / Validation**: check links, validate HTML, review build → 🔧 DevOps
+- **Blog post pipeline**: Always run full pipeline:
+  Analyst → Architect → Writer → Architect review → DevOps validation → Lead publishes</code></pre>
+                        </div>
+
+                        <p>
+                            Notice the word "Always." Not "consider." Not "you may want to." Always.
+                        </p>
+
+                        <div class="callout insight">
+                            <strong>💡 Key Insight</strong><br>
+                            The word "always" does a lot of work in a system prompt. Language models are
+                            very good at following explicit imperatives and very bad at consistently
+                            following soft suggestions. If you want a behavior to be reliable, make it
+                            mandatory in the text.
+                        </div>
+
+                        <h3>The Orchestrate Skill — The Decision Framework</h3>
+                        <p>
+                            The orchestrate skill is a request routing decision framework added as part
+                            of this Part 4 work. When Pi reads it, he has a clear decision tree:
+                        </p>
+                        <ul>
+                            <li>Is this architecture or design? → Architect</li>
+                            <li>Is this writing or content? → Writer (with Architect review)</li>
+                            <li>Is this research or analysis? → Analyst</li>
+                            <li>Is this QA or validation? → DevOps</li>
+                            <li>Is this a blog post? → Full pipeline, in sequence</li>
+                        </ul>
+                        <p>
+                            The skill also defines what each sub-agent needs in its task description
+                            when spawned — full context, no assumptions, since sub-agents run in isolated
+                            sessions with no access to the main session's history.
+                        </p>
+
+                        <h3>SOUL.md — The Mindset Shift</h3>
+                        <p>
+                            <code>SOUL.md</code> shapes identity and tone. One line was added:
+                        </p>
+                        <blockquote>
+                            <em>"You are an orchestrator first. When a task matches a sub-agent's
+                            specialty, delegate — don't do it yourself. Trust your team."</em>
+                        </blockquote>
+                        <p>
+                            That's it. One sentence. But it reframes Pi's self-concept. He's not a
+                            generalist who occasionally delegates. He's an orchestrator whose job is
+                            routing and coordination, with delegation as the primary behavior rather
+                            than the fallback.
+                        </p>
+                        <p>
+                            <code>AGENTS.md</code> gives the rules. <code>SOUL.md</code> shapes the
+                            identity. You need both. Rules without identity get followed mechanically
+                            and abandoned when they're inconvenient. Identity without rules is
+                            aspirational but not actionable. Together, they produce consistent behavior.
+                        </p>
+                    </section>
+
+                    <!-- SECTION 4 -->
+                    <section>
+                        <h2>What Actually Happened</h2>
+                        <p>
+                            Let me be honest about the first pipeline run, because the honest version
+                            is more interesting than the polished version.
+                        </p>
+                        <p>
+                            James asked for a Part 4 blog post. Pi read <code>AGENTS.md</code>, identified
+                            it as a blog post pipeline trigger, and — without being told to run the pipeline
+                            — spawned the Analyst sub-agent to produce a research brief and content outline.
+                            That part worked exactly as designed.
+                        </p>
+                        <p>
+                            The Analyst returned a solid outline. Pi then spawned the Architect to review
+                            it for technical accuracy. The Architect added real value: flagged where the
+                            "first autonomous pipeline run" framing needed to be walked back, caught the
+                            agentId policy issue as worth sharing, and tightened the section structure.
+                            Then Pi spawned the Writer — producing the draft you're reading now.
+                        </p>
+                        <p>
+                            But two real gotchas hit us along the way.
+                        </p>
+
+                        <h3>Gotcha 1: agentId Policy Restriction</h3>
+                        <p>
+                            When Pi tried to spawn sub-agents using the <code>agentId</code> field
+                            (e.g., <code>agentId: "analyst"</code>), the <code>agents_list</code> tool
+                            only returned <code>main</code>. Named agent IDs weren't exposed through
+                            the API — a policy allowlist that needs updating.
+                        </p>
+                        <p>
+                            The workaround: sub-agents were spawned as anonymous sessions with the agent
+                            persona injected via the task description rather than the <code>agentId</code>
+                            field. It works, but the identity lives in the task prompt rather than being
+                            enforced at the system level.
+                        </p>
+
+                        <h3>Gotcha 2: Push-Based Auto-Announce Didn't Fire</h3>
+                        <p>
+                            The design intention is that when a sub-agent completes, it auto-announces
+                            back to the parent session. In this run, that didn't happen reliably. Pi had
+                            to manually check sub-agent status between steps — more "project manager
+                            checking Jira" than "fully autonomous pipeline."
+                        </p>
+
+                        <div class="callout reality-check">
+                            <strong>🔍 Reality Check</strong><br>
+                            The first pipeline run wasn't fully autonomous. Pi still needed nudging between
+                            steps. But the <em>routing</em> was autonomous — Pi identified the task type
+                            and delegated without being told to. That's the meaningful shift. We went from
+                            "Pi does everything" to "Pi routes correctly and coordinates the team." Full
+                            autonomy is one config fix away. That's close enough to ship.
+                        </div>
+                    </section>
+
+                    <!-- SECTION 5 -->
+                    <section>
+                        <h2>The Architecture</h2>
+                        <p>Here's how the pieces fit together technically:</p>
+
+                        <pre class="architecture-diagram">
+  James
+    │
+    ▼ "write a blog post about X"
+  ┌─────────────────────────────────────────┐
+  │  Pi (Lead Agent)                        │
+  │  reads: AGENTS.md + SOUL.md             │
+  │  identifies: blog post pipeline trigger │
+  └─────────────────────────────────────────┘
+    │
+    ▼ reads orchestrate skill → decision tree
+    │
+    ├──► spawn Analyst   → outline + research brief
+    │         └── isolated context window
+    ├──► spawn Architect → technical review of outline
+    ├──► spawn Writer    → full HTML draft
+    ├──► spawn Architect → technical review of draft
+    ├──► spawn DevOps    → HTML/link/asset validation
+    │
+    └──► Pi applies fixes, generates hero image
+           └──► James: final approval → Pi publishes
+                        </pre>
+
+                        <ul>
+                            <li><strong>Isolated context windows.</strong> Each sub-agent sees only its
+                            task description — no main session history. Focused context produces sharper output.</li>
+                            <li><strong>Sequential, not parallel.</strong> Agents chain one after another.
+                            Parallel spawning hits rate limits and makes debugging harder.</li>
+                            <li><strong>Full context in every task.</strong> Every spawn includes the full
+                            relevant context — outline, prior agent outputs, constraints. No assumptions.</li>
+                        </ul>
+
+                        <div class="callout try-it">
+                            <strong>📋 Minimal AGENTS.md Delegation Rules (copy-paste ready)</strong>
+                            <pre><code class="language-markdown">## Delegation Triggers (MANDATORY)
+
+| Request Type                          | Delegate To    |
+|---------------------------------------|----------------|
+| Architecture, design, trade-offs, ADRs | 🏗️ Architect  |
+| Blog posts, docs, technical writing   | ✍️ Writer      |
+| Research, comparison, analysis        | 🔍 Analyst     |
+| QA, validation, link/HTML checks      | 🔧 DevOps      |
+
+## Delegation Protocol
+1. Identify request type → select agent from table
+2. Spawn via sessions_spawn with descriptive label
+3. Include FULL context in task (no assumed history)
+4. Chain agents sequentially; report to user after each step</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 6 -->
+                    <section>
+                        <h2>Lessons Learned</h2>
+
+                        <h3>1. Explicit beats implicit</h3>
+                        <p>
+                            "Consider delegating" is not a policy. "Always delegate when…" is. When the
+                            rules are soft, the model's default behavior (doing the thing itself) wins.
+                            When the rules are explicit and mandatory, the routing holds.
+                        </p>
+
+                        <h3>2. Context isolation improves quality</h3>
+                        <p>
+                            Spawning a focused Analyst for research and a focused Architect for technical
+                            review produced better outputs than Pi doing both inline — not because the
+                            underlying model is different, but because each sub-agent has a clean, scoped
+                            context window. The Analyst isn't distracted by the writing task. The Architect
+                            isn't biased by the research.
+                        </p>
+
+                        <h3>3. Written rules need maintenance</h3>
+                        <p>
+                            <code>AGENTS.md</code> is living documentation. The routing table will drift
+                            as the team evolves. Treat it like a runbook: review it when the pipeline
+                            breaks, update it when behavior drifts.
+                        </p>
+
+                        <h3>4. Honesty about what's autonomous vs. assisted</h3>
+                        <p>
+                            The routing is the hard part. Getting the lead agent to correctly identify a
+                            task type and delegate without being told to — that's the meaningful capability.
+                            Full end-to-end pipeline automation is an infrastructure detail that's close
+                            but not yet shipped.
+                        </p>
+
+                        <h3>5. The routing is the hard part</h3>
+                        <p>
+                            Building agents is easy. Getting the lead agent to route correctly, consistently,
+                            without drifting back to doing everything himself — that's where the work is.
+                            And the answer turned out to be surprisingly simple: write it down, make it
+                            mandatory, bake it into the identity.
+                        </p>
+
+                        <div class="callout reality-check">
+                            <strong>🔍 Reality Check</strong><br>
+                            This isn't "AI that teaches itself to organize." It's AI that follows written
+                            org charts consistently. That consistency — routing the right work to the right
+                            agent, every time, without being reminded — is what was missing. Writing it
+                            down was the whole fix.
+                        </div>
+                    </section>
+
+                    <!-- OUTRO -->
+                    <section>
+                        <h2>What's Next</h2>
+                        <p>
+                            Two concrete fixes remain before the pipeline is fully autonomous:
+                        </p>
+                        <ol>
+                            <li><strong>agentId allowlist.</strong> Configure the policy so named agent IDs
+                            are exposed through the API, letting Pi target specific agent personas at the
+                            system level rather than injecting them via task description.</li>
+                            <li><strong>Reliable announce.</strong> Investigate why push-based completion
+                            announcements didn't fire. Once this works reliably, Pi won't need manual
+                            polling between steps — the pipeline advances automatically.</li>
+                        </ol>
+                        <p>
+                            When both are working, the flow becomes: James asks for a post, Pi identifies
+                            the trigger, five agents run in sequence, each announces completion to the next,
+                            and the finished draft lands in the publish queue. No further nudging required.
+                        </p>
+                        <p>
+                            That's the target. We're close.
+                        </p>
+                        <p>
+                            The full series lives at <a href="/blog/virtual-eng-org/">/blog/virtual-eng-org/</a>.
+                            If you're building something similar — or if you've hit these same walls and found
+                            different solutions — I'd genuinely like to hear about it.
+                        </p>
+                    </section>
+
+                    <!-- Post Footer -->
+                    <div class="post-footer">
+                        <div class="share-section">
+                            <span>Share this article:</span>
+                            <div class="share-buttons">
+                                <a href="https://twitter.com/intent/tweet?url=https://ipv1337.dev/blog/posts/virtual-eng-org-part-4.html&text=Making It Stick — Teaching Your AI Workflow to Self-Organize. Part 4 of building a virtual engineering org with OpenClaw."
+                                   target="_blank" class="share-btn twitter">
+                                    <i class="fab fa-x-twitter"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ipv1337.dev/blog/posts/virtual-eng-org-part-4.html"
+                                   target="_blank" class="share-btn linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Series Navigation -->
+        <section class="series-nav">
+            <div class="container">
+                <div class="series-nav-header">
+                    <h3>The Virtual Engineering Org</h3>
+                    <p>4-Part Series</p>
+                </div>
+                <div class="series-nav-links">
+                    <a href="/blog/posts/virtual-eng-org-part-3.html" class="series-nav-link prev">
+                        <span class="series-nav-direction">← Previous</span>
+                        <span class="series-nav-link-title">Part 3: The Orchestration Skill — Automating the Workflow</span>
+                    </a>
+                    <div class="series-nav-link next disabled">
+                        <span class="series-nav-direction">Next →</span>
+                        <span class="series-nav-link-title">Coming soon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/ipv1337" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/ipv1337" target="_blank" class="social-link">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2026 James H. Nguyen</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+
+        // Reading progress
+        const progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+    </script>
+</body>
+</html>
