@@ -1,13 +1,33 @@
 [
   {
+    "slug": "hybrid-project-bots",
+    "title": "Hybrid Project-Scoped AI Bots with OpenClaw",
+    "description": "Why role-based bots lose context across projects \u2014 and how adding project-scoped bots with pre-seeded workspaces gives each AI assistant deep, persistent knowledge of exactly what it's working on.",
+    "image": "/images/hybrid-project-bots.png",
+    "date": "2026-02-27",
+    "url": "/blog/posts/hybrid-project-bots.html",
+    "tags": [
+      "OpenClaw",
+      "Telegram",
+      "AI Agents",
+      "Multi-Agent",
+      "Bots"
+    ]
+  },
+  {
     "slug": "virtual-eng-org-part-4",
-    "title": "Making It Stick — Teaching Your AI Workflow to Self-Organize",
-    "series": "The Virtual Engineering Org — Part 4",
-    "description": "How three files — AGENTS.md, SOUL.md, and the orchestrate skill — turned a team of idle agents into a self-routing engineering org.",
+    "title": "Making It Stick \u2014 Teaching Your AI Workflow to Self-Organize",
+    "series": "The Virtual Engineering Org \u2014 Part 4",
+    "description": "How three files \u2014 AGENTS.md, SOUL.md, and the orchestrate skill \u2014 turned a team of idle agents into a self-routing engineering org.",
     "image": "/images/virtual-eng-org-part-4.png",
     "date": "2026-02-26",
     "url": "/blog/posts/virtual-eng-org-part-4.html",
-    "tags": ["AI", "OpenClaw", "Multi-Agent", "delegation"]
+    "tags": [
+      "AI",
+      "OpenClaw",
+      "Multi-Agent",
+      "delegation"
+    ]
   },
   {
     "slug": "agentic-coding",
@@ -16,54 +36,78 @@
     "image": "/images/blog-agentic-coding.jpg",
     "date": "2026-02-25",
     "url": "/blog/posts/agentic-coding.html",
-    "tags": ["Agentic Coding", "AI", "Productivity"]
+    "tags": [
+      "Agentic Coding",
+      "AI",
+      "Productivity"
+    ]
   },
   {
     "slug": "virtual-eng-org-part-3",
-    "title": "The Orchestration Skill — Automating the Workflow",
-    "series": "The Virtual Engineering Org — Part 3",
+    "title": "The Orchestration Skill \u2014 Automating the Workflow",
+    "series": "The Virtual Engineering Org \u2014 Part 3",
     "description": "Task boards, quality gates, and cron-driven automation. How we stopped managing the AI team and became the client.",
     "image": "/images/virtual-eng-org-part-3.jpg",
     "date": "2026-02-07",
     "url": "/blog/posts/virtual-eng-org-part-3.html",
-    "tags": ["AI", "OpenClaw", "Multi-Agent"]
+    "tags": [
+      "AI",
+      "OpenClaw",
+      "Multi-Agent"
+    ]
   },
   {
     "slug": "virtual-eng-org-part-2",
-    "title": "Giving Each Agent a Desk — Persistent Identities",
-    "series": "The Virtual Engineering Org — Part 2",
+    "title": "Giving Each Agent a Desk \u2014 Persistent Identities",
+    "series": "The Virtual Engineering Org \u2014 Part 2",
     "description": "How we went from ephemeral sub-agents to a permanent AI engineering team with identity, memory, and channel routing.",
     "image": "/images/virtual-eng-org-part-2.jpg",
     "date": "2026-02-07",
     "url": "/blog/posts/virtual-eng-org-part-2.html",
-    "tags": ["AI", "OpenClaw", "Multi-Agent"]
+    "tags": [
+      "AI",
+      "OpenClaw",
+      "Multi-Agent"
+    ]
   },
   {
     "slug": "virtual-eng-org-part-1",
-    "title": "The Lead Agent — Teaching Your AI to Delegate",
-    "series": "The Virtual Engineering Org — Part 1",
-    "description": "How we went from a single AI assistant to a 5-agent engineering org — and what broke along the way.",
+    "title": "The Lead Agent \u2014 Teaching Your AI to Delegate",
+    "series": "The Virtual Engineering Org \u2014 Part 1",
+    "description": "How we went from a single AI assistant to a 5-agent engineering org \u2014 and what broke along the way.",
     "image": "/images/virtual-eng-org-part-1.jpg",
     "date": "2026-02-07",
     "url": "/blog/posts/virtual-eng-org-part-1.html",
-    "tags": ["AI", "OpenClaw", "Multi-Agent"]
+    "tags": [
+      "AI",
+      "OpenClaw",
+      "Multi-Agent"
+    ]
   },
   {
     "slug": "airline-it-stack",
     "title": "Airline IT Stack: Why It's Stuck (and How It Actually Works)",
-    "description": "A detailed technical breakdown of the airline IT stack — GDS, PSS, direct channels — how components interact, and why modernization stalls.",
+    "description": "A detailed technical breakdown of the airline IT stack \u2014 GDS, PSS, direct channels \u2014 how components interact, and why modernization stalls.",
     "image": "/images/blog-airline-stack.png",
     "date": "2026-02-06",
     "url": "/blog/posts/airline-it-stack.html",
-    "tags": ["Architecture", "Aviation", "Deep Dive"]
+    "tags": [
+      "Architecture",
+      "Aviation",
+      "Deep Dive"
+    ]
   },
   {
     "slug": "building-openclaw",
     "title": "Building OpenClaw: An AI Agent That Lives on Your Devices",
-    "description": "An introduction to OpenClaw — a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure.",
+    "description": "An introduction to OpenClaw \u2014 a personal AI assistant that runs 24/7 across your Mac, Android, and cloud infrastructure.",
     "image": "/images/blog-openclaw.jpg",
     "date": "2026-02-05",
     "url": "/blog/posts/building-openclaw.html",
-    "tags": ["AI", "OpenClaw", "DevOps"]
+    "tags": [
+      "AI",
+      "OpenClaw",
+      "DevOps"
+    ]
   }
 ]
