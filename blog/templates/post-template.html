@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) — REQUIRED, do not remove -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MN16CB3V3T"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MN16CB3V3T');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- REPLACE: page title -->
+    <title>{{POST_TITLE}} | James H. Nguyen</title>
+    <meta name="description" content="{{POST_DESCRIPTION}}">
+    <meta name="author" content="James H. Nguyen">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{POST_TITLE}}">
+    <meta property="og:description" content="{{POST_DESCRIPTION}}">
+    <!-- REPLACE: /images/{{POST_SLUG}}.jpg -->
+    <meta property="og:image" content="https://ipv1337.dev/images/{{POST_SLUG}}.jpg">
+    <meta property="og:url" content="https://ipv1337.dev/blog/posts/{{POST_SLUG}}.html">
+    <!-- REPLACE: YYYY-MM-DD -->
+    <meta property="article:published_time" content="{{POST_DATE}}">
+    <meta property="article:author" content="James H. Nguyen">
+    <!-- REPLACE: add one tag per article:tag meta -->
+    <meta property="article:tag" content="{{TAG_1}}">
+    <meta property="article:tag" content="{{TAG_2}}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ipv1337">
+    <meta name="twitter:title" content="{{POST_TITLE}}">
+    <meta name="twitter:description" content="{{POST_DESCRIPTION}}">
+    <meta name="twitter:image" content="https://ipv1337.dev/images/{{POST_SLUG}}.jpg">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="canonical" href="https://ipv1337.dev/blog/posts/{{POST_SLUG}}.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- REQUIRED: all three stylesheets -->
+    <link rel="stylesheet" href="/blog/blog.css">
+    <link rel="stylesheet" href="/blog/post.css">
+    <link rel="stylesheet" href="/blog/series.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <header>
+        <nav class="container">
+            <a href="/" class="nav-brand">
+                <span class="brand-icon">JN</span>
+                <span>James H. Nguyen</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="post">
+            <div class="post-header">
+                <div class="container">
+                    <a href="/blog/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+                    <div class="post-meta">
+                        <!-- REPLACE: category label, date (e.g. February 27, 2026), read time -->
+                        <span class="post-category">{{POST_CATEGORY}}</span>
+                        <span class="post-date">{{POST_DATE_LONG}}</span>
+                        <span class="post-read-time"><i class="far fa-clock"></i> {{READ_TIME}} min read</span>
+                    </div>
+                    <h1>{{POST_TITLE}}</h1>
+                    <p class="post-subtitle">{{POST_SUBTITLE}}</p>
+                    <div class="post-tags">
+                        <!-- REPLACE: one <span class="tag"> per tag -->
+                        <span class="tag">{{TAG_1}}</span>
+                        <span class="tag">{{TAG_2}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPLACE: hero image — always use /images/{{POST_SLUG}}.jpg -->
+            <div class="post-hero">
+                <img src="/images/{{POST_SLUG}}.jpg" alt="{{POST_TITLE}}">
+            </div>
+
+            <div class="post-content">
+                <div class="container">
+
+                    <!-- OPTIONAL: meta-badge if post is self-referential or AI-authored -->
+                    <!--
+                    <div class="meta-badge">
+                        <div class="meta-badge-icon">🤖</div>
+                        <div class="meta-badge-content">
+                            <strong>Meta:</strong> ...
+                        </div>
+                    </div>
+                    -->
+
+                    <!-- REPLACE: article sections -->
+                    <section>
+                        <h2>Section Title</h2>
+                        <p>Content...</p>
+                    </section>
+
+                    <!-- Add more <section> blocks as needed -->
+
+                    <!-- Post footer: share buttons — REPLACE slug and tweet text -->
+                    <div class="post-tags post-tags-footer">
+                        <span class="tag">{{TAG_1}}</span>
+                        <span class="tag">{{TAG_2}}</span>
+                    </div>
+
+                    <div class="post-footer">
+                        <div class="share-section">
+                            <span>Share this article:</span>
+                            <div class="share-buttons">
+                                <a href="https://twitter.com/intent/tweet?url=https://ipv1337.dev/blog/posts/{{POST_SLUG}}.html&text={{TWEET_TEXT}}"
+                                   target="_blank" class="share-btn twitter">
+                                    <i class="fab fa-x-twitter"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ipv1337.dev/blog/posts/{{POST_SLUG}}.html"
+                                   target="_blank" class="share-btn linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Series nav — REQUIRED, outside <article> and <main>, before <footer> -->
+    <!-- REPLACE: series name, prev/next post details. Use class="disabled" for missing links -->
+    <section class="series-nav">
+        <div class="container">
+            <div class="series-nav-header">
+                <!-- REPLACE: series name or "More Articles" if standalone -->
+                <h3>{{SERIES_NAME}}</h3>
+                <p>{{SERIES_DESCRIPTION}}</p>
+            </div>
+            <div class="series-nav-links">
+                <!-- REPLACE or remove prev link. Add class="disabled" if no prev -->
+                <a href="/blog/posts/{{PREV_SLUG}}.html" class="series-nav-link prev">
+                    <span class="series-nav-direction">← Previous</span>
+                    <span class="series-nav-link-title">{{PREV_TITLE}}</span>
+                </a>
+                <!-- REPLACE or disable next link -->
+                <div class="series-nav-link next disabled">
+                    <span class="series-nav-direction">Next →</span>
+                    <span class="series-nav-link-title">Coming soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/ipv1337" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/james-nguyen-601a92/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/ipv1337" target="_blank" class="social-link">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2026 James H. Nguyen</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const article = document.querySelector('article');
+            const progress = document.getElementById('readingProgress');
+            if (!article || !progress) return;
+            const articleTop = article.offsetTop;
+            const articleHeight = article.offsetHeight;
+            const scrolled = window.scrollY - articleTop;
+            const pct = Math.max(0, Math.min(100, (scrolled / articleHeight) * 100));
+            progress.style.width = pct + '%';
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+        });
+    </script>
+</body>
+</html>
