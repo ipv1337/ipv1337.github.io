@@ -5,9 +5,63 @@
         <link>https://ipv1337.dev/blog/</link>
         <description>Technical articles on cloud architecture, platform engineering, AI agents, and DevOps.</description>
         <language>en-us</language>
-        <lastBuildDate>Thu, 06 Feb 2026 00:00:00 PST</lastBuildDate>
+        <lastBuildDate>Fri, 27 Feb 2026 00:00:00 PST</lastBuildDate>
         <atom:link href="https://ipv1337.dev/blog/rss.xml" rel="self" type="application/rss+xml"/>
-        
+
+        <item>
+            <title>Hybrid Project-Scoped AI Bots with OpenClaw</title>
+            <link>https://ipv1337.dev/blog/posts/hybrid-project-bots.html</link>
+            <description>Why role-based bots lose context across projects — and how adding project-scoped bots with pre-seeded workspaces gives each AI assistant deep, persistent knowledge of exactly what it's working on.</description>
+            <pubDate>Fri, 27 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/hybrid-project-bots.html</guid>
+            <category>AI Agents</category>
+        </item>
+
+        <item>
+            <title>Making It Stick — Teaching Your AI Workflow to Self-Organize</title>
+            <link>https://ipv1337.dev/blog/posts/virtual-eng-org-part-4.html</link>
+            <description>How three files — AGENTS.md, SOUL.md, and the orchestrate skill — turned a team of idle agents into a self-routing engineering org.</description>
+            <pubDate>Thu, 26 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/virtual-eng-org-part-4.html</guid>
+            <category>Multi-Agent</category>
+        </item>
+
+        <item>
+            <title>Agentic Coding: Why the Next Productivity Leap Is About Collaboration, Not Autocomplete</title>
+            <link>https://ipv1337.dev/blog/posts/agentic-coding.html</link>
+            <description>Agentic coding reframes software development around collaborative, tool-using AI agents. Learn what it is, how it works, and how to adopt it safely.</description>
+            <pubDate>Wed, 25 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/agentic-coding.html</guid>
+            <category>Agentic Coding</category>
+        </item>
+
+        <item>
+            <title>The Orchestration Skill — Automating the Workflow</title>
+            <link>https://ipv1337.dev/blog/posts/virtual-eng-org-part-3.html</link>
+            <description>Task boards, quality gates, and cron-driven automation. How we stopped managing the AI team and became the client.</description>
+            <pubDate>Sat, 07 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/virtual-eng-org-part-3.html</guid>
+            <category>Multi-Agent</category>
+        </item>
+
+        <item>
+            <title>Giving Each Agent a Desk — Persistent Identities</title>
+            <link>https://ipv1337.dev/blog/posts/virtual-eng-org-part-2.html</link>
+            <description>How we went from ephemeral sub-agents to a permanent AI engineering team with identity, memory, and channel routing.</description>
+            <pubDate>Sat, 07 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/virtual-eng-org-part-2.html</guid>
+            <category>Multi-Agent</category>
+        </item>
+
+        <item>
+            <title>The Lead Agent — Teaching Your AI to Delegate</title>
+            <link>https://ipv1337.dev/blog/posts/virtual-eng-org-part-1.html</link>
+            <description>How we went from a single AI assistant to a 5-agent engineering org — and what broke along the way.</description>
+            <pubDate>Sat, 07 Feb 2026 00:00:00 PST</pubDate>
+            <guid>https://ipv1337.dev/blog/posts/virtual-eng-org-part-1.html</guid>
+            <category>Multi-Agent</category>
+        </item>
+
         <item>
             <title>Airline IT Stack: Why It’s Stuck (and How It Actually Works)</title>
             <link>https://ipv1337.dev/blog/posts/airline-it-stack.html</link>

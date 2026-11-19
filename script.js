@@ -66,14 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
     applyTheme(savedTheme); // Apply theme first
     
-    // Fetch GitHub data
+    // Fetch GitHub data and update indicators
     setupScrollReveal(); // Setup scroll animations
     setupScrollSpy(); // Setup scroll spy for nav
     setupMarquee(); // Setup infinite marquee
-    fetchGitHubProfile();
-    fetchGitHubRepos();
-    fetchGitHubActivity();
-    // Update indicators after all fetches are attempted
     fetchAllGitHubDataAndUpdateIndicators(); 
 });
 
@@ -239,12 +235,12 @@ const githubUsername = 'ipv1337';
 
 async function fetchGitHubProfile() {
     const cacheKey = 'githubProfileData';
-    const cachedData = cache.get(cacheKey);
+    const cachedResult = cache.get(cacheKey);
     
-    if (cachedData) {
+    if (cachedResult) {
         console.log('Using cached GitHub profile data.');
-        updateGitHubStats(cachedData);
-        return { status: 'cached', data: cachedData };
+        updateGitHubStats(cachedResult.value);
+        return { status: 'cached', expiry: cachedResult.expiry, data: cachedResult.value };
     }
     
     console.log('Fetching fresh GitHub profile data...');
@@ -258,7 +254,7 @@ async function fetchGitHubProfile() {
     } catch (error) {
         console.error('Error fetching GitHub profile:', error);
         // Return status even on failure
-        return { status: 'failed', data: null }; 
+        return { status: 'failed', data: null };
     }
 }
 
@@ -319,12 +315,6 @@ function updateGitHubStats(data) {
         }
     }
 
-        // Update bio if available and element exists
-        if (data.bio) {
-            const bioElement = document.querySelector('#home p'); // Target hero paragraph
-            if (bioElement) bioElement.textContent = data.bio;
-        }
-        
     // Update GitHub stats summary paragraph
     const connectSummary = document.querySelector('#connect p.text-center');
     if (connectSummary && data.public_repos !== undefined) {
